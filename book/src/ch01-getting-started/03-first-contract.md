@@ -29,11 +29,18 @@ export circuit increment(): [] {
     counter.increment(1);
 }
 
-// A circuit to read and return the current count
-export circuit get_count(): Uint<64> {
-    return counter.value() as Uint<64>;
+// A circuit to decrement the counter
+export circuit decrement(): [] {
+    counter.decrement(1);
+}
+
+// A circuit to reset the counter
+export circuit reset(): [] {
+    counter.resetToDefault();
 }
 ```
+
+> ⚠️ **Note:** You cannot read the counter value inside a circuit (`counter.value()` doesn't work). To read the counter, use the TypeScript SDK: `ledgerState.counter`.
 
 Let's break down each part:
 
@@ -101,11 +108,12 @@ The compiler generates TypeScript code that allows you to:
 
 ## Common First-Time Errors
 
-| Error                    | Cause                           | Fix                                  |
-| ------------------------ | ------------------------------- | ------------------------------------ |
-| `parse error at 'Void'`  | Using `Void` as return type     | Use `[]` instead                     |
-| `parse error at '{'`     | Using `ledger { }` block syntax | Declare each field separately        |
-| `unknown type 'Counter'` | Missing import                  | Add `import CompactStandardLibrary;` |
+| Error                      | Cause                           | Fix                                  |
+| -------------------------- | ------------------------------- | ------------------------------------ |
+| `parse error at 'Void'`    | Using `Void` as return type     | Use `[]` instead                     |
+| `parse error at '{'`       | Using `ledger { }` block syntax | Declare each field separately        |
+| `unknown type 'Counter'`   | Missing import                  | Add `import CompactStandardLibrary;` |
+| `operation "value" undefined` | Using `counter.value()` in circuit | Read via TypeScript SDK instead   |
 
 ## Exercises
 
