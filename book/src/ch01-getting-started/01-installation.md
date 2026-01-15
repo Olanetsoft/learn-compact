@@ -2,6 +2,23 @@
 
 The Compact compiler transforms your Compact source code into ZK circuits that can run on the Midnight blockchain.
 
+## Understanding the Tools
+
+Midnight provides two command-line tools:
+
+| Tool | Purpose | Analogy |
+|------|---------|---------|
+| `compactc` | The **Compact compiler** — compiles `.compact` files to ZK circuits | Like `rustc` |
+| `compact` | The **Compact CLI** — project scaffolding, building, deployment | Like `cargo` |
+
+**In practice:**
+- Use `compactc` for direct single-file compilation: `compactc contract.compact`
+- Use `compact` for project management: `compact build`, `compact new`, etc.
+
+> **Note:** The version numbers differ because they're released independently. For example, `compact 0.3.0` may use `compactc 0.24.0` internally.
+
+For the exercises in this book, we'll primarily use `compactc` for direct compilation.
+
 ## System Requirements
 
 - **Operating System:** macOS, Linux, or Windows (WSL2)
