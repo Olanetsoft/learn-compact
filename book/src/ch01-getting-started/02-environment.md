@@ -2,29 +2,38 @@
 
 Beyond the compiler, you'll need several tools to develop and test Compact contracts.
 
-## Lace Wallet
+## Lace Midnight Preview Wallet
 
-The Lace wallet is a browser extension that manages your Midnight accounts and signs transactions.
+The **Lace Midnight Preview** wallet is a browser extension that manages your Midnight accounts and signs transactions. It is currently **only compatible with Google Chrome**.
 
 ### Installation
 
-1. Open Chrome or a Chromium-based browser
-2. Visit the [Chrome Web Store](https://chrome.google.com/webstore)
-3. Search for "Lace Wallet"
-4. Click "Add to Chrome"
-5. Follow the setup wizard to create a wallet
+1. Open Google Chrome
+2. Install the Lace wallet extension from the Chrome Web Store:
+   [https://chromewebstore.google.com/detail/lace-beta/hgeekaiplokcnmakghbdfbgnlfheichg](https://chromewebstore.google.com/detail/lace-beta/hgeekaiplokcnmakghbdfbgnlfheichg)
+3. Click **Add to Chrome** and confirm by clicking **Add extension**
+4. Pin the extension to your toolbar for easy access (recommended)
+
+### Create Your Wallet
+
+1. Click the Lace wallet icon in your toolbar
+2. Select **Create a new wallet**
+3. Choose a strong password
+4. **Write down your seed phrase** on paper and store it securely offline
+5. Confirm your seed phrase to complete setup
+
+> ⚠️ **Warning:** Never store your seed phrase digitally or share it with anyone.
 
 ### Getting Test Tokens (tDUST)
 
-To deploy and interact with contracts on the testnet, you need test tokens:
+tDUST is the token used on the Midnight Testnet. It has no real-world value.
 
-1. Open Lace wallet
-2. Switch to Midnight testnet network
-3. Copy your wallet address
-4. Visit the [Midnight Faucet](https://faucet.testnet.midnight.network)
-5. Paste your address and request tDUST
+1. In your Lace wallet, click **Receive** and copy your wallet address
+2. Go to the Testnet Faucet: [https://midnight.network/test-faucet/](https://midnight.network/test-faucet/)
+3. Paste your address into the form and click **Request tDUST**
+4. Wait a few minutes for the tokens to arrive
 
-> **Note:** Test tokens have no real value and are only for development purposes.
+**Verification:** Your Lace wallet shows a new balance of tDUST tokens.
 
 ## Docker Setup
 
@@ -55,11 +64,19 @@ docker --version
 docker compose version
 ```
 
-### Pull the Proof Server Image
+### Run the Proof Server
+
+Start the proof server in your terminal:
 
 ```bash
-docker pull midnightnetwork/proof-server:latest
+docker run -p 6300:6300 midnightnetwork/proof-server -- midnight-proof-server --network testnet
 ```
+
+This command occupies the terminal window while running.
+
+**Verification:** The terminal displays logs indicating the server is running and listening at `http://localhost:6300`.
+
+> **Tip:** To use a local proof-server with Lace wallet, go to **Settings** → **Midnight** and select `Local (http://localhost:6300)`.
 
 ## Local Development Network (Recommended)
 
@@ -151,19 +168,19 @@ export class LocalNetworkConfig implements Config {
 
 ## VS Code Extension
 
-The Compact VS Code extension provides syntax highlighting and basic language support.
+The Compact VS Code extension provides syntax highlighting and code snippets.
 
 ### Installation
 
-1. Open VS Code
-2. Go to Extensions (Cmd+Shift+X / Ctrl+Shift+X)
-3. Search for "Compact Language"
-4. Install the extension
+1. Download the VSIX package from the [Compact VS Code extension release page](https://docs.midnight.network/relnotes/vs-code-extension)
+2. In VS Code, go to **Extensions** → click `...` menu → **Install from VSIX**
+3. Select the downloaded extension file
+
+**Verification:** You now see "Compact Language Support" in your installed VS Code extensions.
 
 ### Features
 
 - Syntax highlighting for `.compact` files
-- Basic error checking
 - Code snippets for common patterns
 
 ## Project Structure
