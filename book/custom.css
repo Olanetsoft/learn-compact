@@ -1,0 +1,58 @@
+/* Custom styles for Learn Compact book */
+
+/* Compact code highlighting */
+.language-compact {
+  background-color: #2b2b2b;
+}
+
+/* Highlight important notes */
+.warning {
+  background-color: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.critical {
+  background-color: #f8d7da;
+  border-left: 4px solid #dc3545;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.info {
+  background-color: #d1ecf1;
+  border-left: 4px solid #17a2b8;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+/* Exercise boxes */
+.exercise {
+  background-color: #e7f3ff;
+  border: 1px solid #b6d4fe;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+/* Common mistakes table styling */
+table.mistakes {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table.mistakes th {
+  background-color: #dc3545;
+  color: white;
+}
+
+table.mistakes td:first-child {
+  color: #dc3545;
+  font-family: monospace;
+}
+
+table.mistakes td:nth-child(2) {
+  color: #28a745;
+  font-family: monospace;
+}

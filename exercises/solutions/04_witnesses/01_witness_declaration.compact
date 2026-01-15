@@ -1,0 +1,17 @@
+pragma language_version >= 0.16 && <= 0.18;
+
+import CompactStandardLibrary;
+
+witness getSecretKey(): Bytes<32>;
+
+witness getAmount(): Uint<64>;
+
+witness isAuthorized(): Boolean;
+
+export ledger authorized: Set<Bytes<32>>;
+
+export circuit register(): [] {
+    const key = getSecretKey();
+    const publicKey = persistentHash<Bytes<32>>(key);
+    authorized.insert(publicKey);
+}

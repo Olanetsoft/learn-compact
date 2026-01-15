@@ -1,0 +1,21 @@
+pragma language_version >= 0.16 && <= 0.18;
+
+import CompactStandardLibrary;
+
+// TODO: Declare a witness called 'getSecretKey' that returns Bytes<32>
+
+
+// TODO: Declare a witness called 'getAmount' that returns Uint<64>
+
+
+// TODO: Declare a witness called 'isAuthorized' that returns Boolean
+
+
+export ledger authorized: Set<Bytes<32>>;
+
+export circuit register(): [] {
+    // This circuit will use the witnesses you declared above
+    const key = getSecretKey();
+    const publicKey = persistentHash<Bytes<32>>(key);
+    authorized.insert(publicKey);
+}

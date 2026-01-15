@@ -1,0 +1,20 @@
+pragma language_version >= 0.16 && <= 0.18;
+
+import CompactStandardLibrary;
+
+export ledger score: Counter;
+
+// TODO: Create a circuit 'add_points' that:
+// - Takes a Uint<64> parameter 'points'
+// - Increments the score by that amount
+
+
+// TODO: Create a circuit 'subtract_points' that:
+// - Takes a Uint<64> parameter 'points'
+// - Decrements the score by that amount
+
+
+// TODO: Create a circuit 'reset_score' that:
+// - Takes no parameters
+// - Resets the score to its default value (zero)
+

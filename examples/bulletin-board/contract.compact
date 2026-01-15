@@ -1,0 +1,69 @@
+pragma language_version >= 0.16 && <= 0.18;
+
+import CompactStandardLibrary;
+
+// Bulletin Board - A privacy-preserving message board
+// Users can post messages that are publicly visible
+// but the poster's identity remains private
+
+export struct Message {
+    content: Bytes<256>,
+    posterHash: Bytes<32>,  // Hash of poster's public key
+    timestamp: Uint<64>
+}
+
+// Ledger state
+export ledger messages: Map<Bytes<32>, Message>;
+export ledger messageCount: Counter;
+
+// Witness for the user's secret key (implemented in TypeScript)
+witness localSecretKey(): Bytes<32>;
+
+// Derive public key from secret key using hash
+pure circuit derivePublicKey(secretKey: Bytes<32>): Bytes<32> {
+    return persistentHash<Bytes<32>>(secretKey);
+}
+
+// Post a message to the bulletin board
+export circuit post(content: Bytes<256>, messageId: Bytes<32>, timestamp: Uint<64>): [] {
+    // Get the secret key from the witness
+    const secretKey = localSecretKey();
+    
+    // Derive public key (this is what gets stored, not the secret)
+    const publicKey = derivePublicKey(secretKey);
+    
+    // Create the message
+    const message = Message {
+        content: content,
+        posterHash: publicKey,
+        timestamp: timestamp
+    };
+    
+    // Store the message
+    messages.insert(messageId, message);
+    messageCount.increment(1);
+}
+
+// Verify ownership of a message (for deletion or editing)
+export circuit verifyOwnership(messageId: Bytes<32>): Boolean {
+    const secretKey = localSecretKey();
+    const publicKey = derivePublicKey(secretKey);
+    
+    const maybeMessage = messages.lookup(messageId);
+    
+    if (maybeMessage.is_some) {
+        const message = maybeMessage.value;
+        return disclose(message.posterHash == publicKey);
+    }
+    
+    return false;
+}
+
+// Delete a message (only if you're the owner)
+export circuit deleteMessage(messageId: Bytes<32>): [] {
+    const isOwner = verifyOwnership(messageId);
+    assert(isOwner, "Not authorized to delete this message");
+    
+    messages.remove(messageId);
+    messageCount.decrement(1);
+}

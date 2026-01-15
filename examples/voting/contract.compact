@@ -1,0 +1,90 @@
+pragma language_version >= 0.16 && <= 0.18;
+
+import CompactStandardLibrary;
+
+// Private Voting Contract
+// Allows users to vote while keeping their vote choice private
+// Uses commit-reveal pattern to prevent vote manipulation
+
+export enum VoteChoice { Yes, No, Abstain }
+
+// Ledger state
+export ledger yesVotes: Counter;
+export ledger noVotes: Counter;
+export ledger abstainVotes: Counter;
+export ledger totalVoters: Counter;
+export ledger hasVoted: Set<Bytes<32>>;          // Track who has voted
+export ledger voteCommitments: Map<Bytes<32>, Bytes<32>>; // Voter -> commitment
+
+// Witnesses
+witness localSecretKey(): Bytes<32>;
+witness getVoteChoice(): VoteChoice;
+witness getVoteNonce(): Bytes<32>;  // Random nonce for commitment
+
+// Derive voter ID from secret key
+pure circuit deriveVoterId(secretKey: Bytes<32>): Bytes<32> {
+    return persistentHash<Bytes<32>>(secretKey);
+}
+
+// Create a commitment to a vote (hash of choice + nonce)
+pure circuit createCommitment(choice: VoteChoice, nonce: Bytes<32>): Bytes<32> {
+    // Combine choice and nonce into commitment
+    // In practice, you'd serialize the choice properly
+    const choiceField = choice as Field;
+    return persistentHash<[Field, Bytes<32>]>([choiceField, nonce]);
+}
+
+// Register to vote (must be called before voting)
+export circuit registerVoter(): [] {
+    const secretKey = localSecretKey();
+    const voterId = deriveVoterId(secretKey);
+    
+    // Check not already registered
+    assert(!hasVoted.member(voterId), "Already registered");
+    
+    // For now, just increment total voters
+    // In a real system, you'd check eligibility
+    totalVoters.increment(1);
+}
+
+// Commit phase: Submit a hidden vote commitment
+export circuit commitVote(commitment: Bytes<32>): [] {
+    const secretKey = localSecretKey();
+    const voterId = deriveVoterId(secretKey);
+    
+    // Check hasn't already voted
+    assert(!hasVoted.member(disclose(voterId)), "Already committed a vote");
+    
+    // Store commitment
+    voteCommitments.insert(disclose(voterId), commitment);
+}
+
+// Reveal phase: Reveal your vote and prove it matches your commitment
+export circuit revealVote(): [] {
+    const secretKey = localSecretKey();
+    const voterId = deriveVoterId(secretKey);
+    const choice = getVoteChoice();
+    const nonce = getVoteNonce();
+    
+    // Check has committed
+    const maybeCommitment = voteCommitments.lookup(disclose(voterId));
+    assert(maybeCommitment.is_some, "No commitment found");
+    
+    // Verify commitment matches
+    const expectedCommitment = createCommitment(choice, nonce);
+    assert(maybeCommitment.value == expectedCommitment, "Commitment mismatch");
+    
+    // Record the vote - choice is disclosed here
+    const disclosedChoice = disclose(choice);
+    
+    if (disclosedChoice == VoteChoice.Yes) {
+        yesVotes.increment(1);
+    } else if (disclosedChoice == VoteChoice.No) {
+        noVotes.increment(1);
+    } else {
+        abstainVotes.increment(1);
+    }
+    
+    // Mark as voted
+    hasVoted.insert(disclose(voterId));
+}

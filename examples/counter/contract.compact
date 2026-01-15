@@ -1,0 +1,27 @@
+pragma language_version >= 0.16 && <= 0.18;
+
+import CompactStandardLibrary;
+
+// A simple counter contract demonstrating basic Compact concepts
+
+export ledger counter: Counter;
+
+// Increment the counter by 1
+export circuit increment(): [] {
+    counter.increment(1);
+}
+
+// Decrement the counter by 1
+export circuit decrement(): [] {
+    counter.decrement(1);
+}
+
+// Add a specific amount to the counter
+export circuit add(amount: Uint<64>): [] {
+    counter.increment(amount);
+}
+
+// Reset counter to zero
+export circuit reset(): [] {
+    counter.resetToDefault();
+}

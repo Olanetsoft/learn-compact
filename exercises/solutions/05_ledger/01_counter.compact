@@ -1,0 +1,17 @@
+pragma language_version >= 0.16 && <= 0.18;
+
+import CompactStandardLibrary;
+
+export ledger score: Counter;
+
+export circuit add_points(points: Uint<64>): [] {
+    score.increment(points);
+}
+
+export circuit subtract_points(points: Uint<64>): [] {
+    score.decrement(points);
+}
+
+export circuit reset_score(): [] {
+    score.resetToDefault();
+}

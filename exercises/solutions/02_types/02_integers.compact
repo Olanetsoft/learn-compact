@@ -1,0 +1,15 @@
+pragma language_version >= 0.16 && <= 0.18;
+
+import CompactStandardLibrary;
+
+pure circuit add_u64(a: Uint<64>, b: Uint<64>): Uint<64> {
+    return a + b;
+}
+
+pure circuit is_greater(a: Uint<32>, b: Uint<32>): Boolean {
+    return a > b;
+}
+
+pure circuit double(x: Uint<64>): Uint<64> {
+    return x * 2;
+}

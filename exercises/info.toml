@@ -1,0 +1,132 @@
+# Exercise metadata for learn-compact
+# Used by verification scripts
+
+[[exercises]]
+name = "01_hello_compact"
+dir = "01_basics/01_hello_compact"
+hint = "Remember: pragma first, then import, then your code"
+
+[[exercises]]
+name = "02_pragma_versions"
+dir = "01_basics/02_pragma_versions"
+hint = "Use >= and <= operators with && to create a version range"
+
+[[exercises]]
+name = "03_imports"
+dir = "01_basics/03_imports"
+hint = "The standard library is called CompactStandardLibrary"
+
+[[exercises]]
+name = "04_ledger_declaration"
+dir = "01_basics/04_ledger_declaration"
+hint = "Each ledger field is declared separately with: export ledger name: Type;"
+
+[[exercises]]
+name = "05_simple_circuit"
+dir = "01_basics/05_simple_circuit"
+hint = "Circuits that return nothing use [] as the return type"
+
+[[exercises]]
+name = "01_boolean"
+dir = "02_types/01_boolean"
+hint = "Boolean values are true and false (lowercase)"
+
+[[exercises]]
+name = "02_integers"
+dir = "02_types/02_integers"
+hint = "Uint<N> where N is the bit width: 8, 16, 32, 64, 128, or 256"
+
+[[exercises]]
+name = "03_bytes"
+dir = "02_types/03_bytes"
+hint = "Bytes<N> is a fixed-size byte array of N bytes"
+
+[[exercises]]
+name = "04_field"
+dir = "02_types/04_field"
+hint = "Field is the native type for ZK operations"
+
+[[exercises]]
+name = "05_tuples"
+dir = "02_types/05_tuples"
+hint = "Tuples use square brackets: [Type1, Type2, ...]"
+
+[[exercises]]
+name = "06_maybe"
+dir = "02_types/06_maybe"
+hint = "Use some<T>(value) and none<T>() to create Maybe values"
+
+[[exercises]]
+name = "01_basic_circuit"
+dir = "03_circuits/01_basic_circuit"
+hint = "export circuit name(): [] { body }"
+
+[[exercises]]
+name = "02_parameters"
+dir = "03_circuits/02_parameters"
+hint = "Parameters go in parentheses: circuit name(param: Type): ReturnType"
+
+[[exercises]]
+name = "03_return_values"
+dir = "03_circuits/03_return_values"
+hint = "Use return statement to return values from circuits"
+
+[[exercises]]
+name = "04_pure_circuits"
+dir = "03_circuits/04_pure_circuits"
+hint = "pure circuit is for helper functions that don't modify state"
+
+[[exercises]]
+name = "05_calling_circuits"
+dir = "03_circuits/05_calling_circuits"
+hint = "Call circuits by name with arguments: other_circuit(arg1, arg2)"
+
+[[exercises]]
+name = "01_witness_declaration"
+dir = "04_witnesses/01_witness_declaration"
+hint = "witness name(): Type; - no body, just a semicolon"
+
+[[exercises]]
+name = "02_witness_usage"
+dir = "04_witnesses/02_witness_usage"
+hint = "Call witnesses like circuits: const value = witness_name();"
+
+[[exercises]]
+name = "03_disclosure"
+dir = "04_witnesses/03_disclosure"
+hint = "Use disclose() when witness values flow to public operations"
+
+[[exercises]]
+name = "01_counter"
+dir = "05_ledger/01_counter"
+hint = "Counter has .increment(n) and .decrement(n) methods"
+
+[[exercises]]
+name = "02_map"
+dir = "05_ledger/02_map"
+hint = "Map has .insert(k, v), .remove(k), .lookup(k), and .member(k)"
+
+[[exercises]]
+name = "03_set"
+dir = "05_ledger/03_set"
+hint = "Set has .insert(v), .remove(v), and .member(v)"
+
+[[exercises]]
+name = "04_combined"
+dir = "05_ledger/04_combined"
+hint = "You can use multiple ledger types together in one contract"
+
+[[exercises]]
+name = "01_authentication"
+dir = "06_patterns/01_authentication"
+hint = "Hash the secret key to derive a public identifier"
+
+[[exercises]]
+name = "02_access_control"
+dir = "06_patterns/02_access_control"
+hint = "Store authorized users in a Set or Map"
+
+[[exercises]]
+name = "03_commit_reveal"
+dir = "06_patterns/03_commit_reveal"
+hint = "First commit a hash, then reveal the preimage"

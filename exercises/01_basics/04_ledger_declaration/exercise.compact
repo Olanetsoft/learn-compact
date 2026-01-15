@@ -1,0 +1,14 @@
+pragma language_version >= 0.16 && <= 0.18;
+
+import CompactStandardLibrary;
+
+// TODO: Declare a public Counter ledger variable named 'visits'
+
+
+// TODO: Declare a public Map ledger variable named 'balances'
+// The map should have Bytes<32> keys and Uint<64> values
+
+
+// TODO: Declare a public Set ledger variable named 'members'
+// The set should hold Bytes<32> values
+

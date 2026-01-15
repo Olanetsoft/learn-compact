@@ -1,0 +1,18 @@
+pragma language_version >= 0.16 && <= 0.18;
+
+import CompactStandardLibrary;
+
+// TODO: Create a pure circuit 'add_u64' that:
+// - Takes two Uint<64> parameters
+// - Returns their sum as Uint<64>
+
+
+// TODO: Create a pure circuit 'is_greater' that:
+// - Takes two Uint<32> parameters: a and b  
+// - Returns true if a > b
+
+
+// TODO: Create a pure circuit 'double' that:
+// - Takes a Uint<64> parameter
+// - Returns it multiplied by 2
+

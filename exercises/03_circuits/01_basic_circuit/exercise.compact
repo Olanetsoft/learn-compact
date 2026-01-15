@@ -1,0 +1,11 @@
+pragma language_version >= 0.16 && <= 0.18;
+
+import CompactStandardLibrary;
+
+export ledger counter: Counter;
+
+// TODO: Create a circuit called 'add' that:
+// 1. Takes a parameter 'amount' of type Uint<64>
+// 2. Returns [] (empty tuple)
+// 3. Increments the counter by the amount
+

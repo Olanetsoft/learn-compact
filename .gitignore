@@ -1,0 +1,31 @@
+# Build output
+docs/
+*.cir
+*.ts
+!exercises/**/*.ts
+
+# Dependencies
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Compiled output
+target/
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local

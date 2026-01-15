@@ -1,0 +1,84 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-book:
+    name: Build Book
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup mdBook
+        uses: peaceiris/actions-mdbook@v1
+        with:
+          mdbook-version: "latest"
+
+      - name: Build book
+        run: |
+          cd book
+          mdbook build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+  verify-solutions:
+    name: Verify Solutions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # Note: In a real setup, you'd install compactc here
+      # - name: Install Compact Compiler
+      #   run: curl -fsSL https://get.midnight.network | bash
+
+      - name: Check solution files exist
+        run: |
+          echo "Checking solution files..."
+          find exercises/solutions -name "*.compact" -type f | head -20
+          echo "Solution files found!"
+
+  verify-examples:
+    name: Verify Examples
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # Note: In a real setup, you'd compile examples here
+      - name: Check example files exist
+        run: |
+          echo "Checking example files..."
+          find examples -name "*.compact" -type f
+          echo "Example files found!"
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build-book
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

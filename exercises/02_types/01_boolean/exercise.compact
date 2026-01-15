@@ -1,0 +1,9 @@
+pragma language_version >= 0.16 && <= 0.18;
+
+import CompactStandardLibrary;
+
+// TODO: Create a pure circuit called 'both_true' that:
+// 1. Takes two Boolean parameters: a and b
+// 2. Returns Boolean
+// 3. Returns true only if both a AND b are true
+

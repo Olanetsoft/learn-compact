@@ -1,0 +1,5 @@
+pragma language_version >= 0.16 && <= 0.18;
+
+import CompactStandardLibrary;
+
+export ledger myCounter: Counter;

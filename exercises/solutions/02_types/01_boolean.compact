@@ -1,0 +1,7 @@
+pragma language_version >= 0.16 && <= 0.18;
+
+import CompactStandardLibrary;
+
+pure circuit both_true(a: Boolean, b: Boolean): Boolean {
+    return a && b;
+}

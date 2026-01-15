@@ -1,0 +1,7 @@
+pragma language_version >= 0.16 && <= 0.18;
+
+// TODO: Import the standard library so that Counter type is available
+
+
+// This should compile after you add the import
+export ledger myCounter: Counter;

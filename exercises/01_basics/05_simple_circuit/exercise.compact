@@ -1,0 +1,12 @@
+pragma language_version >= 0.16 && <= 0.18;
+
+import CompactStandardLibrary;
+
+export ledger counter: Counter;
+
+// TODO: Create a circuit called 'increment' that:
+// 1. Is exported (public)
+// 2. Takes no parameters
+// 3. Returns [] (empty tuple, NOT Void)
+// 4. Increments the counter by 1
+

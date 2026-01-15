@@ -1,0 +1,7 @@
+pragma language_version >= 0.16 && <= 0.18;
+
+import CompactStandardLibrary;
+
+export ledger visits: Counter;
+export ledger balances: Map<Bytes<32>, Uint<64>>;
+export ledger members: Set<Bytes<32>>;

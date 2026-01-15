@@ -1,0 +1,10 @@
+// Exercise: Pragma Versions
+// Write a pragma statement that accepts versions 0.16 through 0.18
+
+// TODO: Write the pragma statement that:
+// - Accepts version 0.16 or higher
+// - Accepts version 0.18 or lower
+// - Rejects anything outside this range
+
+
+import CompactStandardLibrary;
