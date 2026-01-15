@@ -61,6 +61,94 @@ docker compose version
 docker pull midnightnetwork/proof-server:latest
 ```
 
+## Local Development Network (Recommended)
+
+For local development without relying on public testnets, the community has created **midnight-local-network** — a self-contained local Midnight node with wallet funding capabilities.
+
+> 🎬 [Watch the Video Explainer & Demo](https://github.com/bricktowers/midnight-local-network)
+
+### Why Use a Local Network?
+
+Public testnets can be:
+
+- Unavailable or undergoing maintenance
+- Rate-limited
+- Unstable for automated tests
+- Unsuitable for offline workflows
+
+A local network gives you:
+
+- ✅ Fully isolated, predictable environment
+- ✅ No dependence on faucets
+- ✅ Perfect for CI/CD pipelines
+- ✅ Works offline
+
+### Quick Setup
+
+```bash
+# Clone the repository
+git clone git@github.com:bricktowers/midnight-local-network.git
+cd midnight-local-network
+
+# Use Node 22+
+nvm install 22
+nvm use 22
+
+# Install dependencies
+yarn install
+
+# Start the local network
+docker compose up -d
+```
+
+### Connect Lace Wallet to Local Network
+
+1. Open **Lace Wallet Settings** → **Midnight**
+2. Switch network to **"Undeployed"**
+3. Save and switch to the local network
+
+### Fund Your Wallet
+
+The local network includes a funding script (no faucet needed!):
+
+```bash
+# Fund using your wallet's mnemonic (funds both shielded + unshielded)
+yarn fund "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about"
+
+# Or fund a specific shielded address
+yarn fund mn_shield-addr_undeployed1q....
+
+# Or fund a specific unshielded address
+yarn fund mn_addr_undeployed1q....
+```
+
+### Local Network Ports
+
+| Service      | Port |
+| ------------ | ---- |
+| Proof Server | 6300 |
+| Node         | 9944 |
+| Indexer      | 8088 |
+
+### Configure Your dApp for Local Network
+
+If using CLI tooling instead of the dApp connector:
+
+```typescript
+export class LocalNetworkConfig implements Config {
+  indexer = "http://127.0.0.1:8088/api/v1/graphql";
+  indexerWS = "ws://127.0.0.1:8088/api/v1/graphql/ws";
+  node = "http://127.0.0.1:9944";
+  proofServer = "http://127.0.0.1:6300";
+
+  setNetworkId() {
+    setNetworkId(NetworkId.Undeployed);
+  }
+}
+```
+
+> **Credits:** [bricktowers/midnight-local-network](https://github.com/bricktowers/midnight-local-network) is a community contribution by Brick Towers.
+
 ## VS Code Extension
 
 The Compact VS Code extension provides syntax highlighting and basic language support.

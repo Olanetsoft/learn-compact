@@ -150,6 +150,7 @@ MIT License - See [LICENSE](LICENSE) for details.
 - [Midnight Official Docs](https://docs.midnight.network)
 - [Compact Language Reference](https://docs.midnight.network/develop/reference/compact/lang-ref)
 - [Midnight Discord](https://discord.gg/midnight)
+- [Local Development Network](https://github.com/bricktowers/midnight-local-network) - Run your own local Midnight node (community tool by Brick Towers)
 
 ---
 
