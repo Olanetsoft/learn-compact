@@ -6,12 +6,13 @@ The Compact compiler transforms your Compact source code into ZK circuits that c
 
 Midnight provides two command-line tools:
 
-| Tool | Purpose | Analogy |
-|------|---------|---------|
+| Tool       | Purpose                                                             | Analogy      |
+| ---------- | ------------------------------------------------------------------- | ------------ |
 | `compactc` | The **Compact compiler** — compiles `.compact` files to ZK circuits | Like `rustc` |
-| `compact` | The **Compact CLI** — project scaffolding, building, deployment | Like `cargo` |
+| `compact`  | The **Compact CLI** — project scaffolding, building, deployment     | Like `cargo` |
 
 **In practice:**
+
 - Use `compactc` for direct single-file compilation: `compactc contract.compact`
 - Use `compact` for project management: `compact build`, `compact new`, etc.
 
@@ -27,26 +28,42 @@ For the exercises in this book, we'll primarily use `compactc` for direct compil
 
 ## Installation
 
-Install the Compact compiler using the following command:
+Install the Compact CLI using the official installer script:
 
 ```bash
-curl -fsSL https://get.midnight.network | bash
+curl --proto '=https' --tlsv1.2 -LsSf https://github.com/midnightntwrk/compact/releases/latest/download/compact-installer.sh | sh
 ```
 
-This will download and install the latest version of the Compact compiler.
+This downloads and installs the `compact` CLI, which includes the `compactc` compiler.
+
+### Update Your Shell PATH
+
+The installer usually adds the binary to your PATH automatically. If not, add it manually:
+
+```bash
+export PATH="$HOME/.compact/bin:$PATH"
+```
+
+Then reload your shell:
+
+```bash
+source ~/.zshrc  # or source ~/.bashrc
+```
 
 ## Verifying Installation
 
-After installation, verify that the compiler is working:
+After installation, verify that the tools are working:
 
 ```bash
-compactc --version
+compact --version   # CLI version
+compactc --version  # Compiler version
 ```
 
 You should see output similar to:
 
 ```
-compact-v0.3.0
+compact 0.3.0
+Compactc version: 0.24.0
 ```
 
 ## Updating the Compiler
@@ -54,10 +71,8 @@ compact-v0.3.0
 To update to the latest version:
 
 ```bash
-curl -fsSL https://get.midnight.network | bash
+compact update
 ```
-
-The installer will detect an existing installation and update it.
 
 ## Troubleshooting
 
@@ -66,7 +81,7 @@ The installer will detect an existing installation and update it.
 If you see "command not found", add the Compact binary to your PATH:
 
 ```bash
-export PATH="$HOME/.midnight/bin:$PATH"
+export PATH="$HOME/.compact/bin:$PATH"
 ```
 
 Add this line to your `~/.bashrc` or `~/.zshrc` to make it permanent.
@@ -76,7 +91,8 @@ Add this line to your `~/.bashrc` or `~/.zshrc` to make it permanent.
 If you encounter permission errors:
 
 ```bash
-chmod +x ~/.midnight/bin/compactc
+chmod +x ~/.compact/bin/compactc
+chmod +x ~/.compact/bin/compact
 ```
 
 ## Next Steps
