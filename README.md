@@ -2,7 +2,7 @@
 
 > The definitive guide to learning Compact, Midnight's zero-knowledge smart contract language
 
-[![CI](https://github.com/your-username/learn-compact/actions/workflows/ci.yml/badge.svg)](https://github.com/your-username/learn-compact/actions/workflows/ci.yml)
+[![CI](https://github.com/Olanetsoft/learn-compact/actions/workflows/ci.yml/badge.svg)](https://github.com/Olanetsoft/learn-compact/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ## 📖 What is This?
@@ -33,7 +33,7 @@ Developers with programming experience who want to:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/learn-compact.git
+git clone https://github.com/Olanetsoft/learn-compact.git
 cd learn-compact
 ```
 

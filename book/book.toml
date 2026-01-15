@@ -12,8 +12,8 @@ create-missing = true
 [output.html]
 default-theme = "rust"
 preferred-dark-theme = "ayu"
-git-repository-url = "https://github.com/your-username/learn-compact"
-edit-url-template = "https://github.com/your-username/learn-compact/edit/main/book/{path}"
+git-repository-url = "https://github.com/Olanetsoft/learn-compact"
+edit-url-template = "https://github.com/Olanetsoft/learn-compact/edit/main/book/{path}"
 site-url = "/learn-compact/"
 cname = ""
 additional-css = ["custom.css"]
