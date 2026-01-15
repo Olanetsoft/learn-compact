@@ -1,58 +1,299 @@
 /* Custom styles for Learn Compact book */
 
-/* Compact code highlighting */
-.language-compact {
-  background-color: #2b2b2b;
+/* ============================================
+   GLOBAL IMPROVEMENTS
+   ============================================ */
+
+/* Better body text readability */
+.content main {
+  max-width: 850px;
+  line-height: 1.7;
 }
 
-/* Highlight important notes */
-.warning {
-  background-color: #fff3cd;
-  border-left: 4px solid #ffc107;
+/* Improve code font */
+code {
+  font-family: "JetBrains Mono", "Fira Code", "SF Mono", Consolas, monospace;
+  font-size: 0.9em;
+}
+
+/* ============================================
+   CODE BLOCKS
+   ============================================ */
+
+/* Compact code highlighting */
+.language-compact,
+pre code {
+  background-color: #1e1e2e;
+  border-radius: 8px;
+}
+
+pre {
+  border-radius: 8px;
   padding: 1rem;
-  margin: 1rem 0;
+  margin: 1.5rem 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Inline code */
+:not(pre) > code {
+  background-color: rgba(175, 184, 193, 0.2);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.875em;
+}
+
+/* Dark theme inline code */
+.rust code,
+.ayu code,
+.coal code,
+.navy code {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ============================================
+   TABLES
+   ============================================ */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+table th {
+  background-color: #667eea;
+  color: white;
+  font-weight: 600;
+  padding: 0.875rem 1rem;
+  text-align: left;
+}
+
+table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+table tr:last-child td {
+  border-bottom: none;
+}
+
+table tr:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+table tr:hover {
+  background-color: rgba(102, 126, 234, 0.08);
+}
+
+/* Dark theme table adjustments */
+.rust table td,
+.ayu table td,
+.coal table td,
+.navy table td {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.rust table tr:nth-child(even),
+.ayu table tr:nth-child(even),
+.coal table tr:nth-child(even),
+.navy table tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* ============================================
+   CALLOUT BOXES (Blockquotes)
+   ============================================ */
+
+blockquote {
+  border-left: 4px solid #667eea;
+  background-color: rgba(102, 126, 234, 0.08);
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
+}
+
+blockquote p {
+  margin: 0;
+}
+
+/* Warning callouts (contains ⚠️ or "Warning") */
+blockquote:has(strong:first-child) {
+  border-left-color: #f59e0b;
+  background-color: rgba(245, 158, 11, 0.08);
+}
+
+/* Note/Tip callouts */
+.warning {
+  background-color: rgba(245, 158, 11, 0.1);
+  border-left: 4px solid #f59e0b;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
 }
 
 .critical {
-  background-color: #f8d7da;
-  border-left: 4px solid #dc3545;
-  padding: 1rem;
-  margin: 1rem 0;
+  background-color: rgba(239, 68, 68, 0.1);
+  border-left: 4px solid #ef4444;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
 }
 
 .info {
-  background-color: #d1ecf1;
-  border-left: 4px solid #17a2b8;
-  padding: 1rem;
-  margin: 1rem 0;
+  background-color: rgba(59, 130, 246, 0.1);
+  border-left: 4px solid #3b82f6;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
 }
 
-/* Exercise boxes */
+/* ============================================
+   EXERCISE BOXES
+   ============================================ */
+
 .exercise {
-  background-color: #e7f3ff;
-  border: 1px solid #b6d4fe;
-  border-radius: 8px;
-  padding: 1rem;
-  margin: 1rem 0;
+  background-color: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin: 1.5rem 0;
 }
 
-/* Common mistakes table styling */
-table.mistakes {
-  width: 100%;
-  border-collapse: collapse;
-}
+/* ============================================
+   COMMON MISTAKES TABLE
+   ============================================ */
 
 table.mistakes th {
-  background-color: #dc3545;
-  color: white;
+  background-color: #ef4444;
 }
 
 table.mistakes td:first-child {
-  color: #dc3545;
-  font-family: monospace;
+  color: #ef4444;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  text-decoration: line-through;
+  opacity: 0.8;
 }
 
 table.mistakes td:nth-child(2) {
-  color: #28a745;
-  font-family: monospace;
+  color: #10b981;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-weight: 500;
+}
+
+/* ============================================
+   HEADINGS
+   ============================================ */
+
+h1,
+h2,
+h3,
+h4 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+  padding-bottom: 0.5rem;
+}
+
+h2 {
+  border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+  padding-bottom: 0.3rem;
+}
+
+/* ============================================
+   LINKS
+   ============================================ */
+
+a {
+  color: #667eea;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+a:hover {
+  border-bottom-color: #667eea;
+}
+
+/* ============================================
+   LISTS
+   ============================================ */
+
+ul,
+ol {
+  padding-left: 1.5rem;
+}
+
+li {
+  margin: 0.5rem 0;
+}
+
+/* Checklist style for ✅ items */
+li:has(> :first-child:is(:empty)) {
+  list-style: none;
+}
+
+/* ============================================
+   SIDEBAR IMPROVEMENTS
+   ============================================ */
+
+.sidebar .chapter {
+  padding: 0.4rem 0;
+}
+
+.sidebar .chapter.active > a {
+  background-color: rgba(102, 126, 234, 0.15);
+  border-radius: 4px;
+}
+
+/* ============================================
+   EMOJI/ICON IMPROVEMENTS
+   ============================================ */
+
+/* Make emojis slightly larger for visibility */
+h1 .emoji,
+h2 .emoji {
+  font-size: 1.1em;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+  table {
+    font-size: 0.875rem;
+  }
+
+  table th,
+  table td {
+    padding: 0.5rem 0.75rem;
+  }
+
+  pre {
+    padding: 0.75rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+  pre {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+
+  table th {
+    background: #667eea !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
 }
