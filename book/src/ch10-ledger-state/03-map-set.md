@@ -84,16 +84,17 @@ export ledger members: Set<Bytes<32>>;
 export ledger allowlist: Set<Bytes<32>>;
 ```
 
-### Operations
+### Operations (All Available in Circuits)
 
-| Operation        | Signature             | Description            |
-| ---------------- | --------------------- | ---------------------- |
-| `insert`         | `(value: T): []`      | Add a value            |
-| `member`         | `(value: T): Boolean` | Check if value exists  |
-| `remove`         | `(value: T): []`      | Remove a value         |
-| `isEmpty`        | `(): Boolean`         | Check if set is empty  |
-| `size`           | `(): Uint<64>`        | Get number of elements |
-| `resetToDefault` | `(): []`              | Clear all elements     |
+| Operation        | Signature                                                                      | Description                            |
+| ---------------- | ------------------------------------------------------------------------------ | -------------------------------------- |
+| `insert`         | `(elem: T): []`                                                                | Add a value                            |
+| `insertCoin`     | `(coin: CoinInfo, recipient: Either<ZswapCoinPublicKey, ContractAddress>): []` | Add coin (when T is QualifiedCoinInfo) |
+| `member`         | `(elem: T): Boolean`                                                           | Check if value exists                  |
+| `remove`         | `(elem: T): []`                                                                | Remove a value                         |
+| `isEmpty`        | `(): Boolean`                                                                  | Check if set is empty                  |
+| `size`           | `(): Uint<64>`                                                                 | Get number of elements                 |
+| `resetToDefault` | `(): []`                                                                       | Clear all elements                     |
 
 ### Example Usage
 
@@ -118,6 +119,26 @@ export circuit remove_member(address: Bytes<32>): [] {
 // Check if empty
 export circuit has_members(): Boolean {
     return !members.isEmpty();
+}
+
+// Get set size
+export circuit get_member_count(): Uint<64> {
+    return members.size();
+}
+```
+
+### Special: insertCoin
+
+When the value type is `QualifiedCoinInfo`, you can use `insertCoin`:
+
+```compact
+export ledger coinSet: Set<QualifiedCoinInfo>;
+
+export circuit add_coin(
+    coin: CoinInfo,
+    recipient: Either<ZswapCoinPublicKey, ContractAddress>
+): [] {
+    coinSet.insertCoin(coin, recipient);
 }
 ```
 
