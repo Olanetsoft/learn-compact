@@ -66,13 +66,15 @@ export circuit revealVote(): [] {
     const choice = getVoteChoice();
     const nonce = getVoteNonce();
     
-    // Check has committed
-    const maybeCommitment = voteCommitments.lookup(disclose(voterId));
-    assert(maybeCommitment.is_some, "No commitment found");
+    // Check has committed (use member() to check existence)
+    assert(voteCommitments.member(disclose(voterId)), "No commitment found");
+    
+    // Get the stored commitment
+    const storedCommitment = voteCommitments.lookup(disclose(voterId));
     
     // Verify commitment matches
     const expectedCommitment = createCommitment(choice, nonce);
-    assert(maybeCommitment.value == expectedCommitment, "Commitment mismatch");
+    assert(storedCommitment == expectedCommitment, "Commitment mismatch");
     
     // Record the vote - choice is disclosed here
     const disclosedChoice = disclose(choice);
