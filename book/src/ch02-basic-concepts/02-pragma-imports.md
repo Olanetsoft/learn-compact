@@ -29,10 +29,14 @@ By specifying version bounds, you ensure:
 2. Future breaking changes don't silently break your contract
 3. Users know which compiler version to use
 
+If the Compact compiler does not support the language versions specified, it will signal a compile-time error.
+
 ### Best Practices
 
+> **Note:** These are recommended conventions, not official rules from the Midnight documentation.
+
 ```compact
-// ✅ Good - specific version range
+// ✅ Recommended - specific version range
 pragma language_version >= 0.16 && <= 0.18;
 
 // ⚠️ Caution - open-ended (may break with future versions)
@@ -48,20 +52,17 @@ The `import` statement brings external modules into scope.
 
 ### Standard Library
 
-Every Compact program typically imports the standard library:
+Every Compact program should import the standard library:
 
 ```compact
 import CompactStandardLibrary;
 ```
 
-This provides:
-
-- **Types:** `Counter`, `Map`, `Set`, `MerkleTree`, `Maybe`, `Either`
-- **Functions:** `persistentHash`, `persistentCommit`, `pad`, `default`
+This provides ledger ADTs and useful helper types and functions.
 
 ### What's NOT in the Standard Library
 
-> ⚠️ **CRITICAL:** `public_key()` is NOT a built-in function. If you need public key functionality, derive it using `persistentHash` on a secret key.
+> ⚠️ **Important:** `public_key()` is NOT a built-in function. In official examples, public key derivation is implemented as a user-defined circuit using `persistentHash` with domain-separation bytes.
 
 ### Import Syntax
 
@@ -69,24 +70,32 @@ This provides:
 // Import entire module
 import CompactStandardLibrary;
 
-// Import from a local file (future feature)
-// import { MyType } from "./types.compact";
+// Import from a path
+import "path/to/module";
 ```
+
+The import mechanism supports:
+
+- `import M;` — import a module
+- `import "path/to/M";` — import from a path
+- Optional prefix and type parameters
 
 ### Module Contents
 
 After importing `CompactStandardLibrary`, you have access to:
 
-| Category       | Items                                                                   |
-| -------------- | ----------------------------------------------------------------------- |
-| Ledger Types   | `Counter`, `Map<K,V>`, `Set<T>`, `MerkleTree<N,T>`                      |
-| Optional Types | `Maybe<T>`, `Either<L,R>`                                               |
-| Functions      | `persistentHash<T>()`, `persistentCommit<T>()`, `pad()`, `default<T>()` |
-| Helpers        | `some<T>()`, `none<T>()`, `left<L,R>()`, `right<L,R>()`                 |
+| Category       | Items                                                                                        |
+| -------------- | -------------------------------------------------------------------------------------------- |
+| Ledger ADTs    | `Counter`, `Map<K,V>`, `MerkleTree<N,T>`                                                     |
+| Optional Types | `Maybe<T>`, `Either<L,R>`, `CurvePoint`, `MerkleTreeDigest`, etc.                            |
+| Hash Functions | `persistentHash<T>()`, `persistentCommit<T>()`, `transientHash<T>()`, `transientCommit<T>()` |
+| Helpers        | `some<T>()`, `none<T>()`, `left<L,R>()`, `right<L,R>()`, `pad()`                             |
+
+> **Note:** The standard library also includes EC functions, Merkle functions, and coin-management functions. See the [Compact Standard Library Reference](https://docs.midnight.network/develop/reference/compact/compact-std-library) for the complete list.
 
 ## Complete Template
 
-Here's a minimal complete Compact file:
+Here's a minimal complete Compact file (matches the official counter example pattern):
 
 ```compact
 pragma language_version >= 0.16 && <= 0.18;
