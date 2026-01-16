@@ -60,10 +60,6 @@ import CompactStandardLibrary;
 
 This provides ledger ADTs and useful helper types and functions.
 
-### What's NOT in the Standard Library
-
-> ⚠️ **Important:** `public_key()` is NOT a built-in function. In official examples, public key derivation is implemented as a user-defined circuit using `persistentHash` with domain-separation bytes.
-
 ### Import Syntax
 
 ```compact
