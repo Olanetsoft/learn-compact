@@ -1,0 +1,41 @@
+pragma language_version >= 0.18.0;
+
+ledger {
+    balances: Map<Bytes<32>, Uint<64>>;
+}
+
+// Wraps a value in Maybe using some()
+export pure circuit createSome(value: Uint<64>): Maybe<Uint<64>> {
+    return some(value);
+}
+
+// Returns an empty Maybe using none()
+export pure circuit createNone(): Maybe<Uint<64>> {
+    return none<Uint<64>>();
+}
+
+// Returns value if present, otherwise defaultVal
+export pure circuit unwrapOr(
+    opt: Maybe<Uint<64>>, 
+    defaultVal: Uint<64>
+): Uint<64> {
+    if (opt.isSome) {
+        return opt.value;
+    }
+    return defaultVal;
+}
+
+// Looks up balance from map, returns 0 if not found
+export circuit getBalance(address: Bytes<32>): Uint<64> {
+    const result = balances.lookup(address);
+    if (result.isSome) {
+        return result.value;
+    }
+    return 0;
+}
+
+// Returns true if address exists in map
+export circuit hasBalance(address: Bytes<32>): Boolean {
+    const result = balances.lookup(address);
+    return result.isSome;
+}

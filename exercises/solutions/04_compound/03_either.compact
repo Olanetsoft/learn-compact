@@ -1,0 +1,43 @@
+pragma language_version >= 0.18.0;
+
+// Either<A, B>: Left = error (A), Right = success (B)
+// For this exercise: Either<Uint<8>, Uint<64>>
+//   - Left: error code (Uint<8>)
+//   - Right: success value (Uint<64>)
+
+// Wraps an error code as Left
+export pure circuit createLeft(errorCode: Uint<8>): Either<Uint<8>, Uint<64>> {
+    return left(errorCode);
+}
+
+// Wraps a success value as Right
+export pure circuit createRight(value: Uint<64>): Either<Uint<8>, Uint<64>> {
+    return right(value);
+}
+
+// Safe division: returns left(1) on division by zero, right(result) on success
+export pure circuit safeDivide(
+    a: Uint<64>, 
+    b: Uint<64>
+): Either<Uint<8>, Uint<64>> {
+    if (b == 0) {
+        return left(1);  // Error code 1: division by zero
+    }
+    return right(a / b);
+}
+
+// Returns true if Either is a Right value (success)
+export pure circuit isSuccess(result: Either<Uint<8>, Uint<64>>): Boolean {
+    return !result.isLeft;
+}
+
+// Returns the right value if present, otherwise returns defaultVal
+export pure circuit extractOrDefault(
+    result: Either<Uint<8>, Uint<64>>,
+    defaultVal: Uint<64>
+): Uint<64> {
+    if (result.isLeft) {
+        return defaultVal;
+    }
+    return result.right;
+}

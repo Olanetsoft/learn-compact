@@ -24,7 +24,7 @@
   - [Bytes and Opaque Types](ch03-type-system/03-bytes-opaque.md)
   - [Type Casting](ch03-type-system/04-type-casting.md)
 
-- [Compound Types](ch04-compound-types/index.md)
+- [Composite Types](ch04-compound-types/index.md)
 
   - [Tuples and Vectors](ch04-compound-types/01-tuples-vectors.md)
   - [Maybe Type](ch04-compound-types/02-maybe.md)

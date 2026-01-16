@@ -1,0 +1,31 @@
+pragma language_version >= 0.18.0;
+
+// TODO: Define a type alias 'Coordinate' for a tuple of two Uint<32> values
+
+
+// TODO: Implement createCoordinate - returns a Coordinate tuple
+export pure circuit createCoordinate(x: Uint<32>, y: Uint<32>): Coordinate {
+    // Return a tuple [x, y]
+}
+
+// TODO: Implement getX - extracts x (first element) from a coordinate
+export pure circuit getX(coord: Coordinate): Uint<32> {
+    // Return the first element
+}
+
+// TODO: Implement getY - extracts y (second element) from a coordinate
+export pure circuit getY(coord: Coordinate): Uint<32> {
+    // Return the second element
+}
+
+// TODO: Implement sumVector - sums all elements in a Vector<5, Uint<8>>
+export pure circuit sumVector(v: Vector<5, Uint<8>>): Uint<16> {
+    // Sum all 5 elements and return
+    // Note: Cast to Uint<16> to avoid overflow
+}
+
+// TODO: Implement swapCoordinate - swaps x and y using destructuring
+export pure circuit swapCoordinate(coord: Coordinate): Coordinate {
+    // Use destructuring: const [a, b] = coord;
+    // Return [b, a]
+}
