@@ -1,26 +1,56 @@
 # Unsigned Integers
 
-Compact provides sized unsigned integer types for representing non-negative whole numbers.
+Compact defines **one unsigned integer type constructor, `Uint`**, with two equivalent forms for expressing the same family of types.
 
-## Uint<N> Types
+## Two Forms, One Type Family
 
-The `N` specifies the bit width:
+### 1. Sized Form: `Uint<n>`
 
-| Type        | Range                | Use Case                         |
-| ----------- | -------------------- | -------------------------------- |
-| `Uint<8>`   | 0 to 255             | Small counters, enum-like values |
-| `Uint<16>`  | 0 to 65,535          | Medium values                    |
-| `Uint<32>`  | 0 to ~4 billion      | Timestamps, IDs                  |
-| `Uint<64>`  | 0 to ~18 quintillion | Balances, amounts                |
-| `Uint<128>` | Very large           | High-precision values            |
-| `Uint<256>` | Extremely large      | Cryptographic values             |
+The sized form specifies how many **bits** the integer can use:
+
+```compact
+ledger value: Uint<64>;  // 64-bit unsigned integer
+```
+
+| Type        | Bits | Range                | Use Case                         |
+| ----------- | ---- | -------------------- | -------------------------------- |
+| `Uint<8>`   | 8    | 0 to 255             | Small counters, enum-like values |
+| `Uint<16>`  | 16   | 0 to 65,535          | Medium values                    |
+| `Uint<32>`  | 32   | 0 to ~4 billion      | Timestamps, IDs                  |
+| `Uint<64>`  | 64   | 0 to ~18 quintillion | Balances, amounts                |
+| `Uint<128>` | 128  | Very large           | High-precision values            |
+| `Uint<256>` | 256  | Extremely large      | Cryptographic values             |
+
+### 2. Bounded Form: `Uint<0..n>`
+
+The bounded form specifies the **upper bound** directly (inclusive):
+
+```compact
+circuit f(x: Uint<0..100>): [] {
+    // x is guaranteed to be between 0 and 100 inclusive
+}
+```
+
+> **Note:** The lower bound must currently be `0`.
+
+### They're the Same Type!
+
+`Uint<n>` is **exactly equivalent** to `Uint<0..(2^n - 1)>`:
+
+```compact
+// These two declarations are the SAME type:
+let a: Uint<8>;       // Sized form: 8 bits
+let b: Uint<0..255>;  // Bounded form: 0 to (2^8 - 1)
+```
+
+The sized form is just a convenience notation—any `Uint<n>` can be rewritten as `Uint<0..m>`.
 
 ## Declaration
 
 ```compact
 const age: Uint<8> = 25;
 const balance: Uint<64> = 1000000;
-const bigNumber: Uint<256> = 0;
+const percentage: Uint<0..100> = 75;  // Bounded: 0 to 100 inclusive
 ```
 
 ## Arithmetic Operations
@@ -55,13 +85,14 @@ a < b   // false (less than)
 a <= b  // false (less or equal)
 ```
 
-## Bounded Integers
+## When to Use Which Form?
 
-Compact also supports bounded integers with `Uint<0..N>`:
-
-```compact
-const percentage: Uint<0..100> = 75;  // Value must be 0-100
-```
+| Use Case                         | Recommended Form     | Example         |
+| -------------------------------- | -------------------- | --------------- |
+| Standard storage (balances, IDs) | Sized `Uint<n>`      | `Uint<64>`      |
+| Percentage or constrained value  | Bounded `Uint<0..n>` | `Uint<0..100>`  |
+| Matching specific bit-width      | Sized `Uint<n>`      | `Uint<256>`     |
+| Domain-specific limits           | Bounded `Uint<0..n>` | `Uint<0..1000>` |
 
 ## Type Casting
 
