@@ -1,14 +1,14 @@
 # Bytes and Opaque Types
 
-## Bytes\<N\>
+## Bytes\<n\>
 
-`Bytes<N>` represents a fixed-size byte array of exactly N bytes.
+`Bytes<n>` represents a fixed-length byte array of exactly `n` bytes. According to the docs, `Bytes` types are used in the Compact standard library for hashing, and string literals also have a `Bytes` type (where `n` is the number of bytes in the UTF-8 encoding).
 
 ### Common Uses
 
 ```compact
-// Addresses/Public Keys (32 bytes = 256 bits)
-const address: Bytes<32> = ...;
+// Hashes (32 bytes = 256 bits)
+const hash: Bytes<32> = ...;
 
 // Short identifiers
 const id: Bytes<8> = ...;
@@ -23,14 +23,15 @@ In practice, `Bytes` values often come from:
 
 - Witnesses (private input)
 - Hashing functions
+- String literals (automatically typed as `Bytes<n>`)
 - Parameters passed to circuits
 
 ```compact
-witness getAddress(): Bytes<32>;
+witness getHash(): Bytes<32>;
 
 export circuit example(): [] {
-    const addr = getAddress();
-    // use addr...
+    const h = getHash();
+    // use h...
 }
 ```
 
@@ -38,8 +39,8 @@ export circuit example(): [] {
 
 ```compact
 // Comparison
-const same = addr1 == addr2;
-const different = addr1 != addr2;
+const same = hash1 == hash2;
+const different = hash1 != hash2;
 ```
 
 ### Hashing to Bytes
@@ -50,9 +51,11 @@ const hash: Bytes<32> = persistentHash<Bytes<32>>(someValue) as Bytes<32>;
 
 ## Opaque Types
 
-`Opaque<T>` represents types that exist at runtime but not in ZK circuits.
+`Opaque<s>` represents opaque values tagged by a string literal `s`. Opaque values can be manipulated in witnesses but they are **opaque to circuits**—they are represented in circuits as their hash.
 
-### Opaque<"string">
+> **Note:** The only allowed tags are currently `"string"` and `"Uint8Array"`.
+
+### Opaque\<"string"\>
 
 For string data:
 
@@ -61,7 +64,7 @@ For string data:
 export ledger message: Opaque<"string">;
 ```
 
-### Opaque<"Uint8Array">
+### Opaque\<"Uint8Array"\>
 
 For arbitrary binary data:
 
@@ -71,24 +74,23 @@ export ledger binaryData: Opaque<"Uint8Array">;
 
 ### Important Limitations
 
-> ⚠️ **Opaque values cannot be used in circuit logic!**
+> ⚠️ **Opaque values are opaque to circuits!**
+>
+> They are represented in circuits as their hash, so you cannot inspect their actual content in circuit logic.
 
 ```compact
-// ❌ This will NOT work
-if (opaqueValue == something) { ... }
-
-// ✅ Opaque values can only be stored/retrieved
+// Opaque values can be stored and compared by hash
 ledger.insert(key, opaqueValue);
 ```
 
 ## When to Use What
 
-| Type                   | Use Case                              |
-| ---------------------- | ------------------------------------- |
-| `Bytes<32>`            | Addresses, hashes, keys               |
-| `Bytes<N>`             | Fixed-size binary data you compute on |
-| `Opaque<"string">`     | Human-readable text you just store    |
-| `Opaque<"Uint8Array">` | Binary blobs you just store           |
+| Type                   | Use Case                                 |
+| ---------------------- | ---------------------------------------- |
+| `Bytes<32>`            | Hashes, fixed-size identifiers           |
+| `Bytes<n>`             | Fixed-size binary data you compute on    |
+| `Opaque<"string">`     | Human-readable text (opaque to circuits) |
+| `Opaque<"Uint8Array">` | Binary blobs (opaque to circuits)        |
 
 ## Exercises
 
