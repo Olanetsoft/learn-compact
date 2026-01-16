@@ -1,0 +1,20 @@
+pragma language_version >= 0.16 && <= 0.18;
+import CompactStandardLibrary;
+
+// Solution: Bytes and Opaque Types
+
+// Ledger field for storing a 32-byte hash
+export ledger storedHash: Bytes<32>;
+
+// Ledger field for storing an opaque string message
+export ledger storedMessage: Opaque<"string">;
+
+// Circuit to set the hash
+export circuit setHash(newHash: Bytes<32>): [] {
+    storedHash = newHash;
+}
+
+// Circuit to set the message
+export circuit setMessage(newMessage: Opaque<"string">): [] {
+    storedMessage = newMessage;
+}

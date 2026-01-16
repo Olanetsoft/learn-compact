@@ -1,0 +1,24 @@
+pragma language_version >= 0.16 && <= 0.18;
+import CompactStandardLibrary;
+
+// Exercise: Bytes and Opaque Types
+// 
+// Bytes<n> represents a fixed-length byte array of exactly n bytes.
+// Opaque<s> represents opaque values that are represented in circuits as their hash.
+
+// TODO: Declare a ledger field called 'storedHash' of type Bytes<32>
+
+
+// TODO: Declare a ledger field called 'storedMessage' of type Opaque<"string">
+
+
+// TODO: Create an exported circuit called 'setHash' that:
+// 1. Takes a parameter 'newHash' of type Bytes<32>
+// 2. Returns []
+// 3. Stores the hash (you'll need to figure out how to store Bytes)
+
+
+// TODO: Create an exported circuit called 'setMessage' that:
+// 1. Takes a parameter 'newMessage' of type Opaque<"string">
+// 2. Returns []
+// 3. Stores the message in the ledger field
