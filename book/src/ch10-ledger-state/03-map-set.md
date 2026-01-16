@@ -2,7 +2,7 @@
 
 Maps and Sets are ledger ADTs for storing collections of data on-chain.
 
-## Map<K, V>
+## Map\\<K, V\\>
 
 A key-value mapping where each key maps to a value.
 
@@ -73,7 +73,7 @@ export circuit deposit_coin(
 }
 ```
 
-## Set<T>
+## Set\<T\>
 
 A collection of unique values.
 

@@ -1,6 +1,6 @@
 # Bytes and Opaque Types
 
-## Bytes<N>
+## Bytes\<N\>
 
 `Bytes<N>` represents a fixed-size byte array of exactly N bytes.
 

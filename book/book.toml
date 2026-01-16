@@ -14,7 +14,6 @@ extra-watch-dirs = ["../examples"]
 default-theme = "rust"
 preferred-dark-theme = "ayu"
 git-repository-url = "https://github.com/Olanetsoft/learn-compact"
-git-repository-icon = "fa-github"
 edit-url-template = "https://github.com/Olanetsoft/learn-compact/edit/main/book/{path}"
 site-url = "/learn-compact/"
 cname = ""
