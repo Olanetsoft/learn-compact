@@ -108,12 +108,12 @@ The compiler generates TypeScript code that allows you to:
 
 ## Common First-Time Errors
 
-| Error                      | Cause                           | Fix                                  |
-| -------------------------- | ------------------------------- | ------------------------------------ |
-| `parse error at 'Void'`    | Using `Void` as return type     | Use `[]` instead                     |
-| `parse error at '{'`       | Using `ledger { }` block syntax | Declare each field separately        |
-| `unknown type 'Counter'`   | Missing import                  | Add `import CompactStandardLibrary;` |
-| `operation "value" undefined` | Using `counter.value()` in circuit | Read via TypeScript SDK instead   |
+| Error                         | Cause                              | Fix                                  |
+| ----------------------------- | ---------------------------------- | ------------------------------------ |
+| `parse error at 'Void'`       | Using `Void` as return type        | Use `[]` instead                     |
+| `parse error at '{'`          | Using `ledger { }` block syntax    | Declare each field separately        |
+| `unknown type 'Counter'`      | Missing import                     | Add `import CompactStandardLibrary;` |
+| `operation "value" undefined` | Using `counter.value()` in circuit | Read via TypeScript SDK instead      |
 
 ## Exercises
 
