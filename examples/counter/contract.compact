@@ -21,6 +21,16 @@ export circuit add(amount: Uint<64>): [] {
     counter.increment(amount);
 }
 
+// Read the current counter value
+export circuit get_count(): Uint<64> {
+    return counter.read();
+}
+
+// Check if counter is below threshold
+export circuit is_less_than(threshold: Uint<64>): Boolean {
+    return counter.lessThan(threshold);
+}
+
 // Reset counter to zero
 export circuit reset(): [] {
     counter.resetToDefault();

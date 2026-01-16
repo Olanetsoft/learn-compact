@@ -4,15 +4,14 @@ This chapter catalogs the most common mistakes developers make when learning Com
 
 ## Syntax Errors Quick Reference
 
-| ❌ Wrong                     | ✅ Correct                   | Error You'll See          |
-| ---------------------------- | ---------------------------- | ------------------------- |
-| `ledger { field: Type }`     | `export ledger field: Type;` | parse error               |
-| `circuit fn(): Void`         | `circuit fn(): []`           | parse error               |
-| `Choice::rock`               | `Choice.rock`                | parse error               |
-| `witness fn(): T { }`        | `witness fn(): T;`           | parse error               |
-| `pure function`              | `pure circuit`               | parse error               |
-| `counter.value()` in circuit | Use TypeScript SDK           | operation undefined       |
-| `if (witnessVal)`            | `if (disclose(witnessVal))`  | implicit disclosure error |
+| ❌ Wrong                 | ✅ Correct                   | Error You'll See          |
+| ------------------------ | ---------------------------- | ------------------------- |
+| `ledger { field: Type }` | `export ledger field: Type;` | parse error               |
+| `circuit fn(): Void`     | `circuit fn(): []`           | parse error               |
+| `Choice::rock`           | `Choice.rock`                | parse error               |
+| `witness fn(): T { }`    | `witness fn(): T;`           | parse error               |
+| `pure function`          | `pure circuit`               | parse error               |
+| `if (witnessVal)`        | `if (disclose(witnessVal))`  | implicit disclosure error |
 
 ## Detailed Explanations
 
@@ -88,15 +87,25 @@ pure circuit helper(): Uint<64> {
 ```compact
 export ledger counter: Counter;
 
-// ❌ WRONG - .value() not available in circuits
-export circuit getValue(): Uint<64> {
-    return counter.value();
+// ✅ Counter operations available in circuits:
+export circuit increment(): [] {
+    counter.increment(1);  // Add to counter
 }
 
-// ✅ CORRECT - Read via TypeScript SDK
-// In Compact, you can only modify counters:
-export circuit increment(): [] {
-    counter.increment(1);
+export circuit decrement(): [] {
+    counter.decrement(1);  // Subtract from counter
+}
+
+export circuit getValue(): Uint<64> {
+    return counter.read();  // Read current value
+}
+
+export circuit isBelow(threshold: Uint<64>): Boolean {
+    return counter.lessThan(threshold);  // Compare with threshold
+}
+
+export circuit reset(): [] {
+    counter.resetToDefault();  // Reset to 0
 }
 // Read the value from TypeScript:
 // const value = await contract.ledger.counter;
