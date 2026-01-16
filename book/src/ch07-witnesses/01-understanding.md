@@ -60,6 +60,12 @@ The implementation happens in **TypeScript**, not Compact!
             └───────────────┘
 ```
 
+## ⚠️ Security Warning
+
+> **Do not assume that the code of any witness function is the code that you wrote in your own implementation.** Any DApp may provide any implementation that it wants for your witness functions. Results from witnesses should be treated as **untrusted input**.
+
+Always validate witness results in your circuit logic!
+
 ## Why Not Just Pass Parameters?
 
 | Parameters          | Witnesses            |
