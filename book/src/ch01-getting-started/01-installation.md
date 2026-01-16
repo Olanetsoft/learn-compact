@@ -6,19 +6,19 @@ The Compact compiler transforms your Compact source code into ZK circuits that c
 
 Midnight provides two command-line tools:
 
-| Tool       | Purpose                                                             | Analogy      |
-| ---------- | ------------------------------------------------------------------- | ------------ |
-| `compactc` | The **Compact compiler** — compiles `.compact` files to ZK circuits | Like `rustc` |
-| `compact`  | The **Compact CLI** — project scaffolding, building, deployment     | Like `cargo` |
+| Tool       | Purpose                                                          | Status        |
+| ---------- | ---------------------------------------------------------------- | ------------- |
+| `compact`  | The **Compact CLI** — compiling, project scaffolding, deployment | ✅ Use this   |
+| `compactc` | The **Compact compiler** (standalone)                            | ⚠️ Deprecated |
 
 **In practice:**
 
-- Use `compactc` for direct single-file compilation: `compactc contract.compact`
-- Use `compact` for project management: `compact build`, `compact new`, etc.
+- Use `compact compile` for compilation: `compact compile contract.compact output/`
+- Use `compact` for project management: `compact new`, etc.
 
-> **Note:** The version numbers differ because they're released independently. For example, `compact 0.3.0` may use `compactc 0.24.0` internally.
+> ⚠️ **Important:** The standalone `compactc` command is deprecated. Always use `compact compile` instead.
 
-For the exercises in this book, we'll primarily use `compactc` for direct compilation.
+For the exercises in this book, we'll use `compact compile` for compilation.
 
 ## System Requirements
 
@@ -55,15 +55,19 @@ source ~/.zshrc  # or source ~/.bashrc
 After installation, verify that the tools are working:
 
 ```bash
-compact --version   # CLI version
-compactc --version  # Compiler version
+compact --version
 ```
 
 You should see output similar to:
 
 ```
 compact 0.3.0
-Compactc version: 0.24.0
+```
+
+Test compilation works:
+
+```bash
+compact compile --help
 ```
 
 ## Updating the Compiler

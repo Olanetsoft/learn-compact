@@ -95,24 +95,39 @@ Circuits are the functions of Compact. Key points:
 
 ## Compiling the Contract
 
-Compile your contract:
+Compile your contract using the `compact compile` command:
 
 ```bash
-compactc counter.compact
+compact compile counter.compact managed/counter
 ```
 
-If successful, you'll see output files generated:
+> ⚠️ **Note:** The older `compactc` command is deprecated. Always use `compact compile`.
 
-- `counter.cir` - The compiled circuit
-- `counter.ts` - TypeScript bindings
+If successful, you'll see a managed output directory structure created:
+
+```
+managed/counter/
+├── contract/           # TypeScript bindings
+│   ├── index.cjs       # JavaScript implementation
+│   └── index.d.cts     # TypeScript type definitions
+├── zkir/               # Circuit representations
+├── keys/               # Proving and verifying keys
+│   ├── proving-keys/
+│   └── verifying-keys/
+└── compiler/           # Compiler metadata
+```
 
 ## Understanding the Output
 
-The compiler generates TypeScript code that allows you to:
+The compiler generates a managed directory containing:
 
-1. Deploy the contract
-2. Call circuit functions
-3. Read ledger state
+1. **contract/** - TypeScript/JavaScript code to interact with the contract
+   - Deploy the contract
+   - Call circuit functions
+   - Read ledger state
+2. **zkir/** - Zero-knowledge intermediate representation of your circuits
+3. **keys/** - Cryptographic keys for proving and verification
+4. **compiler/** - Build metadata and artifacts
 
 ## Common First-Time Errors
 
