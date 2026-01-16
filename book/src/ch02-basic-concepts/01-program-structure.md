@@ -4,13 +4,13 @@ Every Compact program follows a consistent structure. Understanding this structu
 
 ## Basic Structure
 
-A typical Compact file has these sections in order:
+A typical Compact file has these sections:
 
 ```compact
-// 1. Pragma declaration
+// 1. Pragma declaration (required, must be first)
 pragma language_version >= 0.16 && <= 0.18;
 
-// 2. Imports
+// 2. Imports (must come after pragma)
 import CompactStandardLibrary;
 
 // 3. Type definitions (structs, enums)
@@ -38,38 +38,31 @@ pure circuit validate_age(age: Uint<8>): Boolean {
 }
 ```
 
-## File Organization
+> **Note:** The pragma must come first, followed by imports. Beyond that, the ordering of types, ledger, witnesses, and circuits is flexible—the order shown above is a **recommended convention** for readability, not a language requirement.
 
-While you can put everything in one file, larger projects benefit from splitting code across files:
+## Modules and Imports
 
-```
-contract/
-├── src/
-│   ├── main.compact       # Entry point with circuits
-│   ├── types.compact      # Struct and enum definitions
-│   └── helpers.compact    # Pure helper circuits
-```
-
-Use `include` to combine files:
+Compact supports modules for organizing code. You can import from modules using path syntax:
 
 ```compact
-include "types.compact";
-include "helpers.compact";
-
-// main.compact continues...
+import CompactStandardLibrary;
+import "mymodule/helpers";
 ```
+
+For details on modules and the `import` mechanism, see the [Modules chapter](../ch13-modules/index.md).
 
 ## Naming Conventions
 
-Compact follows these naming conventions:
+While Compact doesn't enforce naming conventions, following consistent patterns improves readability. The official examples use:
 
-| Element       | Convention           | Example                          |
-| ------------- | -------------------- | -------------------------------- |
-| Circuits      | snake_case           | `get_balance`, `transfer_funds`  |
-| Types         | PascalCase           | `Person`, `TokenInfo`            |
-| Ledger fields | snake_case           | `total_supply`, `user_balances`  |
-| Enum variants | PascalCase           | `Status.Active`                  |
-| Constants     | SCREAMING_SNAKE_CASE | (no constants yet, use literals) |
+| Element       | Common Pattern          | Example from Docs               |
+| ------------- | ----------------------- | ------------------------------- |
+| Circuits      | lowercase/snake_case    | `get`, `post`, `transfer_funds` |
+| Types         | PascalCase              | `Person`, `State`               |
+| Ledger fields | lowercase               | `authority`, `messages`         |
+| Enum variants | UPPERCASE or PascalCase | `State.UNSET`, `Status.Active`  |
+
+> **Note:** These are style suggestions based on examples in the docs, not official rules. Choose a consistent style for your project.
 
 ## Visibility
 
@@ -85,9 +78,11 @@ ledger internal_state: Field;
 circuit helper(): Field { }
 ```
 
+Exported circuits become entry points callable from TypeScript. Exported ledger fields are visible via the generated `ledger()` function.
+
 ## Key Points
 
-1. **Order matters** - Pragma first, then imports, then definitions
-2. **One declaration per line** - No block syntax for ledger
+1. **Pragma first, imports second** - These must come at the top in this order
+2. **One declaration per line** - No block syntax for ledger (e.g., no `ledger { }`)
 3. **Export consciously** - Only expose what needs to be public
-4. **Organize logically** - Group related code together
+4. **Organize logically** - Group related code together (recommended, not required)
