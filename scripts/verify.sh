@@ -19,12 +19,11 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-# Check if compactc is available
-if ! command -v compactc &> /dev/null; then
-    echo -e "${RED}Error: compactc compiler not found${NC}"
+# Check if compact CLI is available
+if ! command -v compact &> /dev/null; then
+    echo -e "${RED}Error: compact CLI not found${NC}"
     echo "Please install the Compact compiler first."
-    exit 1
-fi
+    exit 1i
 
 # Counters
 TOTAL=0
@@ -54,7 +53,7 @@ verify_exercise() {
     fi
     
     # Try to compile
-    if compactc "$exercise_path" > /dev/null 2>&1; then
+    if compact compile "$exercise_path" > /dev/null 2>&1; then
         echo -e "${GREEN}✅ $exercise_name - PASSED${NC}"
         PASSED=$((PASSED + 1))
     else

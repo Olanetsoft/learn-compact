@@ -100,4 +100,4 @@ console.log(`Balance: ${balance}`);
 
 ## Exercises
 
-Complete `exercises/03_circuits/02_parameters/` and `exercises/03_circuits/03_return_values/`.
+Complete [`exercises/03_circuits/02_parameters/`](https://github.com/Olanetsoft/learn-compact/tree/main/exercises/03_circuits/02_parameters) and [`exercises/03_circuits/03_return_values/`](https://github.com/Olanetsoft/learn-compact/tree/main/exercises/03_circuits/03_return_values).

@@ -93,4 +93,4 @@ The Compact compiler exports pure circuits via `pureCircuits` in the TypeScript 
 
 ## Exercises
 
-Complete `exercises/03_circuits/04_pure_circuits/`.
+Complete [`exercises/03_circuits/04_pure_circuits/`](https://github.com/Olanetsoft/learn-compact/tree/main/exercises/03_circuits/04_pure_circuits).

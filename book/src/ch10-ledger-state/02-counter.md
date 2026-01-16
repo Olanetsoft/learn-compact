@@ -73,7 +73,7 @@ console.log(`Counter: ${currentValue}`);
 
 ## Exercises
 
-Complete `exercises/10_ledger/02_counter/` to practice:
+Complete [`exercises/10_ledger/02_counter/`](https://github.com/Olanetsoft/learn-compact/tree/main/exercises/10_ledger/02_counter) to practice:
 
 1. Building a click counter
 2. Implementing a scoring system

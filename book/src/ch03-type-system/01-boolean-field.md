@@ -69,4 +69,4 @@ const amountAsField = amount as Field;
 
 ## Exercises
 
-Complete the exercises in `exercises/02_types/01_boolean/` and `exercises/02_types/04_field/`.
+Complete the exercises in [`exercises/02_types/01_boolean/`](https://github.com/Olanetsoft/learn-compact/tree/main/exercises/02_types/01_boolean) and [`exercises/02_types/04_field/`](https://github.com/Olanetsoft/learn-compact/tree/main/exercises/02_types/04_field).

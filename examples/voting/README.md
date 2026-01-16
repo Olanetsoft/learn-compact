@@ -25,7 +25,7 @@ A voting contract that uses the commit-reveal pattern to ensure fair, private vo
 ## Compile
 
 ```bash
-compactc contract.compact
+compact compile contract.compact
 ```
 
 ## Security Notes

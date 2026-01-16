@@ -95,7 +95,6 @@ Add this line to your `~/.bashrc` or `~/.zshrc` to make it permanent.
 If you encounter permission errors:
 
 ```bash
-chmod +x ~/.compact/bin/compactc
 chmod +x ~/.compact/bin/compact
 ```
 

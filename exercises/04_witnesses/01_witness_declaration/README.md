@@ -28,7 +28,7 @@ The actual implementation happens in TypeScript!
 ## Verify
 
 ```bash
-compactc exercise.compact
+compact compile exercise.compact
 ```
 
 ## Hints

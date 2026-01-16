@@ -28,7 +28,7 @@ Each exercise folder contains:
 1. Read the `README.md` for the exercise
 2. Open `exercise.compact`
 3. Complete the TODO sections
-4. Compile to verify: `compactc exercise.compact`
+4. Compile to verify: `compact compile exercise.compact`
 5. Fix any errors
 6. Move to the next exercise
 
@@ -36,7 +36,7 @@ Each exercise folder contains:
 
 ```bash
 # Compile a single exercise
-compactc exercises/01_basics/01_hello_compact/exercise.compact
+compact compile exercises/01_basics/01_hello_compact/exercise.compact
 
 # Run the verification script for all exercises
 ./scripts/verify.sh

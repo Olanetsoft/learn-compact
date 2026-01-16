@@ -64,7 +64,7 @@ cd exercises/01_basics/01_hello_compact
 # Read README.md
 # Edit exercise.compact
 # Compile to check your solution
-compactc exercise.compact
+compact compile exercise.compact
 ```
 
 ## 📚 Structure
@@ -95,7 +95,7 @@ learn-compact/
 2. **Open** the exercise folder
 3. **Read** the exercise README.md
 4. **Edit** exercise.compact to complete the TODOs
-5. **Compile** with `compactc exercise.compact`
+5. **Compile** with `compact compile exercise.compact`
 6. **Fix** any errors
 7. **Move** to the next exercise
 

@@ -22,7 +22,7 @@ See [contract.compact](./contract.compact) for the full implementation.
 ## Compile
 
 ```bash
-compactc contract.compact
+compact compile contract.compact
 ```
 
 ## Usage with TypeScript

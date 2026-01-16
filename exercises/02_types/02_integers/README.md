@@ -22,7 +22,7 @@ Compact has sized unsigned integers:
 ## Verify
 
 ```bash
-compactc exercise.compact
+compact compile exercise.compact
 ```
 
 ## Hints

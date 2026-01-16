@@ -20,7 +20,7 @@ export circuit name(param: Type): ReturnType {
 ## Verify
 
 ```bash
-compactc exercise.compact
+compact compile exercise.compact
 ```
 
 ## Hints

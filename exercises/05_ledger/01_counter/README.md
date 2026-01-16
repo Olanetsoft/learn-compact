@@ -22,5 +22,5 @@ Master the Counter ledger type and its operations.
 ## Verify
 
 ```bash
-compactc exercise.compact
+compact compile exercise.compact
 ```

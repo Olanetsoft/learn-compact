@@ -19,7 +19,7 @@ Practice writing pragma statements with different version constraints.
 ## Verify
 
 ```bash
-compactc exercise.compact
+compact compile exercise.compact
 ```
 
 ## Hints

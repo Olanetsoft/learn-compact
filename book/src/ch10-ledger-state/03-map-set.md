@@ -155,7 +155,7 @@ for (const [key, value] of contractState.balances) {
 
 ## Exercises
 
-Complete `exercises/10_ledger/03_map_set/` to practice:
+Complete [`exercises/10_ledger/03_map_set/`](https://github.com/Olanetsoft/learn-compact/tree/main/exercises/10_ledger/03_map_set) to practice:
 
 1. Creating a token balance map
 2. Implementing an allowlist with Set

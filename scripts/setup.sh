@@ -42,8 +42,8 @@ fi
 echo ""
 
 # Check Compact compiler
-if check_command compactc; then
-    echo "   Version: $(compactc --version 2>/dev/null || echo 'unknown')"
+if check_command compact; then
+    echo "   Version: $(compact --version 2>/dev/null || echo 'unknown')"
 else
     echo ""
     echo "To install the Compact compiler, run:"

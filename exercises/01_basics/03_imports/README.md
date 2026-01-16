@@ -18,7 +18,7 @@ Learn about importing modules in Compact.
 ## Verify
 
 ```bash
-compactc exercise.compact
+compact compile exercise.compact
 ```
 
 The Counter type declaration should work after the import.

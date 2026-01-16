@@ -12,7 +12,7 @@ The sized form specifies how many **bits** the integer can use:
 ledger value: Uint<64>;  // 64-bit unsigned integer
 ```
 
-| Type        | Bits | Range                | Use Case                         |
+| Type        | Bits | Range                | Use Case _(guidance)_            |
 | ----------- | ---- | -------------------- | -------------------------------- |
 | `Uint<8>`   | 8    | 0 to 255             | Small counters, enum-like values |
 | `Uint<16>`  | 16   | 0 to 65,535          | Medium values                    |
@@ -20,6 +20,8 @@ ledger value: Uint<64>;  // 64-bit unsigned integer
 | `Uint<64>`  | 64   | 0 to ~18 quintillion | Balances, amounts                |
 | `Uint<128>` | 128  | Very large           | High-precision values            |
 | `Uint<256>` | 256  | Extremely large      | Cryptographic values             |
+
+> **Note:** The "Use Case" column is guidance—the docs define the types and semantics, but don't prescribe these specific patterns.
 
 ### 2. Bounded Form: `Uint<0..n>`
 
@@ -83,9 +85,22 @@ According to the official docs:
 const diff = a - b;  // Fails if b is greater than a
 ```
 
-> ⚠️ **Note:** Division is NOT available in circuits. If you need division, compute it off-chain and pass the result as a witness.
+> ⚠️ **Note (unconfirmed):** The docs only list `+`, `-`, `*` as binary arithmetic operators. Division (`/`) is not mentioned. If you need division, compute it off-chain and pass the result as a witness.
 
 ## Comparison Operations
+
+Compact provides six relational operators:
+
+| Operator | Name                   |
+| -------- | ---------------------- |
+| `==`     | equals                 |
+| `!=`     | not equals             |
+| `<`      | less than              |
+| `>`      | greater than           |
+| `<=`     | less than or equals    |
+| `>=`     | greater than or equals |
+
+_Source: [Relational expressions](https://docs.midnight.network/develop/reference/compact/lang-ref#relational-expressions)_
 
 ```compact
 const a: Uint<32> = 100;
@@ -99,7 +114,11 @@ a < b   // false (less than)
 a <= b  // false (less or equal)
 ```
 
-## When to Use Which Form?
+> **Note:** The `<`, `>`, `<=`, `>=` operators require both operands to have unsigned integer types.
+
+## When to Use Which Form? _(guidance)_
+
+This table is **usage advice**, not from the docs. The docs only define the types and their semantics.
 
 | Use Case                         | Recommended Form     | Example         |
 | -------------------------------- | -------------------- | --------------- |
@@ -119,4 +138,4 @@ const big: Uint<64> = small as Uint<64>;
 
 ## Exercises
 
-Complete `exercises/02_types/02_integers/`.
+Complete [`exercises/02_types/02_integers/`](https://github.com/Olanetsoft/learn-compact/tree/main/exercises/02_types/02_integers).

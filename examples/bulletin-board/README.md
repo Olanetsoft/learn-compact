@@ -24,5 +24,5 @@ A privacy-preserving message board where users can post publicly visible message
 ## Compile
 
 ```bash
-compactc contract.compact
+compact compile contract.compact
 ```

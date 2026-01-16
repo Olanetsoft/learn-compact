@@ -78,4 +78,4 @@ Use witnesses for anything that should remain private.
 
 ## Exercises
 
-Complete `exercises/04_witnesses/01_witness_declaration/`.
+Complete [`exercises/04_witnesses/01_witness_declaration/`](https://github.com/Olanetsoft/learn-compact/tree/main/exercises/04_witnesses/01_witness_declaration).

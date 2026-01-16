@@ -94,4 +94,4 @@ ledger.insert(key, opaqueValue);
 
 ## Exercises
 
-Complete `exercises/02_types/03_bytes/`.
+Complete [`exercises/02_types/03_bytes/`](https://github.com/Olanetsoft/learn-compact/tree/main/exercises/02_types/03_bytes).

@@ -139,7 +139,7 @@ The compiler generates a managed directory containing:
 
 ## Exercises
 
-Complete the exercises in `exercises/01_basics/` to practice:
+Complete the exercises in [`exercises/01_basics/`](https://github.com/Olanetsoft/learn-compact/tree/main/exercises/01_basics) to practice:
 
 1. Writing pragma statements
 2. Importing the standard library

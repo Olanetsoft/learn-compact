@@ -19,7 +19,7 @@ Understand and work with Boolean values in Compact.
 ## Verify
 
 ```bash
-compactc exercise.compact
+compact compile exercise.compact
 ```
 
 ## Hints

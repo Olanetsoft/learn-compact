@@ -19,7 +19,7 @@ Create the minimal valid Compact program that compiles successfully.
 ## Verify
 
 ```bash
-compactc exercise.compact
+compact compile exercise.compact
 ```
 
 A successful compilation means you did it right!

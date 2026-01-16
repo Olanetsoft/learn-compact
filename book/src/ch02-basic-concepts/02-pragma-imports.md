@@ -107,4 +107,4 @@ export circuit increment(): [] {
 
 ## Exercises
 
-Practice pragma and import statements in `exercises/01_basics/02_pragma_imports/`.
+Practice pragma and import statements in [`exercises/01_basics/02_pragma_imports/`](https://github.com/Olanetsoft/learn-compact/tree/main/exercises/01_basics/02_pragma_imports).

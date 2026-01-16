@@ -39,7 +39,7 @@ jobs:
         with:
           node-version: "20"
 
-      # Note: In a real setup, you'd install compactc here
+      # Note: In a real setup, you'd install the compact CLI here
       # - name: Install Compact Compiler
       #   run: curl -fsSL https://get.midnight.network | bash
 

@@ -87,4 +87,4 @@ export circuit depositMinimum(): [] {
 
 ## Exercises
 
-Complete `exercises/03_circuits/01_basic_circuit/`.
+Complete [`exercises/03_circuits/01_basic_circuit/`](https://github.com/Olanetsoft/learn-compact/tree/main/exercises/03_circuits/01_basic_circuit).
