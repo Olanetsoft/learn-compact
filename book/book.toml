@@ -8,17 +8,27 @@ src = "src"
 [build]
 build-dir = "../docs"
 create-missing = true
+extra-watch-dirs = ["../examples"]
 
 [output.html]
 default-theme = "rust"
 preferred-dark-theme = "ayu"
 git-repository-url = "https://github.com/Olanetsoft/learn-compact"
+git-repository-icon = "fa-github"
 edit-url-template = "https://github.com/Olanetsoft/learn-compact/edit/main/book/{path}"
 site-url = "/learn-compact/"
 cname = ""
 additional-css = ["custom.css"]
 additional-js = []
 no-section-label = false
+smart-punctuation = true
+admonitions = true
+sidebar-header-nav = true
+input-404 = "404.md"
+
+[output.html.print]
+enable = true
+page-break = true
 
 [output.html.playground]
 editable = true
@@ -39,6 +49,12 @@ boost-hierarchy = 1
 boost-paragraph = 1
 expand = true
 heading-split-level = 3
+use-boolean-and = false
+copy-js = true
+
+[output.html.redirect]
+# Add redirects here if pages are moved/renamed
+# "/old-page.html" = "new-page.html"
 
 [preprocessor.links]
 
