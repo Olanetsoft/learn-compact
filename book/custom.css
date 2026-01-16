@@ -20,13 +20,7 @@ code {
    CODE BLOCKS
    ============================================ */
 
-/* Compact code highlighting */
-.language-compact,
-pre code {
-  background-color: #1e1e2e;
-  border-radius: 8px;
-}
-
+/* Base code block styles */
 pre {
   border-radius: 8px;
   padding: 1rem;
@@ -34,20 +28,51 @@ pre {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
+/* Light theme code blocks */
+.light pre,
+.rust pre {
+  background-color: #f6f8fa;
+  border: 1px solid #e1e4e8;
+}
+
+.light pre code,
+.rust pre code {
+  color: #24292e;
+}
+
+/* Dark theme code blocks */
+.ayu pre,
+.coal pre,
+.navy pre {
+  background-color: #1e1e2e;
+}
+
+.ayu pre code,
+.coal pre code,
+.navy pre code {
+  color: #cdd6f4;
+}
+
 /* Inline code */
 :not(pre) > code {
-  background-color: rgba(175, 184, 193, 0.2);
   padding: 0.2em 0.4em;
   border-radius: 4px;
   font-size: 0.875em;
 }
 
+/* Light theme inline code */
+.light :not(pre) > code,
+.rust :not(pre) > code {
+  background-color: rgba(175, 184, 193, 0.2);
+  color: #24292e;
+}
+
 /* Dark theme inline code */
-.rust code,
-.ayu code,
-.coal code,
-.navy code {
+.ayu :not(pre) > code,
+.coal :not(pre) > code,
+.navy :not(pre) > code {
   background-color: rgba(255, 255, 255, 0.1);
+  color: #cdd6f4;
 }
 
 /* ============================================
