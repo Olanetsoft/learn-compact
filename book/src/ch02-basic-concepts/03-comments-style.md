@@ -2,9 +2,11 @@
 
 Good code style makes your contracts readable and maintainable.
 
+> **Note:** The Compact language reference does not specify a formal style guide. The conventions in this chapter are **recommended practices for this tutorial**, based on patterns seen in official examples.
+
 ## Comments
 
-Compact supports single-line comments:
+Compact supports single-line comments using `//`:
 
 ```compact
 // This is a comment
@@ -14,8 +16,6 @@ export ledger counter: Counter; // Inline comment
 // Each line needs its own // prefix
 // Like this
 ```
-
-> **Note:** Block comments (`/* */`) are not supported in Compact.
 
 ### Documentation Comments
 
@@ -40,16 +40,18 @@ export circuit transfer(recipient: Bytes<32>, amount: Uint<64>): [] {
 // Use Poseidon hash for ZK-friendly public key derivation
 const publicKey = persistentHash<Bytes<32>>(secretKey);
 
-// ❌ Bad - just restates WHAT (the code is clear)
+// ❌ Avoid - just restates WHAT (the code is clear)
 // Increment counter by 1
 counter.increment(1);
 ```
 
 ## Code Formatting
 
+The following are **recommended conventions** for this tutorial, not official Compact requirements.
+
 ### Indentation
 
-Use 4 spaces for indentation (consistent with Midnight examples):
+We recommend 4 spaces for indentation:
 
 ```compact
 export circuit process(value: Uint<64>): Uint<64> {
@@ -63,7 +65,7 @@ export circuit process(value: Uint<64>): Uint<64> {
 
 ### Line Length
 
-Keep lines under 100 characters when possible:
+Keep lines readable—we suggest under 100 characters:
 
 ```compact
 // ✅ Good - readable
@@ -94,7 +96,7 @@ if(value>=threshold&&isActive){}
 
 ### Blank Lines
 
-Use blank lines to separate logical sections:
+Use blank lines to separate logical sections (this pattern is consistent with official examples):
 
 ```compact
 pragma language_version >= 0.16 && <= 0.18;
@@ -125,13 +127,15 @@ export circuit burn(from: Bytes<32>, amount: Uint<64>): [] {
 
 ## Style Summary
 
-| Element     | Style                 |
-| ----------- | --------------------- |
-| Comments    | `//` only, no `/* */` |
-| Indentation | 4 spaces              |
-| Line length | < 100 characters      |
-| Blank lines | Between sections      |
-| Operators   | Spaces around them    |
+These are **project conventions for learn-compact**, not official Compact rules:
+
+| Element     | Convention         |
+| ----------- | ------------------ |
+| Comments    | `//` single-line   |
+| Indentation | 4 spaces           |
+| Line length | < 100 characters   |
+| Blank lines | Between sections   |
+| Operators   | Spaces around them |
 
 ## Next Steps
 
