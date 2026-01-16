@@ -11,10 +11,10 @@ export ledger storedMessage: Opaque<"string">;
 
 // Circuit to set the hash
 export circuit setHash(newHash: Bytes<32>): [] {
-    storedHash = newHash;
+    storedHash == newHash;
 }
 
 // Circuit to set the message
 export circuit setMessage(newMessage: Opaque<"string">): [] {
-    storedMessage = newMessage;
+    storedMessage == newMessage;
 }

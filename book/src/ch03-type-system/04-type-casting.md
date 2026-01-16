@@ -20,29 +20,33 @@ The Compact docs define three kinds of casts:
 
 ## Official Casting Table
 
-Based on the Compact language reference:
+Based on the [Compact language reference](https://docs.midnight.network/develop/reference/compact/lang-ref#type-cast-expressions):
 
 | FROM → TO    | `Field`    | `Uint<0..n>` | `Boolean`  | `Bytes<n>` |
 | ------------ | ---------- | ------------ | ---------- | ---------- |
-| `Field`      | static     | checked      | conversion | conversion |
-| `Uint<0..m>` | static     | (see note)   | conversion | no         |
+| `Field`      | static     | checked      | 1          | 2          |
+| `Uint<0..m>` | static     | 3            | conversion | no         |
 | `enum type`  | conversion | no           | no         | no         |
-| `Boolean`    | conversion | conversion   | —          | no         |
-| `Bytes<m>`   | conversion | no           | no         | (see note) |
+| `Boolean`    | conversion | 4            | —          | no         |
+| `Bytes<m>`   | 5          | no           | no         | 6          |
+
+> **Note:** Numbers in the table refer to the notes below. `no` means the cast is not allowed.
 
 ### Important Notes
 
-1. **Field → Boolean:** `0` converts to `false`, all other values to `true`
+1. **Field → Boolean:** Conversion. `0` converts to `false`, all other values to `true`.
 
-2. **Field → Bytes\<n\>:** Converts to bytes (little-endian). Runtime error if value doesn't fit.
+2. **Field → Bytes\<n\>:** Conversion to little-endian bytes. **Runtime error if value doesn't fit in n bytes.**
 
-3. **Uint\<0..m\> → Uint\<0..n\>:** Static if `m ≤ n`, otherwise checked (fails if value > n)
+3. **Uint\<0..m\> → Uint\<0..n\>:** Static if `m ≤ n`, otherwise checked (**fails at runtime if value > n**).
 
-4. **Boolean → Uint\<0..n\>:** `false` → 0, `true` → 1. If `n` is 0, checked (fails on `true`)
+4. **Boolean → Uint\<0..n\>:** Conversion. `false` → 0, `true` → 1. If `n` is 0, checked (fails on `true`).
 
-5. **Bytes\<m\> → Field:** Little-endian conversion. Runtime error if exceeds max Field value.
+5. **Bytes\<m\> → Field:** Conversion from little-endian bytes. **Runtime error if result exceeds max Field value.**
 
-6. **Bytes\<m\> → Bytes\<n\>:** Only allowed if `m == n` (static cast)
+6. **Bytes\<m\> → Bytes\<n\>:** Only allowed if `m == n` (static cast).
+
+> ⚠️ **Important:** Casts marked with notes 2 and 5 can **fail at runtime** even though they're conversions.
 
 ## Common Conversions
 
@@ -68,6 +72,7 @@ const amountField: Field = amount as Field;  // Static cast
 ```compact
 const fieldValue: Field = 42;
 const bytes: Bytes<32> = fieldValue as Bytes<32>;  // Conversion (little-endian)
+// ⚠️ Runtime error if fieldValue doesn't fit in 32 bytes!
 ```
 
 ## ⚠️ Two-Step Casting
@@ -89,14 +94,19 @@ const bytes: Bytes<32> = (amount as Field) as Bytes<32>;
 ```compact
 const flag: Boolean = true;
 
-// Boolean to Field (conversion)
-const flagField: Field = flag as Field;  // true → 1, false → 0
-
-// Boolean to Uint (conversion)
+// Boolean to Uint (conversion - note 4)
 const flagInt: Uint<8> = flag as Uint<8>;  // true → 1, false → 0
 
 // Or use conditional for clarity
 const value: Uint<8> = flag ? 1 : 0;
+```
+
+> ⚠️ **Note:** `Boolean → Field` is **NOT** a valid cast in the official table. If you need a Field from a Boolean, go through Uint first:
+
+```compact
+const flag: Boolean = true;
+const flagInt: Uint<0..1> = flag as Uint<0..1>;  // Boolean → Uint (note 4)
+const flagField: Field = flagInt as Field;       // Uint → Field (static)
 ```
 
 ## Enum to Field
