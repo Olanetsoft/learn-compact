@@ -55,6 +55,8 @@ const percentage: Uint<0..100> = 75;  // Bounded: 0 to 100 inclusive
 
 ## Arithmetic Operations
 
+Compact supports three arithmetic operators for unsigned integers: `+`, `-`, `*`.
+
 ```compact
 const a: Uint<64> = 100;
 const b: Uint<64> = 50;
@@ -67,6 +69,18 @@ const diff = a - b;  // 50
 
 // Multiplication
 const product = a * b;  // 5000
+```
+
+### Important Behavior
+
+According to the official docs:
+
+- **Addition/Multiplication:** Cannot overflow—the result type automatically widens to accommodate the result
+- **Subtraction:** Causes a **runtime error** if the result would be negative (right operand > left operand)
+
+```compact
+// ⚠️ Runtime error if b > a!
+const diff = a - b;  // Fails if b is greater than a
 ```
 
 > ⚠️ **Note:** Division is NOT available in circuits. If you need division, compute it off-chain and pass the result as a witness.
