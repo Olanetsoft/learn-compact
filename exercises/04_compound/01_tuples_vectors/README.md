@@ -34,4 +34,9 @@ compact compile exercise.compact
 
 ## Solution
 
-When you're ready, check [`solutions/04_compound/01_tuples_vectors.compact`](https://github.com/Olanetsoft/learn-compact/blob/main/exercises/solutions/04_compound/01_tuples_vectors.compact)
+When you're ready, check the solutions:
+
+- **[Tuple-based solution](https://github.com/Olanetsoft/learn-compact/blob/main/exercises/solutions/04_compound/01_tuples_vectors.compact)** - Uses inline tuple types `[Uint<32>, Uint<32>]`
+- **[Struct-based alternative](https://github.com/Olanetsoft/learn-compact/blob/main/exercises/solutions/04_compound/01_tuples_vectors_struct_alternative.compact)** - Uses a `struct Coordinate { x: Uint<32>; y: Uint<32>; }` for named fields
+
+Both approaches are valid! The tuple version is more concise, while the struct version provides named fields (`coord.x` vs `coord[0]`).
