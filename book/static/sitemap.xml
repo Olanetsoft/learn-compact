@@ -1,112 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://olanetsoft.github.io/learn-compact/</loc>
+    <loc>https://learn-compact.netlify.app/</loc>
     <lastmod>2026-01-17</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://olanetsoft.github.io/learn-compact/ch00-introduction.html</loc>
+    <loc>https://learn-compact.netlify.app/ch00-introduction.html</loc>
     <lastmod>2026-01-17</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://olanetsoft.github.io/learn-compact/ch01-getting-started/index.html</loc>
+    <loc>https://learn-compact.netlify.app/ch01-getting-started/index.html</loc>
     <lastmod>2026-01-17</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://olanetsoft.github.io/learn-compact/ch01-getting-started/01-installation.html</loc>
+    <loc>https://learn-compact.netlify.app/ch01-getting-started/01-installation.html</loc>
     <lastmod>2026-01-17</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://olanetsoft.github.io/learn-compact/ch01-getting-started/02-environment.html</loc>
+    <loc>https://learn-compact.netlify.app/ch01-getting-started/02-environment.html</loc>
     <lastmod>2026-01-17</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://olanetsoft.github.io/learn-compact/ch01-getting-started/03-first-contract.html</loc>
+    <loc>https://learn-compact.netlify.app/ch01-getting-started/03-first-contract.html</loc>
     <lastmod>2026-01-17</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://olanetsoft.github.io/learn-compact/ch02-basic-concepts/index.html</loc>
+    <loc>https://learn-compact.netlify.app/ch02-basic-concepts/index.html</loc>
     <lastmod>2026-01-17</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://olanetsoft.github.io/learn-compact/ch03-type-system/index.html</loc>
+    <loc>https://learn-compact.netlify.app/ch03-type-system/index.html</loc>
     <lastmod>2026-01-17</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://olanetsoft.github.io/learn-compact/ch03-type-system/01-boolean-field.html</loc>
+    <loc>https://learn-compact.netlify.app/ch03-type-system/01-boolean-field.html</loc>
     <lastmod>2026-01-17</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://olanetsoft.github.io/learn-compact/ch03-type-system/02-unsigned-integers.html</loc>
+    <loc>https://learn-compact.netlify.app/ch03-type-system/02-unsigned-integers.html</loc>
     <lastmod>2026-01-17</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://olanetsoft.github.io/learn-compact/ch03-type-system/03-bytes-opaque.html</loc>
+    <loc>https://learn-compact.netlify.app/ch03-type-system/03-bytes-opaque.html</loc>
     <lastmod>2026-01-17</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://olanetsoft.github.io/learn-compact/ch03-type-system/04-type-casting.html</loc>
+    <loc>https://learn-compact.netlify.app/ch03-type-system/04-type-casting.html</loc>
     <lastmod>2026-01-17</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://olanetsoft.github.io/learn-compact/ch04-compound-types/index.html</loc>
+    <loc>https://learn-compact.netlify.app/ch04-compound-types/index.html</loc>
     <lastmod>2026-01-17</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://olanetsoft.github.io/learn-compact/ch04-compound-types/01-tuples-vectors.html</loc>
+    <loc>https://learn-compact.netlify.app/ch04-compound-types/01-tuples-vectors.html</loc>
     <lastmod>2026-01-17</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://olanetsoft.github.io/learn-compact/ch04-compound-types/02-maybe.html</loc>
+    <loc>https://learn-compact.netlify.app/ch04-compound-types/02-maybe.html</loc>
     <lastmod>2026-01-17</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://olanetsoft.github.io/learn-compact/ch04-compound-types/03-either.html</loc>
+    <loc>https://learn-compact.netlify.app/ch04-compound-types/03-either.html</loc>
     <lastmod>2026-01-17</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://olanetsoft.github.io/learn-compact/ch05-user-types/index.html</loc>
+    <loc>https://learn-compact.netlify.app/ch05-user-types/index.html</loc>
     <lastmod>2026-01-17</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://olanetsoft.github.io/learn-compact/ch06-circuits/index.html</loc>
+    <loc>https://learn-compact.netlify.app/ch06-circuits/index.html</loc>
     <lastmod>2026-01-17</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://olanetsoft.github.io/learn-compact/ch07-witnesses/index.html</loc>
+    <loc>https://learn-compact.netlify.app/ch07-witnesses/index.html</loc>
     <lastmod>2026-01-17</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://olanetsoft.github.io/learn-compact/ch10-ledger-state/index.html</loc>
+    <loc>https://learn-compact.netlify.app/ch10-ledger-state/index.html</loc>
     <lastmod>2026-01-17</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://olanetsoft.github.io/learn-compact/ch12-stdlib/index.html</loc>
+    <loc>https://learn-compact.netlify.app/ch12-stdlib/index.html</loc>
     <lastmod>2026-01-17</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://olanetsoft.github.io/learn-compact/ch15-typescript/index.html</loc>
+    <loc>https://learn-compact.netlify.app/ch15-typescript/index.html</loc>
     <lastmod>2026-01-17</lastmod>
     <priority>0.8</priority>
   </url>
