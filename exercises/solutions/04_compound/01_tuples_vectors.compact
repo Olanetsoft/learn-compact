@@ -17,7 +17,7 @@ export pure circuit getY(coord: [Uint<32>, Uint<32>]): Uint<32> {
 
 // Sums all elements in a Vector<5, Uint<8>>
 export pure circuit sumVector(v: Vector<5, Uint<8>>): Uint<16> {
-    return ((((v[0] as Uint<16>) + (v[1] as Uint<16>)) + (v[2] as Uint<16>)) + (v[3] as Uint<16>)) + (v[4] as Uint<16>);
+    return (((((v[0] as Uint<16>) + (v[1] as Uint<16>)) + (v[2] as Uint<16>)) + (v[3] as Uint<16>)) + (v[4] as Uint<16>)) as Uint<16>;
 }
 
 // Swaps x and y
