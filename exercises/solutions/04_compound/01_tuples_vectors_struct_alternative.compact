@@ -1,0 +1,39 @@
+pragma language_version >= 0.18.0;
+
+// Alternative solution using struct instead of tuple
+// This demonstrates how to create a named type for coordinates
+
+struct Coordinate {
+    x: Uint<32>;
+    y: Uint<32>;
+}
+
+// Creates a coordinate from x and y values
+export pure circuit createCoordinate(x: Uint<32>, y: Uint<32>): Coordinate {
+    return Coordinate { x, y };
+}
+
+// Extracts x from a coordinate
+export pure circuit getX(coord: Coordinate): Uint<32> {
+    return coord.x;
+}
+
+// Extracts y from a coordinate
+export pure circuit getY(coord: Coordinate): Uint<32> {
+    return coord.y;
+}
+
+// Sums all elements in a Vector<5, Uint<8>>
+// Note: This remains the same as Vector is a primitive type
+export pure circuit sumVector(v: Vector<5, Uint<8>>): Uint<16> {
+    return v[0] as Uint<16> 
+         + v[1] as Uint<16> 
+         + v[2] as Uint<16> 
+         + v[3] as Uint<16> 
+         + v[4] as Uint<16>;
+}
+
+// Swaps x and y
+export pure circuit swapCoordinate(coord: Coordinate): Coordinate {
+    return Coordinate { x: coord.y, y: coord.x };
+}

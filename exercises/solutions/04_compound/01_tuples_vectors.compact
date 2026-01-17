@@ -1,20 +1,17 @@
 pragma language_version >= 0.18.0;
 
-// Type alias for a coordinate tuple
-type Coordinate = [Uint<32>, Uint<32>];
-
 // Creates a coordinate tuple from x and y values
-export pure circuit createCoordinate(x: Uint<32>, y: Uint<32>): Coordinate {
+export pure circuit createCoordinate(x: Uint<32>, y: Uint<32>): [Uint<32>, Uint<32>] {
     return [x, y];
 }
 
 // Extracts x (first element) from a coordinate
-export pure circuit getX(coord: Coordinate): Uint<32> {
+export pure circuit getX(coord: [Uint<32>, Uint<32>]): Uint<32> {
     return coord[0];
 }
 
 // Extracts y (second element) from a coordinate
-export pure circuit getY(coord: Coordinate): Uint<32> {
+export pure circuit getY(coord: [Uint<32>, Uint<32>]): Uint<32> {
     return coord[1];
 }
 
@@ -28,6 +25,6 @@ export pure circuit sumVector(v: Vector<5, Uint<8>>): Uint<16> {
 }
 
 // Swaps x and y
-export pure circuit swapCoordinate(coord: Coordinate): Coordinate {
+export pure circuit swapCoordinate(coord: [Uint<32>, Uint<32>]): [Uint<32>, Uint<32>] {
     return [coord[1], coord[0]];
 }

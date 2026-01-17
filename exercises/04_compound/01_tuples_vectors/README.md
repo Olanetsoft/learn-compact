@@ -12,17 +12,19 @@ In this exercise, you'll practice:
 
 Complete the contract in `exercise.compact`:
 
-1. **Define a tuple type alias** `Coordinate` for `[Uint<32>, Uint<32>]`
-2. **Implement `createCoordinate`** - returns a tuple from x and y values
-3. **Implement `getX`** - extracts the first element from a coordinate
-4. **Implement `getY`** - extracts the second element from a coordinate
-5. **Implement `sumVector`** - sums all elements in a `Vector<5, Uint<8>>`
-6. **Implement `swapCoordinate`** - returns `[y, x]` from input `[x, y]`
+1. **Implement `createCoordinate`** - returns a tuple `[Uint<32>, Uint<32>]` from x and y values
+2. **Implement `getX`** - extracts the first element from a coordinate tuple
+3. **Implement `getY`** - extracts the second element from a coordinate tuple
+4. **Implement `sumVector`** - sums all elements in a `Vector<5, Uint<8>>`
+5. **Implement `swapCoordinate`** - returns `[y, x]` from input `[x, y]`
+
+> **Note:** Compact does not support type aliases. Use inline tuple types like `[Uint<32>, Uint<32>]`.
 
 ## Hints
 
 - Tuple access: `tuple[0]`, `tuple[1]`
 - Vector elements accessed the same way as tuples
+- Tuples and vectors are written inline (no type aliases)
 
 ## Running the Exercise
 
