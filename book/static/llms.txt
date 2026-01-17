@@ -1,0 +1,70 @@
+# Learn Compact - LLM Context
+
+> The definitive guide to learning Compact, Midnight's zero-knowledge smart contract language
+
+## What is this site?
+
+Learn Compact is an educational resource teaching the Compact programming language for the Midnight blockchain. It follows the style of "The Rust Programming Language" book and Rustlings exercises.
+
+## Key Topics
+
+- **Compact Language**: Domain-specific language for zero-knowledge smart contracts
+- **Midnight Blockchain**: Data-protection blockchain using ZK cryptography
+- **Zero-Knowledge Proofs**: Cryptographic proofs that reveal nothing beyond validity
+
+## Content Structure
+
+- `/ch00-introduction.html` - Overview of Compact and Midnight
+- `/ch01-getting-started/` - Installation and first contract
+- `/ch02-basic-concepts/` - Program structure, pragma, imports
+- `/ch03-type-system/` - Primitive types (Boolean, Field, Uint, Bytes)
+- `/ch04-compound-types/` - Composite types (Tuples, Vectors, Maybe, Either)
+- `/ch05-user-types/` - Structs, Enums, Generics
+- `/ch06-circuits/` - Circuit declarations and pure circuits
+- `/ch07-witnesses/` - Private inputs from TypeScript
+- `/ch08-control-flow/` - Conditionals, loops, assertions
+- `/ch09-expressions/` - Operators and expressions
+- `/ch10-ledger-state/` - On-chain state management
+- `/ch11-disclosure/` - The disclose() function
+- `/ch12-stdlib/` - Standard library functions
+- `/ch13-modules/` - Code organization
+- `/ch14-constructors/` - Contract initialization
+- `/ch15-typescript/` - TypeScript integration
+
+## Compact Language Quick Reference
+
+### Primitive Types
+- `Boolean` - true/false
+- `Field` - ~254-bit integer (ZK native)
+- `Uint<n>` - Unsigned integer with n bits (1-256)
+- `Bytes<n>` - Fixed-length byte array
+
+### Composite Types
+- `[T1, T2, ...]` - Tuple (heterogeneous)
+- `Vector<n, T>` - Homogeneous tuple shorthand
+- `Maybe<T>` - Optional value (isSome, value)
+- `Either<A, B>` - Disjoint union (isLeft, left, right)
+
+### Circuit Declaration
+```compact
+export circuit name(param: Type): ReturnType {
+    // body
+}
+```
+
+### Ledger State
+```compact
+ledger {
+    counter: Counter;
+    data: Map<Bytes<32>, Uint<64>>;
+}
+```
+
+## Official Documentation
+
+- Midnight Docs: https://docs.midnight.network
+- Compact Language Reference: https://docs.midnight.network/develop/reference/compact/lang-ref
+
+## Source Repository
+
+https://github.com/Olanetsoft/learn-compact

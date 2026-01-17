@@ -1,0 +1,9 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://olanetsoft.github.io/learn-compact/sitemap.xml
+
+# Crawl-delay for politeness
+Crawl-delay: 1
