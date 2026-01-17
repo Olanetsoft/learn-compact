@@ -26,7 +26,7 @@ export pure circuit unwrapOr(
 // Returns some(id * 100) if id > 0, otherwise none()
 export pure circuit findById(id: Uint<32>): Maybe<Uint<64>> {
     if (id > 0) {
-        return some((id as Uint<64>) * 100);
+        return some<Uint<64>>(((id as Uint<64>) * 100) as Uint<64>);
     }
     return none<Uint<64>>();
 }
@@ -34,7 +34,7 @@ export pure circuit findById(id: Uint<32>): Maybe<Uint<64>> {
 // Doubles value if present, otherwise none()
 export pure circuit doubleIfPresent(opt: Maybe<Uint<64>>): Maybe<Uint<64>> {
     if (opt.isSome) {
-        return some(opt.value * 2);
+        return some<Uint<64>>((opt.value * 2) as Uint<64>);
     }
     return none<Uint<64>>();
 }
