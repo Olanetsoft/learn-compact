@@ -19,9 +19,10 @@ export pure circuit getY(coord: [Uint<32>, Uint<32>]): Uint<32> {
 }
 
 // TODO: Implement sumVector - sums all elements in a Vector<5, Uint<8>>
-export pure circuit sumVector(v: Vector<5, Uint<8>>): Uint<16> {
+// Note: Returns Uint<19> because Compact tracks worst-case bounds for arithmetic
+export pure circuit sumVector(v: Vector<5, Uint<8>>): Uint<19> {
     // Sum all 5 elements and return
-    // Note: Cast to Uint<16> to avoid overflow
+    // Cast each element to Uint<19> before adding
 }
 
 // TODO: Implement swapCoordinate - swaps x and y

@@ -24,9 +24,9 @@ export pure circuit getY(coord: Coordinate): Uint<32> {
 }
 
 // Sums all elements in a Vector<5, Uint<8>>
-// Note: This remains the same as Vector is a primitive type
-export pure circuit sumVector(v: Vector<5, Uint<8>>): Uint<16> {
-    return (((((v[0] as Uint<16>) + (v[1] as Uint<16>)) + (v[2] as Uint<16>)) + (v[3] as Uint<16>)) + (v[4] as Uint<16>)) as Uint<16>;
+// Note: Returns Uint<19> because compiler tracks worst-case bounds for arithmetic
+export pure circuit sumVector(v: Vector<5, Uint<8>>): Uint<19> {
+    return (v[0] as Uint<19>) + (v[1] as Uint<19>) + (v[2] as Uint<19>) + (v[3] as Uint<19>) + (v[4] as Uint<19>);
 }
 
 // Swaps x and y
