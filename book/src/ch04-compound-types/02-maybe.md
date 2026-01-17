@@ -43,29 +43,9 @@ export circuit processOptional(opt: Maybe<Uint<64>>): Uint<64> {
 
 ## Common Use Cases
 
-### Map Lookups
-
-The most common source of `Maybe` values is `Map.lookup()`:
-
-```compact
-ledger {
-    balances: Map<Bytes<32>, Uint<64>>;
-}
-
-export circuit getBalance(address: Bytes<32>): Uint<64> {
-    const result = balances.lookup(address);
-    if (result.isSome) {
-        return result.value;
-    }
-    return 0;
-}
-```
-
-_Source: [Map operations](https://docs.midnight.network/develop/reference/compact/compact-std-library#map)_
-
 ### Optional Parameters
 
-Use `Maybe` for optional function parameters:
+Use `Maybe` for optional circuit parameters:
 
 ```compact
 export circuit transfer(
@@ -78,6 +58,20 @@ export circuit transfer(
     if (memo.isSome) {
         // Process the memo
     }
+}
+```
+
+### Optional Return Values
+
+Use `Maybe` when a circuit might not have a meaningful result:
+
+```compact
+export circuit findValue(id: Uint<32>): Maybe<Uint<64>> {
+    // Return some(value) if found, none<Uint<64>>() if not
+    if (id == 0) {
+        return none<Uint<64>>();
+    }
+    return some(id as Uint<64> * 100);
 }
 ```
 
