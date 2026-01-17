@@ -1,6 +1,6 @@
 # Generic Types
 
-Generic types let you write reusable type definitions that work with multiple concrete types. Compact supports generics for structs and type aliases.
+Generic types let you write reusable type definitions that work with multiple concrete types. Compact supports generics for structs and circuits.
 
 _Source: [User-defined types](https://docs.midnight.network/develop/reference/compact/lang-ref#user-defined-types)_
 
@@ -56,6 +56,8 @@ struct KeyValue<K, V> {
 }
 ```
 
+_Source: [User-defined types](https://docs.midnight.network/develop/reference/compact/lang-ref#user-defined-types)_
+
 ## Size Parameters
 
 In addition to type parameters, generics can have **size parameters** for specifying numeric values like array lengths. Size parameters are prefixed with `#`:
@@ -71,6 +73,8 @@ struct Matrix<#Rows, #Cols, T> {
     data: Vector<Rows, Vector<Cols, T>>
 }
 ```
+
+_Source: [Primitive types](https://docs.midnight.network/develop/reference/compact/lang-ref#primitive-types)_
 
 ### Using Size Parameters
 
@@ -88,29 +92,7 @@ export pure circuit createBuffer(): Buffer<64> {
 }
 ```
 
-## Generic Type Aliases
-
-Both `type` and `new type` aliases can be generic:
-
-```compact
-// Generic structural alias
-type Pair<T> = [T, T];
-type VecOf<#N, T> = Vector<N, T>;
-
-// Generic nominal alias
-new type Id<T> = Bytes<32>;
-new type FixedVec<#N, T> = Vector<N, T>;
-```
-
-### Using Generic Aliases
-
-```compact
-type Pair<T> = [T, T];
-
-export pure circuit swapPair(p: Pair<Field>): Pair<Field> {
-    return [p[1], p[0]];
-}
-```
+_Source: [Structure creation](https://docs.midnight.network/develop/reference/compact/lang-ref#structure-creation)_
 
 ## Standard Library Generics
 
@@ -135,6 +117,8 @@ export pure circuit makeEither(flag: Boolean, val: Field): Either<Field, Uint<64
 }
 ```
 
+_Source: [Standard library structs](https://docs.midnight.network/develop/reference/compact/compact-std-library/exports#structs), [Standard library circuits](https://docs.midnight.network/develop/reference/compact/compact-std-library/exports#circuits)_
+
 ## Generic Circuits
 
 Circuits can also be generic:
@@ -156,41 +140,28 @@ export pure circuit example(): Field {
 }
 ```
 
+_Source: [Generic parameter references](https://docs.midnight.network/develop/reference/compact/lang-ref#generic-parameter-references), [Circuit and witness calls](https://docs.midnight.network/develop/reference/compact/lang-ref#circuit-and-witness-calls)_
+
 ## Constraints and Limitations
 
 ### Type Parameter Bounds
 
 Compact doesn't support trait bounds or type constraints like some languages. Any type can be used as a type argument.
 
-### No Inference for Struct Creation
+### Generic Structs Must Be Fully Specialized
 
-When creating generic struct instances, you often need to specify types explicitly:
+When using a generic struct as a type or in structure creation, all type and size parameters must be provided:
 
 ```compact
 struct Box<T> {
     value: T
 }
 
-// May need explicit type
+// All type arguments must be specified
 const b: Box<Field> = Box<Field> { value: 42 };
 ```
 
-### Size Parameters Must Be Literals
-
-Size parameters must be compile-time constants:
-
-```compact
-struct Buffer<#N> {
-    data: Bytes<N>
-}
-
-// ✅ OK - literal size
-const b1: Buffer<32> = ...;
-
-// ❌ ERROR - runtime value not allowed
-// const size = 32;
-// const b2: Buffer<size> = ...;
-```
+_Source: [User-defined types](https://docs.midnight.network/develop/reference/compact/lang-ref#user-defined-types), [Structure creation](https://docs.midnight.network/develop/reference/compact/lang-ref#structure-creation)_
 
 ## Nested Generics
 
@@ -201,8 +172,6 @@ struct Node<T> {
     value: T,
     children: Vector<2, Maybe<T>>
 }
-
-type NestedPair<T> = [Pair<T>, Pair<T>];
 
 struct MapEntry<K, V> {
     key: K,
@@ -221,18 +190,13 @@ struct Entry<V> {
 }
 
 export ledger entries: Map<Bytes<32>, Entry<Uint<64>>>;
-
-export circuit addEntry(key: Bytes<32>, value: Uint<64>, time: Uint<64>): [] {
-    entries.insert(disclose(key), Entry<Uint<64>> {
-        value: disclose(value),
-        timestamp: disclose(time)
-    });
-}
 ```
+
+_Source: [Declaring public state](https://docs.midnight.network/develop/reference/compact/lang-ref#declaring-and-maintaining-public-state)_
 
 ## TypeScript Representation
 
-Generic types map to TypeScript generics:
+Generic structs map to TypeScript generics:
 
 ```typescript
 // Compact
@@ -246,52 +210,9 @@ interface Pair<A, B> {
     first: A;
     second: B;
 }
-
-// Compact with size parameter
-struct Buffer<#N> {
-    data: Bytes<N>
-}
-
-// TypeScript - size becomes a type parameter
-interface Buffer<N extends number> {
-    data: Uint8Array;
-}
 ```
 
-## Best Practices
-
-### Use Meaningful Parameter Names
-
-```compact
-// ✅ Good - descriptive names
-struct KeyValue<Key, Value> { ... }
-struct Result<Success, Error> { ... }
-
-// ❌ Avoid - single letters are less clear
-struct KV<K, V> { ... }
-```
-
-### Document Generic Constraints
-
-```compact
-// Document expected usage in comments
-// T should be a numeric type (Uint or Field)
-struct NumericPair<T> {
-    a: T,
-    b: T
-}
-```
-
-### Prefer Simpler Types When Possible
-
-```compact
-// If you always use the same type, don't make it generic
-// ❌ Over-engineered
-struct UserBalance<T> { balance: T }
-
-// ✅ Simple and clear
-struct UserBalance { balance: Uint<64> }
-```
+_Source: [Representations in TypeScript](https://docs.midnight.network/develop/reference/compact/lang-ref#representations-in-typescript)_
 
 ## Complete Example
 
@@ -359,4 +280,4 @@ export pure circuit example(): Result<Uint<64>, Uint<8>> {
 
 ## Exercises
 
-Complete [`exercises/05_user_types/04_generics/`](https://github.com/Olanetsoft/learn-compact/tree/main/exercises/05_user_types/04_generics).
+Complete [`exercises/05_user_types/03_generics/`](https://github.com/Olanetsoft/learn-compact/tree/main/exercises/05_user_types/03_generics).
