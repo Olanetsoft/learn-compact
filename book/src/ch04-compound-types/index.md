@@ -61,7 +61,6 @@ struct ContractAddress { bytes: Bytes<32>; }
 To use these, import the standard library:
 
 ```compact
-pragma language_version >= 0.18.0;
 import CompactStandardLibrary;
 ```
 

@@ -24,8 +24,8 @@ export pure circuit sumVector(v: Vector<5, Uint<8>>): Uint<16> {
     // Note: Cast to Uint<16> to avoid overflow
 }
 
-// TODO: Implement swapCoordinate - swaps x and y using destructuring
+// TODO: Implement swapCoordinate - swaps x and y
 export pure circuit swapCoordinate(coord: Coordinate): Coordinate {
-    // Use destructuring: const [a, b] = coord;
-    // Return [b, a]
+    // Extract elements using index access and return swapped
+    // Return [y, x]
 }

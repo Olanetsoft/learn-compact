@@ -28,6 +28,8 @@ export circuit doSomething(): [] {
 }
 ```
 
+_Source: [Writing a contract](https://docs.midnight.network/develop/reference/compact/writing#the-circuit-definitions)_
+
 ### Tuple Element Access
 
 Access tuple elements using bracket notation with a numeric literal:
@@ -41,23 +43,6 @@ const second = pair[1];  // true
 > **Note:** The index must be a numeric literal known at compile time.
 
 _Source: [Element and member access expressions](https://docs.midnight.network/develop/reference/compact/lang-ref#element-and-member-access-expressions)_
-
-### Tuple Destructuring
-
-You can destructure tuples in `const` bindings:
-
-```compact
-const pair: [Uint<64>, Boolean] = [100, true];
-const [amount, flag] = pair;
-// amount = 100, flag = true
-```
-
-You can skip elements by omitting identifiers:
-
-```compact
-const triple: [Uint<64>, Boolean, Field] = [100, true, 42];
-const [amount, , fieldVal] = triple;  // Skip the boolean
-```
 
 ### Default Values
 
@@ -88,27 +73,24 @@ const flags: Vector<3, Boolean> = [true, false, true];
 
 ### Vector Element Access
 
-Same as tuples—use bracket notation:
+Same as tuples—use bracket notation with a numeric literal:
 
 ```compact
 const nums: Vector<5, Uint<8>> = [1, 2, 3, 4, 5];
 const third = nums[2];  // 3
 ```
 
-With constant folding, you can use expressions that evaluate to constants:
+_Source: [Element and member access expressions](https://docs.midnight.network/develop/reference/compact/lang-ref#element-and-member-access-expressions)_
 
-```compact
-export circuit foo(v: Vector<10, Uint<8>>): Uint<8> {
-    const i = 4;
-    return v[2 * i];  // v[8] after constant folding
-}
-```
+### Vectors and Tuples Subtyping
 
-_Source: [Release notes 0.18](https://docs.midnight.network/develop/relnotes/compact/minokawa-0-18-26-0)_
+The relationship between vectors and tuples follows these rules:
 
-### Vectors vs Tuples Subtyping
+- A tuple type `[T, ...]` has a vector type `Vector<n, S>` when a least upper bound `S` exists for all element types
+- When a tuple has a vector type, the tuple is a **subtype** of that vector type
+- A vector type `Vector<n, T>` is a **subtype** of a tuple type `[S, ...]` of length `n` if `T` is a subtype of each `S`
 
-A vector `Vector<n, T>` is a **subtype** of a tuple `[T, T, ...]` of length `n`. This means a vector can be passed where a tuple is expected:
+This means a vector can be passed where a compatible tuple is expected:
 
 ```compact
 pure circuit processPair(p: [Uint<8>, Uint<8>]): Uint<16> {
@@ -117,29 +99,15 @@ pure circuit processPair(p: [Uint<8>, Uint<8>]): Uint<16> {
 
 export circuit example(): Uint<16> {
     const v: Vector<2, Uint<8>> = [10, 20];
-    return processPair(v);  // ✅ Vector passed as tuple
+    return processPair(v);  // Vector passed as tuple
 }
 ```
 
 _Source: [Subtyping and least upper bounds](https://docs.midnight.network/develop/reference/compact/lang-ref#subtyping-and-least-upper-bounds)_
 
-### Bytes ↔ Vector Casting
-
-Since Compact 0.17, you can cast between `Bytes<n>` and `Vector<n, Uint<8>>`:
-
-```compact
-const bytes: Bytes<4> = "test";
-const vec: Vector<4, Uint<8>> = bytes as Vector<4, Uint<8>>;
-
-const vec2: Vector<3, Uint<8>> = [65, 66, 67];
-const bytes2: Bytes<3> = vec2 as Bytes<3>;
-```
-
-_Source: [Release notes 0.17](https://docs.midnight.network/develop/relnotes/compact/compact-0-17-25-0)_
-
 ## TypeScript Representation
 
-Both tuples and vectors are represented as JavaScript arrays in TypeScript:
+Both tuples and vectors are represented as TypeScript tuples or arrays:
 
 ```typescript
 // Compact: [Uint<64>, Boolean]
