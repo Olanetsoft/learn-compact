@@ -32,6 +32,8 @@ const state = GameState.waiting;
 const dir = Direction.north;
 ```
 
+_Source: [User-defined types](https://docs.midnight.network/develop/reference/compact/lang-ref#user-defined-types)_
+
 > ⚠️ **Critical:** Use dot notation (`GameState.waiting`), NOT Rust-style double colon (`GameState::waiting`).
 >
 > ```compact
@@ -57,6 +59,8 @@ export pure circuit notRejected(status: Status): Boolean {
     return status != Status.rejected;
 }
 ```
+
+_Source: [Writing a contract](https://docs.midnight.network/develop/reference/compact/writing#the-circuit-definitions)_
 
 ## Enums in Control Flow
 
@@ -103,17 +107,9 @@ Enums can be stored directly in ledger fields:
 enum ContractState { initialized, active, paused, terminated }
 
 export ledger state: ContractState;
-
-export circuit pause(): [] {
-    assert(state == ContractState.active, "Can only pause active contract");
-    state = ContractState.paused;
-}
-
-export circuit resume(): [] {
-    assert(state == ContractState.paused, "Can only resume paused contract");
-    state = ContractState.active;
-}
 ```
+
+_Source: [Declaring public state](https://docs.midnight.network/develop/reference/compact/lang-ref#declaring-and-maintaining-public-state)_
 
 ## Enums in Structs
 
@@ -130,36 +126,24 @@ struct Order {
 }
 
 export ledger orders: Map<Uint<64>, Order>;
-
-export circuit updateOrderStatus(orderId: Uint<64>, newStatus: OrderStatus): [] {
-    const order = orders.lookup(disclose(orderId));
-    orders.insert(disclose(orderId), Order {
-        orderId: order.orderId,
-        customerId: order.customerId,
-        amount: order.amount,
-        status: disclose(newStatus)
-    });
-}
 ```
 
-## Casting Enums
+_Source: [User-defined types](https://docs.midnight.network/develop/reference/compact/lang-ref#user-defined-types)_
 
-Enums can be cast to numeric types and vice versa:
+## Casting Enums to Field
+
+Enums can be cast to `Field` type:
 
 ```compact
 enum Choice { rock, paper, scissors }
 
-// Enum to number (by variant index: rock=0, paper=1, scissors=2)
-const choiceNum = Choice.paper as Uint<8>;  // 1
-
-// Number to enum
-const numVal: Uint<8> = 2;
-const choice = numVal as Choice;  // Choice.scissors
+// Enum to Field (by variant index: rock=0, paper=1, scissors=2)
+const choiceField = Choice.paper as Field;  // 1
 ```
 
-> ⚠️ **Warning:** Casting an out-of-range number to an enum may cause runtime errors.
+> ⚠️ **Note:** Casting to `Uint<n>` or from integers back to enums is **not supported**. Only `enum → Field` is a valid cast.
 
-_Source: [Type casting](https://docs.midnight.network/develop/reference/compact/lang-ref#type-casting)_
+_Source: [Type casts](https://docs.midnight.network/develop/reference/compact/lang-ref#type-cast-expressions)_
 
 ## Exporting Enums
 
@@ -173,11 +157,11 @@ export enum GameState { waiting, playing, finished }
 enum InternalState { a, b, c }
 ```
 
-_Source: [Representations in TypeScript](https://docs.midnight.network/develop/reference/compact/lang-ref#representations-in-typescript)_
+_Source: [Top-level exports](https://docs.midnight.network/develop/reference/compact/lang-ref#top-level-exports)_
 
 ## TypeScript Representation
 
-Exported enums become TypeScript union types or enums:
+Enum values are represented as numbers at runtime in JavaScript/TypeScript:
 
 ```typescript
 // Compact
@@ -187,38 +171,30 @@ export enum GameState {
   finished,
 }
 
-// TypeScript (generated) - typically as a union or enum
-type GameState = "waiting" | "playing" | "finished";
-// or
-enum GameState {
-  waiting = 0,
-  playing = 1,
-  finished = 2,
-}
+// TypeScript runtime representation - numeric values
+// waiting = 0, playing = 1, finished = 2
 ```
 
-## Enum Naming Conventions
-
-- Enum type names use **PascalCase**: `GameState`, `OrderStatus`, `Direction`
-- Variant names use **camelCase** or **snake_case**: `waiting`, `in_progress`
+_Source: [Contract constructor](https://docs.midnight.network/develop/reference/compact/lang-ref#contract-constructor)_
 
 ## Common Patterns
 
 ### State Machine
+
+Enums are ideal for representing state machines:
 
 ```compact
 enum AuctionState { open, closed, finalized }
 
 export ledger auctionState: AuctionState;
 
-export circuit closeAuction(): [] {
-    assert(auctionState == AuctionState.open, "Auction not open");
-    auctionState = AuctionState.closed;
+// Check state in pure circuits
+export pure circuit isOpen(state: AuctionState): Boolean {
+    return state == AuctionState.open;
 }
 
-export circuit finalizeAuction(): [] {
-    assert(auctionState == AuctionState.closed, "Auction not closed");
-    auctionState = AuctionState.finalized;
+export pure circuit isClosed(state: AuctionState): Boolean {
+    return state == AuctionState.closed;
 }
 ```
 
@@ -233,21 +209,14 @@ struct Ballot {
 }
 
 export ledger ballots: Map<Bytes<32>, Ballot>;
-export ledger yesCount: Counter;
-export ledger noCount: Counter;
 
-export circuit castVote(voter: Bytes<32>, choice: Vote): [] {
-    ballots.insert(disclose(voter), Ballot {
-        voter: disclose(voter),
-        choice: disclose(choice)
-    });
+// Pure circuit to check vote
+export pure circuit isYesVote(vote: Vote): Boolean {
+    return vote == Vote.yes;
+}
 
-    if (disclose(choice == Vote.yes)) {
-        yesCount.increment(1);
-    }
-    if (disclose(choice == Vote.no)) {
-        noCount.increment(1);
-    }
+export pure circuit isNoVote(vote: Vote): Boolean {
+    return vote == Vote.no;
 }
 ```
 
@@ -255,8 +224,6 @@ export circuit castVote(voter: Bytes<32>, choice: Vote): [] {
 
 ```compact
 pragma language_version >= 0.18.0;
-
-import CompactStandardLibrary;
 
 // Game states
 export enum GamePhase { setup, betting, reveal, payout }
@@ -266,8 +233,6 @@ export enum Choice { rock, paper, scissors }
 
 // Game result
 export enum Result { player1Wins, player2Wins, draw }
-
-export ledger phase: GamePhase;
 
 // Determine winner based on choices
 export pure circuit determineWinner(p1: Choice, p2: Choice): Result {
@@ -299,19 +264,13 @@ export pure circuit determineWinner(p1: Choice, p2: Choice): Result {
     return Result.player2Wins;
 }
 
-// Advance game phase
-export circuit advancePhase(): [] {
-    if (phase == GamePhase.setup) {
-        phase = GamePhase.betting;
-    } else {
-        if (phase == GamePhase.betting) {
-            phase = GamePhase.reveal;
-        } else {
-            if (phase == GamePhase.reveal) {
-                phase = GamePhase.payout;
-            }
-        }
-    }
+// Check if game is in specific phase
+export pure circuit isSetupPhase(phase: GamePhase): Boolean {
+    return phase == GamePhase.setup;
+}
+
+export pure circuit isBettingPhase(phase: GamePhase): Boolean {
+    return phase == GamePhase.betting;
 }
 ```
 
