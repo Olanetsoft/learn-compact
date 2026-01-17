@@ -1,5 +1,7 @@
 pragma language_version >= 0.18.0;
 
+import CompactStandardLibrary;
+
 // Alternative solution using struct instead of tuple
 // This demonstrates how to create a named type for coordinates
 

@@ -1,5 +1,7 @@
 pragma language_version >= 0.18.0;
 
+import CompactStandardLibrary;
+
 // TODO: Implement createSome - wraps a value in Maybe
 export pure circuit createSome(value: Uint<64>): Maybe<Uint<64>> {
     // Return some(value)

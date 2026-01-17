@@ -1,5 +1,7 @@
 pragma language_version >= 0.18.0;
 
+import CompactStandardLibrary;
+
 // Either<A, B>: Left = error (A), Right = success (B)
 // For this exercise: Either<Uint<8>, Uint<64>>
 //   - Left: error code (Uint<8>)

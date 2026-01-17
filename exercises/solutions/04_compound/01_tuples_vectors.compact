@@ -1,5 +1,7 @@
 pragma language_version >= 0.18.0;
 
+import CompactStandardLibrary;
+
 // Creates a coordinate tuple from x and y values
 export pure circuit createCoordinate(x: Uint<32>, y: Uint<32>): [Uint<32>, Uint<32>] {
     return [x, y];

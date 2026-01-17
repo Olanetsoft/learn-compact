@@ -1,5 +1,7 @@
 pragma language_version >= 0.18.0;
 
+import CompactStandardLibrary;
+
 // Note: Compact does not support type aliases. Use inline tuple types.
 // A coordinate is represented as [Uint<32>, Uint<32>]
 
