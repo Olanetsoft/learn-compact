@@ -16,12 +16,9 @@ struct Player {
 }
 ```
 
-Fields are separated by commas. A trailing comma is allowed but not required.
+Fields are separated by commas (or semicolons). A trailing separator is allowed but not required.
 
-### Naming Convention
-
-- Struct names use **PascalCase**: `Player`, `GameConfig`, `TokenInfo`
-- Field names use **camelCase**: `playerAddress`, `tokenBalance`, `isValid`
+_Source: [User-defined types](https://docs.midnight.network/develop/reference/compact/lang-ref#user-defined-types)_
 
 ## Creating Struct Values
 
@@ -37,9 +34,12 @@ const player = Player {
 
 // Positional fields (order must match declaration)
 const player2 = Player { ownerKey, 0, true };
+
+// Mixed: positional first, then named
+const player3 = Player { ownerKey, 0, isActive: true };
 ```
 
-_Source: [User-defined types](https://docs.midnight.network/develop/reference/compact/lang-ref#user-defined-types)_
+_Source: [Structure creation](https://docs.midnight.network/develop/reference/compact/lang-ref#structure-creation)_
 
 ## Accessing Fields
 
@@ -68,7 +68,7 @@ _Source: [Default values](https://docs.midnight.network/develop/reference/compac
 
 ## Nested Structs
 
-Structs can contain other structs:
+Structs can contain other structs. Use chained dot notation to access nested fields:
 
 ```compact
 struct Coordinate {
@@ -88,33 +88,11 @@ export pure circuit area(rect: Rectangle): Field {
 }
 ```
 
-## Structs in Ledger State
-
-Structs can be stored in ledger fields:
-
-```compact
-struct TokenInfo {
-    name: Bytes<32>,
-    totalSupply: Uint<64>,
-    decimals: Uint<8>
-}
-
-export ledger tokenInfo: TokenInfo;
-
-export circuit updateSupply(newSupply: Uint<64>): [] {
-    tokenInfo = TokenInfo {
-        name: tokenInfo.name,
-        totalSupply: disclose(newSupply),
-        decimals: tokenInfo.decimals
-    };
-}
-```
-
-> ⚠️ **Important:** Structs are immutable. To "update" a field, create a new struct with the modified value.
+_Source: [User-defined types](https://docs.midnight.network/develop/reference/compact/lang-ref#user-defined-types)_
 
 ## Structs in Maps
 
-Structs work well as map values:
+Structs can be used as values in `Map` ledger types:
 
 ```compact
 struct UserData {
@@ -124,15 +102,9 @@ struct UserData {
 }
 
 export ledger users: Map<Bytes<32>, UserData>;
-
-export circuit registerUser(userId: Bytes<32>): [] {
-    users.insert(disclose(userId), UserData {
-        balance: 0,
-        lastAction: 0,
-        isVerified: false
-    });
-}
 ```
+
+_Source: [Nested state types in Map](https://docs.midnight.network/develop/reference/compact/lang-ref#nested-state-types-in-the-map-type)_
 
 ## Exporting Structs
 
@@ -146,11 +118,11 @@ export struct Player {
 }
 ```
 
-_Source: [Representations in TypeScript](https://docs.midnight.network/develop/reference/compact/lang-ref#representations-in-typescript)_
+_Source: [Top-level exports](https://docs.midnight.network/develop/reference/compact/lang-ref#top-level-exports)_
 
 ## TypeScript Representation
 
-Exported structs become TypeScript interfaces:
+Exported structs map to TypeScript objects with the same field names:
 
 ```typescript
 // Compact
@@ -160,13 +132,15 @@ export struct Player {
     isActive: Boolean
 }
 
-// TypeScript (generated)
+// TypeScript representation
 interface Player {
     address: Uint8Array;  // Bytes<32>
     score: bigint;        // Uint<64>
     isActive: boolean;    // Boolean
 }
 ```
+
+_Source: [Representations in TypeScript](https://docs.midnight.network/develop/reference/compact/lang-ref#representations-in-typescript)_
 
 ## Recursive Structs Are Not Allowed
 
@@ -196,47 +170,43 @@ _Source: [User-defined types](https://docs.midnight.network/develop/reference/co
 ```compact
 pragma language_version >= 0.18.0;
 
-import CompactStandardLibrary;
-
 // Define structs
-export struct PlayerStats {
+struct PlayerStats {
     wins: Uint<32>,
     losses: Uint<32>,
     draws: Uint<32>
 }
 
-export struct Player {
+struct Player {
     address: Bytes<32>,
     name: Bytes<32>,
     stats: PlayerStats
 }
 
-// Use in ledger
-export ledger players: Map<Bytes<32>, Player>;
-
-// Circuit to register a new player
-export circuit registerPlayer(address: Bytes<32>, name: Bytes<32>): [] {
-    const newPlayer = Player {
-        address: disclose(address),
-        name: disclose(name),
+// Pure circuit to create a new player
+export pure circuit createPlayer(
+    address: Bytes<32>,
+    name: Bytes<32>
+): Player {
+    return Player {
+        address: address,
+        name: name,
         stats: PlayerStats { wins: 0, losses: 0, draws: 0 }
     };
-    players.insert(disclose(address), newPlayer);
 }
 
-// Circuit to record a win
-export circuit recordWin(address: Bytes<32>): [] {
-    const player = players.lookup(disclose(address));
+// Pure circuit to update stats after a win
+export pure circuit recordWin(player: Player): Player {
     const newStats = PlayerStats {
         wins: (player.stats.wins + 1) as Uint<32>,
         losses: player.stats.losses,
         draws: player.stats.draws
     };
-    players.insert(disclose(address), Player {
+    return Player {
         address: player.address,
         name: player.name,
         stats: newStats
-    });
+    };
 }
 ```
 
