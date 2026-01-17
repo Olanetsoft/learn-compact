@@ -32,4 +32,4 @@ compact compile exercise.compact
 
 ## Solution
 
-When you're ready, check `solutions/04_compound/01_tuples_vectors.compact`
+When you're ready, check [`solutions/04_compound/01_tuples_vectors.compact`](https://github.com/Olanetsoft/learn-compact/blob/main/exercises/solutions/04_compound/01_tuples_vectors.compact)

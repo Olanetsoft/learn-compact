@@ -33,4 +33,4 @@ compact compile exercise.compact
 
 ## Solution
 
-When you're ready, check `solutions/04_compound/03_either.compact`
+When you're ready, check [`solutions/04_compound/03_either.compact`](https://github.com/Olanetsoft/learn-compact/blob/main/exercises/solutions/04_compound/03_either.compact)
