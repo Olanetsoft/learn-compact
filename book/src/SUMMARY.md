@@ -33,7 +33,8 @@
 - [User-Defined Types](ch05-user-types/index.md)
   - [Structs](ch05-user-types/01-structs.md)
   - [Enums](ch05-user-types/02-enums.md)
-  - [Generic Types](ch05-user-types/03-generics.md)
+  - [Type Aliases](ch05-user-types/03-type-aliases.md)
+  - [Generic Types](ch05-user-types/04-generics.md)
 
 # Part 3: Core Language Features
 

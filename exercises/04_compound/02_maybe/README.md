@@ -4,7 +4,7 @@
 
 In this exercise, you'll practice:
 
-- Creating `Maybe` values with `some()` and `none()`
+- Creating `Maybe` values with `some<T>()` and `none<T>()`
 - Checking `isSome` before accessing values
 - Using `Maybe` for optional values
 
@@ -12,7 +12,7 @@ In this exercise, you'll practice:
 
 Complete the contract in `exercise.compact`:
 
-1. **Implement `createSome`** - wraps a value in `some()`
+1. **Implement `createSome`** - wraps a value in `some<Uint<64>>()`
 2. **Implement `createNone`** - returns `none<Uint<64>>()`
 3. **Implement `unwrapOr`** - returns the value if present, otherwise returns a default
 4. **Implement `findById`** - returns `some(value)` if id > 0, otherwise `none()`
@@ -20,7 +20,7 @@ Complete the contract in `exercise.compact`:
 
 ## Hints
 
-- Creating: `some(value)` and `none<T>()`
+- Creating: `some<T>(value)` and `none<T>()` (explicit type parameters!)
 - Checking: `maybe.isSome`
 - Accessing: `maybe.value` (only when `isSome` is true)
 

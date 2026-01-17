@@ -9,12 +9,12 @@ import CompactStandardLibrary;
 
 // TODO: Implement createLeft - wraps an error code as Left
 export pure circuit createLeft(errorCode: Uint<8>): Either<Uint<8>, Uint<64>> {
-    // Return left(errorCode)
+    // Return left<Uint<8>, Uint<64>>(errorCode)
 }
 
 // TODO: Implement createRight - wraps a success value as Right
 export pure circuit createRight(value: Uint<64>): Either<Uint<8>, Uint<64>> {
-    // Return right(value)
+    // Return right<Uint<8>, Uint<64>>(value)
 }
 
 // TODO: Implement validatePositive
@@ -24,6 +24,7 @@ export pure circuit validatePositive(
     value: Uint<64>
 ): Either<Uint<8>, Uint<64>> {
     // Check if value == 0, return appropriate Either value
+    // Remember to use explicit type parameters: left<A, B>() and right<A, B>()
 }
 
 // TODO: Implement isSuccess - returns true if Either is a Right value

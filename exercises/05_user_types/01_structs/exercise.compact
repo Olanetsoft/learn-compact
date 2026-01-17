@@ -1,0 +1,52 @@
+pragma language_version >= 0.18.0;
+
+import CompactStandardLibrary;
+
+// Exercise 1: Define a struct for a Token
+// Create a struct called Token with fields:
+// - name: Bytes<32>
+// - symbol: Bytes<8>
+// - totalSupply: Uint<64>
+// - decimals: Uint<8>
+
+// YOUR CODE HERE: Define the Token struct
+
+
+// Exercise 2: Create a Token instance
+// Implement a circuit that returns a Token with:
+// - name: "MyToken" (use pad(32, "MyToken"))
+// - symbol: "MTK" (use pad(8, "MTK"))
+// - totalSupply: 1000000
+// - decimals: 18
+
+export pure circuit createToken(): Token {
+    // YOUR CODE HERE
+}
+
+
+// Exercise 3: Define a nested struct
+// Create a struct called Wallet with fields:
+// - owner: Bytes<32>
+// - balance: Uint<64>
+// And a struct called WalletInfo with fields:
+// - wallet: Wallet
+// - isActive: Boolean
+
+// YOUR CODE HERE: Define the Wallet and WalletInfo structs
+
+
+// Exercise 4: Access nested struct fields
+// Implement a circuit that takes a WalletInfo and returns the owner's balance
+
+export pure circuit getWalletBalance(info: WalletInfo): Uint<64> {
+    // YOUR CODE HERE
+}
+
+
+// Exercise 5: Update a struct field
+// Implement a circuit that takes a Token and a new totalSupply,
+// and returns a new Token with the updated supply (all other fields unchanged)
+
+export pure circuit updateSupply(token: Token, newSupply: Uint<64>): Token {
+    // YOUR CODE HERE
+}

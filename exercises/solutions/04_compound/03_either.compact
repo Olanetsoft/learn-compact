@@ -29,7 +29,7 @@ export pure circuit validatePositive(
 
 // Returns true if Either is a Right value (success)
 export pure circuit isSuccess(result: Either<Uint<8>, Uint<64>>): Boolean {
-    return !result.is_left;
+    return !result.isLeft;
 }
 
 // Returns the right value if present, otherwise returns defaultVal
@@ -37,7 +37,7 @@ export pure circuit extractOrDefault(
     result: Either<Uint<8>, Uint<64>>,
     defaultVal: Uint<64>
 ): Uint<64> {
-    if (result.is_left) {
+    if (result.isLeft) {
         return defaultVal;
     }
     return result.right;

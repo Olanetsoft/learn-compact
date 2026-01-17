@@ -19,7 +19,7 @@ Use the `some()` and `none()` constructor functions:
 
 ```compact
 // Create a Maybe with a value
-const hasValue: Maybe<Uint<64>> = some(42);
+const hasValue: Maybe<Uint<64>> = some<Uint<64>>(42);
 
 // Create an empty Maybe (must specify type)
 const noValue: Maybe<Uint<64>> = none<Uint<64>>();
@@ -33,9 +33,8 @@ Always check `isSome` before accessing `value`:
 export circuit processOptional(opt: Maybe<Uint<64>>): Uint<64> {
     if (opt.isSome) {
         return opt.value;
-    } else {
-        return 0;  // Default value
     }
+    return 0;  // Default value
 }
 ```
 
@@ -71,7 +70,7 @@ export circuit findValue(id: Uint<32>): Maybe<Uint<64>> {
     if (id == 0) {
         return none<Uint<64>>();
     }
-    return some(id as Uint<64> * 100);
+    return some<Uint<64>>((id as Uint<64>) * 100);
 }
 ```
 

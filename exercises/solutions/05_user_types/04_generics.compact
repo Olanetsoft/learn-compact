@@ -1,0 +1,52 @@
+pragma language_version >= 0.18.0;
+
+import CompactStandardLibrary;
+
+// Exercise 1: Define a generic struct
+struct Box<T> {
+    value: T
+}
+
+// Exercise 2: Create a Box instance
+export pure circuit createBox(): Box<Uint<64>> {
+    return Box<Uint<64>> { value: 42 };
+}
+
+// Exercise 3: Define a generic struct with two type parameters
+struct KeyValue<K, V> {
+    key: K,
+    value: V
+}
+
+// Exercise 4: Use KeyValue
+export pure circuit createEntry(k: Bytes<32>, v: Uint<64>): KeyValue<Bytes<32>, Uint<64>> {
+    return KeyValue<Bytes<32>, Uint<64>> { key: k, value: v };
+}
+
+// Exercise 5: Size parameter
+struct Buffer<#N> {
+    data: Bytes<N>
+}
+
+// Exercise 6: Use size parameter
+export pure circuit emptyBuffer(): Buffer<64> {
+    return Buffer<64> { data: default<Bytes<64>> };
+}
+
+// Exercise 7: Generic with standard library
+export pure circuit maybeWrap(shouldWrap: Boolean, value: Uint<64>): Maybe<Uint<64>> {
+    if (shouldWrap) {
+        return some<Uint<64>>(value);
+    }
+    return none<Uint<64>>();
+}
+
+// Exercise 8: Nested generics
+struct ResultPair<T> {
+    first: Maybe<T>,
+    second: Maybe<T>
+}
+
+export pure circuit bothPresent(pair: ResultPair<Uint<64>>): Boolean {
+    return pair.first.isSome && pair.second.isSome;
+}

@@ -4,7 +4,7 @@
 
 In this exercise, you'll practice:
 
-- Creating `Either` values with `left()` and `right()`
+- Creating `Either` values with `left<A, B>()` and `right<A, B>()`
 - Checking `isLeft` to determine which value is present
 - Using `Either` for conditional result patterns
 
@@ -20,7 +20,7 @@ Complete the contract in `exercise.compact`:
 
 ## Hints
 
-- Creating: `left(value)` and `right(value)`
+- Creating: `left<A, B>(value)` and `right<A, B>(value)` (explicit type parameters!)
 - Checking: `either.isLeft`
 - Accessing: `either.left` or `either.right` based on `isLeft`
 - Convention: `Left` = error/failure, `Right` = success

@@ -51,7 +51,7 @@ export circuit verifyOwnership(messageId: Bytes<32>): Boolean {
     
     const maybeMessage = messages.lookup(messageId);
     
-    if (maybeMessage.is_some) {
+    if (maybeMessage.isSome) {
         const message = maybeMessage.value;
         return disclose(message.posterHash == publicKey);
     }

@@ -1,0 +1,47 @@
+pragma language_version >= 0.18.0;
+
+import CompactStandardLibrary;
+
+// Exercise 1: Define a struct for a Token
+export struct Token {
+    name: Bytes<32>,
+    symbol: Bytes<8>,
+    totalSupply: Uint<64>,
+    decimals: Uint<8>
+}
+
+// Exercise 2: Create a Token instance
+export pure circuit createToken(): Token {
+    return Token {
+        name: pad(32, "MyToken"),
+        symbol: pad(8, "MTK"),
+        totalSupply: 1000000,
+        decimals: 18
+    };
+}
+
+// Exercise 3: Define nested structs
+export struct Wallet {
+    owner: Bytes<32>,
+    balance: Uint<64>
+}
+
+export struct WalletInfo {
+    wallet: Wallet,
+    isActive: Boolean
+}
+
+// Exercise 4: Access nested struct fields
+export pure circuit getWalletBalance(info: WalletInfo): Uint<64> {
+    return info.wallet.balance;
+}
+
+// Exercise 5: Update a struct field
+export pure circuit updateSupply(token: Token, newSupply: Uint<64>): Token {
+    return Token {
+        name: token.name,
+        symbol: token.symbol,
+        totalSupply: newSupply,
+        decimals: token.decimals
+    };
+}

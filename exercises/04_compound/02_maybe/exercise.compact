@@ -4,7 +4,7 @@ import CompactStandardLibrary;
 
 // TODO: Implement createSome - wraps a value in Maybe
 export pure circuit createSome(value: Uint<64>): Maybe<Uint<64>> {
-    // Return some(value)
+    // Return some<Uint<64>>(value)
 }
 
 // TODO: Implement createNone - returns an empty Maybe
@@ -23,13 +23,13 @@ export pure circuit unwrapOr(
 // TODO: Implement findById - returns some(id * 100) if id > 0, otherwise none()
 export pure circuit findById(id: Uint<32>): Maybe<Uint<64>> {
     // Check if id > 0
-    // If yes, return some(id as Uint<64> * 100)
+    // If yes, return some<Uint<64>>((id as Uint<64>) * 100)
     // Otherwise, return none<Uint<64>>()
 }
 
 // TODO: Implement doubleIfPresent - doubles value if present, otherwise none()
 export pure circuit doubleIfPresent(opt: Maybe<Uint<64>>): Maybe<Uint<64>> {
     // Check isSome
-    // If yes, return some(opt.value * 2)
+    // If yes, return some<Uint<64>>(opt.value * 2)
     // Otherwise, return none<Uint<64>>()
 }

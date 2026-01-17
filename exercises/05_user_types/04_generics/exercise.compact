@@ -1,0 +1,66 @@
+pragma language_version >= 0.18.0;
+
+import CompactStandardLibrary;
+
+// Exercise 1: Define a generic struct
+// Create a generic struct called Box<T> with a single field "value" of type T
+
+// YOUR CODE HERE: Define Box<T>
+
+
+// Exercise 2: Create a Box instance
+// Implement a circuit that creates a Box<Uint<64>> containing the value 42
+
+export pure circuit createBox(): Box<Uint<64>> {
+    // YOUR CODE HERE
+}
+
+
+// Exercise 3: Define a generic struct with two type parameters
+// Create a struct called KeyValue<K, V> with fields "key" (type K) and "value" (type V)
+
+// YOUR CODE HERE: Define KeyValue<K, V>
+
+
+// Exercise 4: Use KeyValue
+// Implement a circuit that creates a KeyValue<Bytes<32>, Uint<64>>
+
+export pure circuit createEntry(k: Bytes<32>, v: Uint<64>): KeyValue<Bytes<32>, Uint<64>> {
+    // YOUR CODE HERE
+}
+
+
+// Exercise 5: Size parameter
+// Create a struct called Buffer<#N> with field "data" of type Bytes<N>
+
+// YOUR CODE HERE: Define Buffer<#N>
+
+
+// Exercise 6: Use size parameter
+// Implement a circuit that creates an empty Buffer<64>
+
+export pure circuit emptyBuffer(): Buffer<64> {
+    // YOUR CODE HERE
+}
+
+
+// Exercise 7: Generic with standard library
+// Implement a circuit that wraps a value in Maybe using generics
+// Takes a Boolean (whether to wrap) and a Uint<64> value
+
+export pure circuit maybeWrap(shouldWrap: Boolean, value: Uint<64>): Maybe<Uint<64>> {
+    // YOUR CODE HERE
+    // If shouldWrap is true, return some(value)
+    // Otherwise return none()
+}
+
+
+// Exercise 8: Nested generics
+// Define a struct ResultPair<T> with two Maybe<T> fields: "first" and "second"
+// Then implement a circuit that checks if both are present (both isSome)
+
+// YOUR CODE HERE: Define ResultPair<T>
+
+export pure circuit bothPresent(pair: ResultPair<Uint<64>>): Boolean {
+    // YOUR CODE HERE
+}

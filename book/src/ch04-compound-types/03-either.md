@@ -16,14 +16,14 @@ _Source: [Standard library structs](https://docs.midnight.network/develop/refere
 
 ## Creating Either Values
 
-Use the `left()` and `right()` constructor functions:
+Use the `left()` and `right()` constructor functions with explicit type parameters:
 
 ```compact
-// Create a left value (type A)
-const leftVal: Either<Uint<64>, Boolean> = left(42);
+// Create a left value (type A) - must specify both types
+const leftVal: Either<Uint<64>, Boolean> = left<Uint<64>, Boolean>(42);
 
-// Create a right value (type B)
-const rightVal: Either<Uint<64>, Boolean> = right(true);
+// Create a right value (type B) - must specify both types
+const rightVal: Either<Uint<64>, Boolean> = right<Uint<64>, Boolean>(true);
 ```
 
 ## Checking Which Value
@@ -34,13 +34,11 @@ Check `isLeft` to determine which value is present:
 export circuit processEither(e: Either<Uint<64>, Boolean>): Uint<64> {
     if (e.isLeft) {
         return e.left;
-    } else {
-        if (e.right) {
-            return 1;
-        } else {
-            return 0;
-        }
     }
+    if (e.right) {
+        return 1;
+    }
+    return 0;
 }
 ```
 
@@ -58,9 +56,9 @@ export pure circuit validateAmount(
     amount: Uint<64>
 ): Either<Uint<8>, Uint<64>> {
     if (amount == 0) {
-        return left(1);  // Error code 1: zero amount
+        return left<Uint<8>, Uint<64>>(1);  // Error code 1: zero amount
     }
-    return right(amount);
+    return right<Uint<8>, Uint<64>>(amount);
 }
 ```
 
@@ -75,11 +73,11 @@ struct NumberValue {
 }
 
 export pure circuit createSmall(n: Uint<8>): NumberValue {
-    return NumberValue { left(n) };
+    return NumberValue { value: left<Uint<8>, Uint<64>>(n) };
 }
 
 export pure circuit createLarge(n: Uint<64>): NumberValue {
-    return NumberValue { right(n) };
+    return NumberValue { value: right<Uint<8>, Uint<64>>(n) };
 }
 ```
 
@@ -95,13 +93,11 @@ export pure circuit chooseOption(
     valueB: Uint<64>
 ): Either<Uint<64>, Uint<64>> {
     if (selectA) {
-        return left(valueA);
+        return left<Uint<64>, Uint<64>>(valueA);
     }
-    return right(valueB);
+    return right<Uint<64>, Uint<64>>(valueB);
 }
 ```
-
-````
 
 ## Default Values
 
@@ -123,7 +119,7 @@ interface Either<A, B> {
   left: A; // A's TypeScript equivalent
   right: B; // B's TypeScript equivalent
 }
-````
+```
 
 Example:
 

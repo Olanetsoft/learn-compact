@@ -1,0 +1,57 @@
+pragma language_version >= 0.18.0;
+
+import CompactStandardLibrary;
+
+// Exercise 1: Define an enum for game states
+// Create an enum called GameState with variants:
+// waiting, playing, paused, finished
+
+// YOUR CODE HERE: Define the GameState enum
+
+
+// Exercise 2: Check if game is active
+// Implement a circuit that returns true if the state is "playing"
+
+export pure circuit isPlaying(state: GameState): Boolean {
+    // YOUR CODE HERE
+}
+
+
+// Exercise 3: Define an enum for directions
+// Create an enum called Direction with variants:
+// north, east, south, west
+
+// YOUR CODE HERE: Define the Direction enum
+
+
+// Exercise 4: Get opposite direction
+// Implement a circuit that returns the opposite direction
+// (north <-> south, east <-> west)
+
+export pure circuit opposite(dir: Direction): Direction {
+    // YOUR CODE HERE
+}
+
+
+// Exercise 5: Define an enum for vote choices
+// Create an enum called Vote with variants: yes, no, abstain
+// Then implement a circuit that checks if a vote is "yes"
+
+// YOUR CODE HERE: Define the Vote enum
+
+export pure circuit isYesVote(v: Vote): Boolean {
+    // YOUR CODE HERE
+}
+
+
+// Exercise 6: Enum in struct
+// Define a struct Order with fields:
+// - orderId: Uint<64>
+// - status: OrderStatus (you need to define this enum with: pending, processing, shipped, delivered)
+// Then implement a circuit that checks if an order has been shipped or delivered
+
+// YOUR CODE HERE: Define OrderStatus enum and Order struct
+
+export pure circuit isShipped(order: Order): Boolean {
+    // YOUR CODE HERE
+}
