@@ -16,11 +16,10 @@ export pure circuit getY(coord: [Uint<32>, Uint<32>]): Uint<32> {
 }
 
 // Sums all elements in a Vector<5, Uint<8>>
-// Note: Returns Uint<22> because Compact computes worst-case bounds:
-// Each cast to Uint<22> = Uint<0..4194303>, sum of 5 = max 20,971,515
-// which fits in Uint<22> (2^22 - 1 = 4,194,303 >= 5 * 255 = 1,275 actual max)
-export pure circuit sumVector(v: Vector<5, Uint<8>>): Uint<22> {
-    return (v[0] as Uint<22>) + (v[1] as Uint<22>) + (v[2] as Uint<22>) + (v[3] as Uint<22>) + (v[4] as Uint<22>);
+// Actual max sum = 5 * 255 = 1275, so use Uint<0..1275> to avoid
+// Compact's worst-case bound inflation from casting to larger Uint<N>
+export pure circuit sumVector(v: Vector<5, Uint<8>>): Uint<0..1275> {
+    return v[0] + v[1] + v[2] + v[3] + v[4];
 }
 
 // Swaps x and y
