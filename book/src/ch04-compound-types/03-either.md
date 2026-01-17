@@ -48,37 +48,19 @@ export circuit processEither(e: Either<Uint<64>, Boolean>): Uint<64> {
 
 ## Common Use Cases
 
-### Error Handling
+### Conditional Results
 
-Use `Either` to return either a success value or an error:
+Use `Either` to return one of two different result types based on a condition:
 
 ```compact
 // Left = error code, Right = success value
-export circuit divide(
-    a: Uint<64>,
-    b: Uint<64>
+export pure circuit validateAmount(
+    amount: Uint<64>
 ): Either<Uint<8>, Uint<64>> {
-    if (b == 0) {
-        return left(1);  // Error code 1: division by zero
+    if (amount == 0) {
+        return left(1);  // Error code 1: zero amount
     }
-    return right(a / b);
-}
-```
-
-### Alternative Results
-
-Return different types based on conditions:
-
-```compact
-// Left = not found (default value), Right = found value
-export circuit lookup(
-    key: Bytes<32>
-): Either<Boolean, Uint<64>> {
-    const result = data.lookup(key);
-    if (result.isSome) {
-        return right(result.value);
-    }
-    return left(false);  // Indicate not found
+    return right(amount);
 }
 ```
 
@@ -87,11 +69,39 @@ export circuit lookup(
 Model data that can be one of two types:
 
 ```compact
-// A payment can be either a token ID or a direct amount
-struct Payment {
-    value: Either<Bytes<32>, Uint<64>>;  // Left = tokenId, Right = amount
+// A value can be either a small number or a large number
+struct NumberValue {
+    value: Either<Uint<8>, Uint<64>>;  // Left = small, Right = large
+}
+
+export pure circuit createSmall(n: Uint<8>): NumberValue {
+    return NumberValue { left(n) };
+}
+
+export pure circuit createLarge(n: Uint<64>): NumberValue {
+    return NumberValue { right(n) };
 }
 ```
+
+### Binary Choice
+
+Represent a choice between two options:
+
+```compact
+// Left = option A chosen, Right = option B chosen
+export pure circuit chooseOption(
+    selectA: Boolean,
+    valueA: Uint<64>,
+    valueB: Uint<64>
+): Either<Uint<64>, Uint<64>> {
+    if (selectA) {
+        return left(valueA);
+    }
+    return right(valueB);
+}
+```
+
+````
 
 ## Default Values
 
@@ -113,7 +123,7 @@ interface Either<A, B> {
   left: A; // A's TypeScript equivalent
   right: B; // B's TypeScript equivalent
 }
-```
+````
 
 Example:
 
@@ -126,12 +136,13 @@ _Source: [Representations in TypeScript](https://docs.midnight.network/develop/r
 
 ## Either vs Maybe
 
-| Aspect       | `Maybe<T>`                   | `Either<A, B>`              |
-| ------------ | ---------------------------- | --------------------------- |
-| Purpose      | Optional value               | One of two types            |
-| Indicator    | `isSome: Boolean`            | `isLeft: Boolean`           |
-| Value fields | 1 (`value: T`)               | 2 (`left: A`, `right: B`)   |
-| Use case     | Map lookups, optional params | Error handling, type unions |
+| Aspect       | `Maybe<T>`        | `Either<A, B>`            |
+| ------------ | ----------------- | ------------------------- |
+| Purpose      | Optional value    | One of two types          |
+| Indicator    | `isSome: Boolean` | `isLeft: Boolean`         |
+| Value fields | 1 (`value: T`)    | 2 (`left: A`, `right: B`) |
+
+_Source: [Standard library structs](https://docs.midnight.network/develop/reference/compact/compact-std-library/exports#structs)_
 
 ## Exercises
 

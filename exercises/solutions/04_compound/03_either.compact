@@ -15,15 +15,14 @@ export pure circuit createRight(value: Uint<64>): Either<Uint<8>, Uint<64>> {
     return right(value);
 }
 
-// Safe division: returns left(1) on division by zero, right(result) on success
-export pure circuit safeDivide(
-    a: Uint<64>, 
-    b: Uint<64>
+// Validates that value is positive: left(1) if zero, right(value) if positive
+export pure circuit validatePositive(
+    value: Uint<64>
 ): Either<Uint<8>, Uint<64>> {
-    if (b == 0) {
-        return left(1);  // Error code 1: division by zero
+    if (value == 0) {
+        return left(1);  // Error code 1: zero value
     }
-    return right(a / b);
+    return right(value);
 }
 
 // Returns true if Either is a Right value (success)
