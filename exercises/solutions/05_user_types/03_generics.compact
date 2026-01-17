@@ -48,5 +48,5 @@ struct ResultPair<T> {
 }
 
 export pure circuit bothPresent(pair: ResultPair<Uint<64>>): Boolean {
-    return pair.first.isSome && pair.second.isSome;
+    return pair.first.is_some && pair.second.is_some;
 }

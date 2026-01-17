@@ -100,8 +100,8 @@ The standard library uses generics extensively:
 
 ```compact
 // From CompactStandardLibrary:
-// struct Maybe<T> { isSome: Boolean; value: T; }
-// struct Either<A, B> { isLeft: Boolean; left: A; right: B; }
+// struct Maybe<T> { is_some: Boolean; value: T; }
+// struct Either<A, B> { is_left: Boolean; left: A; right: B; }
 
 import CompactStandardLibrary;
 
