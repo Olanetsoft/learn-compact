@@ -2,7 +2,9 @@
 
 ## Parameters
 
-Circuits can take typed parameters:
+Circuits can take typed parameters. The return type is written after `:`, and use `[]` for "no value".
+
+_Source: [Circuits](https://docs.midnight.network/develop/reference/compact/lang-ref#circuits)_
 
 ```compact
 export circuit transfer(to: Bytes<32>, amount: Uint<64>): [] {
@@ -49,6 +51,16 @@ export circuit performAction(): [] {
     counter.increment(1);
 }
 ```
+
+Example storing a message with no return value:
+
+```compact
+export circuit storeMessage(customMessage: Opaque<"string">): [] {
+    message = disclose(customMessage);
+}
+```
+
+_Source: [Hello world](https://docs.midnight.network/getting-started/create-mn-app#define-the-circuit)_
 
 ### Tuple Return
 

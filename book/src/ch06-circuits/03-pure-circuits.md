@@ -2,6 +2,8 @@
 
 A circuit is considered **pure** if it computes its outputs from its inputs without reference to or modification of public state (via the ledger) or private state (via witnesses).
 
+_Source: [Circuits](https://docs.midnight.network/develop/reference/compact/lang-ref#circuits)_
+
 ## Syntax
 
 The `pure` modifier must follow `export` (if present):
@@ -16,7 +18,9 @@ export pure circuit publicHelper(x: Field): Field {
 }
 ```
 
-> **Note:** The `pure` modifier causes the compiler to verify that the circuit is actually pure. If the circuit contains impure operations, compilation will fail.
+If a `pure` circuit actually uses ledger operations or witnesses, the compiler rejects it. Marking a circuit `pure` ensures it appears in the generated `PureCircuits` type and `pureCircuits` constant in the TypeScript output.
+
+_Source: [Circuits](https://docs.midnight.network/develop/reference/compact/lang-ref#circuits), [TypeScript target](https://docs.midnight.network/develop/reference/compact/lang-ref#typescript-target)_
 
 ## What Makes a Circuit Impure?
 
@@ -83,6 +87,8 @@ export circuit process(amount: Uint<64>): [] {
 ## TypeScript Integration
 
 The Compact compiler exports pure circuits via `pureCircuits` in the TypeScript module, allowing them to be used directly without blockchain interaction.
+
+_Source: [TypeScript target](https://docs.midnight.network/develop/reference/compact/lang-ref#typescript-target)_
 
 ## Benefits of Pure Circuits
 

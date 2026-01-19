@@ -3,10 +3,18 @@
 ## Basic Syntax
 
 ```compact
-export circuit name(): [] {
+circuit c(a: A, b: B): R {
     // circuit body
 }
+
+export circuit name(): [] {
+    // exported circuit body
+}
 ```
+
+Each path through the body must end with a `return` unless the return type is `[]`.
+
+_Source: [Circuits](https://docs.midnight.network/develop/reference/compact/lang-ref#circuits)_
 
 Let's break this down:
 
@@ -59,6 +67,24 @@ circuit internalHelper(): Field {
 }
 ```
 
+_Source: [Exported circuits](https://docs.midnight.network/academy/module-5#exported-circuits)_
+
+## Generic Circuits
+
+Circuits can have type parameters, making them reusable with different types:
+
+```compact
+circuit id<T>(value: T): T {
+    return value;
+}
+
+circuit first<A, B>(pair: [A, B]): A {
+    return pair[0];
+}
+```
+
+_Source: [Generic parameter references](https://docs.midnight.network/develop/reference/compact/lang-ref#generic-parameter-references)_
+
 ## Complete Example
 
 ```compact
@@ -84,6 +110,8 @@ export circuit depositMinimum(): [] {
     balance.increment(min);
 }
 ```
+
+_Source: [Writing a contract](https://docs.midnight.network/develop/reference/compact/writing#the-circuit-definitions)_
 
 ## Exercises
 
