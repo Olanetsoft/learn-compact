@@ -45,13 +45,13 @@ export circuit doThing(): [] {
 
 ### Enum Access Syntax
 
-```compact
+```text
 export enum Choice { Rock, Paper, Scissors }
 
-// ❌ WRONG - Rust-style double colon
+// ❌ WRONG - double colon
 const c = Choice::Rock;
 
-// ✅ CORRECT - Dot notation (like TypeScript)
+// ✅ CORRECT - dot notation
 const c = Choice.Rock;
 ```
 

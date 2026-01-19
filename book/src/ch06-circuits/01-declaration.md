@@ -95,12 +95,12 @@ import CompactStandardLibrary;
 export ledger balance: Counter;
 
 // Public circuit - callable from TypeScript
-export circuit deposit(amount: Uint<64>): [] {
-    balance.increment(amount);
+export circuit deposit(amount: Uint<16>): [] {
+    balance.increment(disclose(amount));
 }
 
 // Internal circuit - helper for other circuits
-circuit getMinimum(): Uint<64> {
+circuit getMinimum(): Uint<16> {
     return 10;
 }
 

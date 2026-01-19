@@ -44,13 +44,13 @@ pre {
 .ayu pre,
 .coal pre,
 .navy pre {
-  background-color: #1e1e2e;
+  background-color: #282c34;
 }
 
 .ayu pre code,
 .coal pre code,
 .navy pre code {
-  color: #cdd6f4;
+  color: #abb2bf;
 }
 
 /* Inline code */

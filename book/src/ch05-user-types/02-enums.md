@@ -34,15 +34,7 @@ const dir = Direction.north;
 
 _Source: [User-defined types](https://docs.midnight.network/develop/reference/compact/lang-ref#user-defined-types)_
 
-> ⚠️ **Critical:** Use dot notation (`GameState.waiting`), NOT Rust-style double colon (`GameState::waiting`).
->
-> ```compact
-> // ✅ CORRECT - dot notation
-> const state = GameState.waiting;
->
-> // ❌ WRONG - Rust-style (parse error)
-> const state = GameState::waiting;
-> ```
+> **Note:** Use dot notation to access enum variants: `GameState.waiting`
 
 ## Comparing Enums
 

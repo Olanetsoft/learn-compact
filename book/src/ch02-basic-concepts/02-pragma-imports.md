@@ -31,20 +31,35 @@ By specifying version bounds, you ensure:
 
 If the Compact compiler does not support the language versions specified, it will signal a compile-time error.
 
+### Version Constraint Options
+
+```text
+// Exact version match (version number only)
+pragma language_version 0.17;
+
+// Minimum version (open-ended)
+pragma language_version >= 0.16;
+
+// Version range (recommended)
+pragma language_version >= 0.16 && <= 0.18;
+```
+
 ### Best Practices
 
 > **Note:** These are recommended conventions, not official rules from the Midnight documentation.
 
-```compact
+```text
 // ✅ Recommended - specific version range
 pragma language_version >= 0.16 && <= 0.18;
 
+// ✅ Exact version - for strict compatibility
+pragma language_version 0.17;
+
 // ⚠️ Caution - open-ended (may break with future versions)
 pragma language_version >= 0.16;
-
-// ❌ Too restrictive - limits compatibility
-pragma language_version == 0.17;
 ```
+
+> **Note:** Compact doesn't support `==` for version comparison. For an exact version match, simply write the version number without any comparison operator: `pragma language_version 0.17;`
 
 ## Import Statement
 

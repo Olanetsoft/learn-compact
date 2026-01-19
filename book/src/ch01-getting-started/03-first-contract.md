@@ -41,7 +41,9 @@ export circuit get_count(): Uint<64> {
 
 // A circuit to check if counter is below a threshold
 export circuit is_less_than(threshold: Uint<64>): Boolean {
-    return counter.lessThan(threshold);
+    // disclose() is required because comparing a witness value (threshold)
+    // with ledger state could reveal information about the witness
+    return counter.lessThan(disclose(threshold));
 }
 
 // A circuit to reset the counter
@@ -93,6 +95,20 @@ Circuits are the functions of Compact. Key points:
 - `[]` is the return type for circuits that return nothing (not `void` or `Void`)
 - The body contains the operations
 
+### The `disclose()` Function
+
+Notice the `is_less_than` circuit uses `disclose()`:
+
+```compact
+export circuit is_less_than(threshold: Uint<64>): Boolean {
+    return counter.lessThan(disclose(threshold));
+}
+```
+
+In Compact, parameters to exported circuits are **witness values** (private inputs). When you use a witness value in a way that could reveal information about it (like comparing with public ledger state), Compact requires you to explicitly acknowledge this potential disclosure using `disclose()`.
+
+This is a safety feature - Compact won't let you accidentally leak private data. By calling `disclose()`, you're telling the compiler "I understand this value may be revealed, and that's okay."
+
 ## Compiling the Contract
 
 Compile your contract using the `compact compile` command:
@@ -131,11 +147,12 @@ The compiler generates a managed directory containing:
 
 ## Common First-Time Errors
 
-| Error                    | Cause                           | Fix                                  |
-| ------------------------ | ------------------------------- | ------------------------------------ |
-| `parse error at 'Void'`  | Using `Void` as return type     | Use `[]` instead                     |
-| `parse error at '{'`     | Using `ledger { }` block syntax | Declare each field separately        |
-| `unknown type 'Counter'` | Missing import                  | Add `import CompactStandardLibrary;` |
+| Error                                                 | Cause                                   | Fix                                  |
+| ----------------------------------------------------- | --------------------------------------- | ------------------------------------ |
+| `parse error at 'Void'`                               | Using `Void` as return type             | Use `[]` instead                     |
+| `parse error at '{'`                                  | Using `ledger { }` block syntax         | Declare each field separately        |
+| `unknown type 'Counter'`                              | Missing import                          | Add `import CompactStandardLibrary;` |
+| `potential witness-value disclosure must be declared` | Using witness value in ledger operation | Wrap the value with `disclose()`     |
 
 ## Exercises
 

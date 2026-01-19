@@ -115,13 +115,13 @@ export ledger totalSupply: Counter;
 
 // Circuits
 export circuit mint(to: Bytes<32>, amount: Uint<64>): [] {
-    balance.insert(to, amount);
-    totalSupply.increment(amount);
+    balance.insert(disclose(to), disclose(amount));
+    totalSupply.increment(disclose(amount) as Uint<16>);
 }
 
 export circuit burn(from: Bytes<32>, amount: Uint<64>): [] {
-    balance.remove(from);
-    totalSupply.decrement(amount);
+    balance.remove(disclose(from));
+    totalSupply.decrement(disclose(amount) as Uint<16>);
 }
 ```
 

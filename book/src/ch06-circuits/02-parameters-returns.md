@@ -31,7 +31,9 @@ Parameters can be any Compact type:
 - Primitives: `Boolean`, `Field`, `Uint<N>`, `Bytes<N>`
 - Compounds: `[T, U]` (tuples), `Vector<N, T>`
 - User-defined: structs, enums
-- Optional: `Maybe<T>`
+- Standard library types: `Maybe<T>`, `Either<A, B>` (requires `import CompactStandardLibrary`)
+
+_Source: [Primitive types](https://docs.midnight.network/develop/reference/compact/lang-ref#primitive-types), [User-defined types](https://docs.midnight.network/develop/reference/compact/lang-ref#user-defined-types)_
 
 ## Return Values
 
@@ -93,22 +95,23 @@ export circuit compute(): Result {
 From other circuits:
 
 ```compact
-circuit calculate(): Uint<64> {
+circuit calculate(): Uint<16> {
     return 100;
 }
 
 export circuit useCalculation(): [] {
     const result = calculate();
-    counter.increment(result);
+    counter.increment(result);  // Counter.increment expects Uint<16>
 }
 ```
 
+_Source: [Circuit and witness calls](https://docs.midnight.network/develop/reference/compact/lang-ref#circuit-and-witness-calls)_
+
 From TypeScript (after deployment):
 
-```typescript
-const balance = await contract.getBalance();
-console.log(`Balance: ${balance}`);
-```
+Exported circuits are accessible via the generated `Contract` class, which exposes `circuits` and `impureCircuits` properties. The exact call pattern depends on your SDK version, but return types map to their TypeScript equivalents.
+
+_Source: [TypeScript target](https://docs.midnight.network/develop/reference/compact/lang-ref#typescript-target), [Representations in TypeScript](https://docs.midnight.network/develop/reference/compact/lang-ref#representations-in-typescript)_
 
 ## Exercises
 
