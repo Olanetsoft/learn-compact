@@ -47,15 +47,8 @@
       const codeElements = document.querySelectorAll(this.selector);
 
       if (codeElements.length === 0) {
-        console.log(
-          "CompactPlayground: No Compact code blocks found on this page"
-        );
         return;
       }
-
-      console.log(
-        `CompactPlayground: Found ${codeElements.length} Compact code block(s)`
-      );
 
       codeElements.forEach((codeEl, index) => {
         this.enhanceCodeBlock(codeEl, index);
@@ -187,18 +180,24 @@
     }
 
     /**
-     * Get the code from a code element
+     * Get the code from a code element, stripping line numbers added by mdBook
      */
     getCode(codeEl) {
-      return codeEl.textContent || "";
+      let code = codeEl.textContent || "";
+      // Remove line numbers that mdBook adds (sequences of digits at the start)
+      code = code.replace(/^[\d]+/, "");
+      return code;
     }
 
     /**
-     * Remove comments from code to check the actual structure
+     * Remove comments and line numbers from code to check the actual structure
      */
     stripComments(code) {
+      // Remove line numbers that mdBook adds (sequences of digits at the start)
+      // Line numbers appear as "123456789101112..." concatenated at the beginning
+      let stripped = code.replace(/^[\d]+/, "");
       // Remove single-line comments
-      let stripped = code.replace(/\/\/.*$/gm, "");
+      stripped = stripped.replace(/\/\/.*$/gm, "");
       // Remove multi-line comments
       stripped = stripped.replace(/\/\*[\s\S]*?\*\//g, "");
       return stripped.trim();
@@ -207,7 +206,7 @@
     /**
      * Check if code is a complete Compact program that can be compiled standalone
      * A complete program starts with pragma or has a module/contract declaration
-     * We strip comments first to check the actual code structure
+     * We strip comments and line numbers first to check the actual code structure
      */
     isCompleteProgram(code) {
       const stripped = this.stripComments(code);

@@ -46,7 +46,6 @@
 - [Witnesses](ch07-witnesses/index.md)
 
   - [Understanding Witnesses](ch07-witnesses/01-understanding.md)
-  - [Witness Patterns](ch07-witnesses/02-patterns.md)
   - [TypeScript Implementation](ch07-witnesses/03-typescript.md)
 
 - [Control Flow](ch08-control-flow/index.md)
@@ -62,32 +61,32 @@
 
 # Part 4: State Management
 
-- [Ledger State](ch10-ledger-state/index.md)
+- [Ledger State 🚧](ch10-ledger-state/index.md)
 
   - [Declaring Ledger Fields](ch10-ledger-state/01-declaring.md)
   - [Counter Type](ch10-ledger-state/02-counter.md)
   - [Map and Set Types](ch10-ledger-state/03-map-set.md)
   - [MerkleTree Type](ch10-ledger-state/04-merkle-tree.md)
 
-- [The disclose() Function](ch11-disclosure/index.md)
+- [The disclose() Function 🚧](ch11-disclosure/index.md)
   - [Understanding Disclosure](ch11-disclosure/01-understanding.md)
   - [Disclosure Patterns](ch11-disclosure/02-patterns.md)
 
 # Part 5: Advanced Concepts
 
-- [Standard Library](ch12-stdlib/index.md)
+- [Standard Library 🚧](ch12-stdlib/index.md)
 
   - [Hash Functions](ch12-stdlib/01-hash.md)
   - [Utility Functions](ch12-stdlib/02-utilities.md)
 
-- [Modules and Organization](ch13-modules/index.md)
+- [Modules and Organization 🚧](ch13-modules/index.md)
 
   - [Creating Modules](ch13-modules/01-creating.md)
   - [Imports and Exports](ch13-modules/02-imports-exports.md)
 
-- [Constructors](ch14-constructors/index.md)
+- [Constructors 🚧](ch14-constructors/index.md)
 
-- [TypeScript Integration](ch15-typescript/index.md)
+- [TypeScript Integration 🚧](ch15-typescript/index.md)
   - [Type Mappings](ch15-typescript/01-type-mappings.md)
   - [Implementing Witnesses](ch15-typescript/02-witnesses.md)
   - [SDK Usage](ch15-typescript/03-sdk.md)
@@ -95,33 +94,33 @@
 
 # Part 6: Projects
 
-- [Project: Counter DApp](ch16-project-counter/index.md)
+- [Project: Counter DApp 🚧](ch16-project-counter/index.md)
 
   - [Contract Implementation](ch16-project-counter/01-contract.md)
   - [TypeScript CLI](ch16-project-counter/02-cli.md)
   - [Deployment and Testing](ch16-project-counter/03-deployment.md)
 
-- [Project: Bulletin Board](ch17-project-bulletin/index.md)
+- [Project: Bulletin Board 🚧](ch17-project-bulletin/index.md)
 
   - [Privacy Model](ch17-project-bulletin/01-privacy.md)
   - [Contract Implementation](ch17-project-bulletin/02-contract.md)
   - [React UI](ch17-project-bulletin/03-react-ui.md)
 
-- [Project: Private Voting](ch18-project-voting/index.md)
+- [Project: Private Voting 🚧](ch18-project-voting/index.md)
   - [Design](ch18-project-voting/01-design.md)
   - [Implementation](ch18-project-voting/02-implementation.md)
   - [Frontend](ch18-project-voting/03-frontend.md)
 
 # Part 7: Best Practices & Reference
 
-- [Common Mistakes](ch19-common-mistakes/index.md)
-- [Testing Contracts](ch20-testing/index.md)
-- [Security Considerations](ch21-security/index.md)
+- [Common Mistakes 🚧](ch19-common-mistakes/index.md)
+- [Testing Contracts 🚧](ch20-testing/index.md)
+- [Security Considerations 🚧](ch21-security/index.md)
 
 # Appendix
 
-- [A: Compact Keywords](appendix/a-keywords.md)
-- [B: Operators Reference](appendix/b-operators.md)
-- [C: Standard Library API](appendix/c-stdlib-api.md)
-- [D: Error Messages](appendix/d-errors.md)
-- [E: Version History](appendix/e-version-history.md)
+- [A: Compact Keywords 🚧](appendix/a-keywords.md)
+- [B: Operators Reference 🚧](appendix/b-operators.md)
+- [C: Standard Library API 🚧](appendix/c-stdlib-api.md)
+- [D: Error Messages 🚧](appendix/d-errors.md)
+- [E: Version History 🚧](appendix/e-version-history.md)

@@ -30,10 +30,10 @@ enable = true
 page-break = true
 
 [output.html.playground]
-editable = true
-copyable = true
-copy-js = true
-line-numbers = true
+editable = false
+copyable = false
+copy-js = false
+line-numbers = false
 
 [output.html.fold]
 enable = true

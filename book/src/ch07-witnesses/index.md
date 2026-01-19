@@ -6,5 +6,4 @@ In this chapter, you'll learn:
 
 - What witnesses are and why they matter
 - How to declare witnesses in Compact
-- Common witness patterns
 - How to implement witnesses in TypeScript
