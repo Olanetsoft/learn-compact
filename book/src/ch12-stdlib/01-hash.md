@@ -1,1 +1,3 @@
 # Hash Functions
+
+Coming Soon.
