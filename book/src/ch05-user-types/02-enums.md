@@ -215,7 +215,7 @@ export pure circuit isNoVote(vote: Vote): Boolean {
 ## Complete Example
 
 ```compact
-pragma language_version >= 0.18.0;
+pragma language_version >= 0.16 && <= 0.18;
 
 // Game states
 export enum GamePhase { setup, betting, reveal, payout }

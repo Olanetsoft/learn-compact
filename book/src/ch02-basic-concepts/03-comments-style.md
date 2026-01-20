@@ -132,7 +132,7 @@ These are **project conventions for learn-compact**, not official Compact rules:
 | Element     | Convention         |
 | ----------- | ------------------ |
 | Comments    | `//` single-line   |
-| Indentation | 4 spaces           |
+| Indentation | 2 spaces           |
 | Line length | < 100 characters   |
 | Blank lines | Between sections   |
 | Operators   | Spaces around them |

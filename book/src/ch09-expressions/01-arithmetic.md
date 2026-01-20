@@ -45,7 +45,7 @@ When the result type doesn't match the expected type, you may need a cast:
 ```compact,editable
 pragma language_version >= 0.16 && <= 0.18;
 
-export circuit sum_example(): Uint<64> {
+export circuit sumExample(): Uint<64> {
   const a: Uint<64> = 100;
   const b: Uint<64> = 200;
 
@@ -63,7 +63,7 @@ If either operand has type `Field`, the result type is `Field`. Field arithmetic
 ```compact,editable
 pragma language_version >= 0.16 && <= 0.18;
 
-export circuit field_math(): Field {
+export circuit fieldMath(): Field {
   const a: Field = 100;
   const b: Field = 200;
 
@@ -86,13 +86,13 @@ export circuit increment(): [] {
   count = (count + 1) as Uint<64>;
 }
 
-export circuit add_amount(amount: Uint<64>): [] {
+export circuit addAmount(amount: Uint<64>): [] {
   // Disclose parameter before using in ledger operation
-  const d_amount = disclose(amount);
-  count = (count + d_amount) as Uint<64>;
+  const dAmount = disclose(amount);
+  count = (count + dAmount) as Uint<64>;
 }
 
-export circuit get_count(): Uint<64> {
+export circuit getCount(): Uint<64> {
   return count;
 }
 ```

@@ -33,7 +33,7 @@ export circuit register(name: Bytes<32>, age: Uint<8>): [] {
     // implementation
 }
 
-pure circuit validate_age(age: Uint<8>): Boolean {
+pure circuit validateAge(age: Uint<8>): Boolean {
     return age >= 18;
 }
 ```
@@ -53,16 +53,17 @@ For details on modules and the `import` mechanism, see the [Modules chapter](../
 
 ## Naming Conventions
 
-While Compact doesn't enforce naming conventions, following consistent patterns improves readability. The official examples use:
+While Compact doesn't enforce naming conventions, following consistent patterns improves readability. This book uses:
 
-| Element       | Common Pattern          | Example from Docs               |
-| ------------- | ----------------------- | ------------------------------- |
-| Circuits      | lowercase/snake_case    | `get`, `post`, `transfer_funds` |
-| Types         | PascalCase              | `Person`, `State`               |
-| Ledger fields | lowercase               | `authority`, `messages`         |
-| Enum variants | UPPERCASE or PascalCase | `State.UNSET`, `Status.Active`  |
+| Element       | Convention | Example                          |
+| ------------- | ---------- | -------------------------------- |
+| Circuits      | camelCase  | `getBalance`, `transferFunds`    |
+| Types/Structs | PascalCase | `Person`, `PlayerStats`          |
+| Ledger fields | camelCase  | `balance`, `totalSupply`         |
+| Enum variants | lowercase  | `Status.pending`, `State.active` |
+| Constants     | camelCase  | `maxValue`, `threshold`          |
 
-> **Note:** These are style suggestions based on examples in the docs, not official rules. Choose a consistent style for your project.
+> **Note:** These are conventions used throughout this book for consistency. Choose a style that works for your project and apply it consistently.
 
 ## Visibility
 

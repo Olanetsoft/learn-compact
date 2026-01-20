@@ -112,9 +112,9 @@ const flagField: Field = flagInt as Field;       // Uint → Field (static)
 ## Enum to Field
 
 ```compact
-export enum Choice { A, B, C }
+export enum Choice { a, b, c }
 
-const choice: Choice = Choice.B;
+const choice: Choice = Choice.b;
 const index: Field = choice as Field;  // 1 (conversion)
 ```
 

@@ -35,12 +35,12 @@ export circuit decrement(): [] {
 }
 
 // A circuit to read the current count
-export circuit get_count(): Uint<64> {
+export circuit getCount(): Uint<64> {
     return counter.read();
 }
 
 // A circuit to check if counter is below a threshold
-export circuit is_less_than(threshold: Uint<64>): Boolean {
+export circuit isLessThan(threshold: Uint<64>): Boolean {
     // disclose() is required because comparing a witness value (threshold)
     // with ledger state could reveal information about the witness
     return counter.lessThan(disclose(threshold));
@@ -97,10 +97,10 @@ Circuits are the functions of Compact. Key points:
 
 ### The `disclose()` Function
 
-Notice the `is_less_than` circuit uses `disclose()`:
+Notice the `isLessThan` circuit uses `disclose()`:
 
 ```compact
-export circuit is_less_than(threshold: Uint<64>): Boolean {
+export circuit isLessThan(threshold: Uint<64>): Boolean {
     return counter.lessThan(disclose(threshold));
 }
 ```

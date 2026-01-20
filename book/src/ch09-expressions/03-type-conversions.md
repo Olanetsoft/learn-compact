@@ -52,7 +52,7 @@ For `Uint` types, casting from a smaller range to a larger range is a static cas
 ```compact,editable
 pragma language_version >= 0.16 && <= 0.18;
 
-export circuit upcast_example(): Field {
+export circuit upcastExample(): Field {
   const small: Uint<32> = 100;
 
   // Uint<32> to Uint<64>: static cast (range fits)
@@ -72,7 +72,7 @@ When casting from a larger range to a smaller range, the cast is checked at runt
 ```compact,editable
 pragma language_version >= 0.16 && <= 0.18;
 
-export circuit checked_cast_example(): Uint<32> {
+export circuit checkedCastExample(): Uint<32> {
   const big: Uint<64> = 50;
 
   // Uint<64> to Uint<32>: checked cast
@@ -94,7 +94,7 @@ The cast rules for `Field`:
 ```compact,editable
 pragma language_version >= 0.16 && <= 0.18;
 
-export circuit field_to_uint(): Uint<64> {
+export circuit fieldToUint(): Uint<64> {
   const f: Field = 42;
 
   // Field to Uint: checked cast
@@ -115,7 +115,7 @@ The cast rules for `Bytes`:
 ```compact,editable
 pragma language_version >= 0.16 && <= 0.18;
 
-export circuit bytes_field(): Field {
+export circuit bytesToField(): Field {
   // Create Bytes using Bytes[...] syntax
   const b: Bytes<4> = Bytes[1, 2, 3, 4];
 
@@ -133,10 +133,10 @@ Enums can be cast to `Field`, but **not** directly to `Uint`:
 ```compact,editable
 pragma language_version >= 0.16 && <= 0.18;
 
-export enum Status { Pending, Active, Completed }
+export enum Status { pending, active, completed }
 
-export circuit enum_to_field(): Field {
-  const s: Status = Status.Active;
+export circuit enumToField(): Field {
+  const s: Status = Status.active;
 
   // Enum to Field: conversion
   const f: Field = s as Field;

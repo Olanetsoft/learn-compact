@@ -100,8 +100,8 @@ The standard library uses generics extensively:
 
 ```compact
 // From CompactStandardLibrary:
-// struct Maybe<T> { is_some: Boolean; value: T; }
-// struct Either<A, B> { is_left: Boolean; left: A; right: B; }
+// struct Maybe<T> { isSome: Boolean; value: T; }
+// struct Either<A, B> { isLeft: Boolean; left: A; right: B; }
 
 import CompactStandardLibrary;
 
@@ -217,7 +217,7 @@ _Source: [Representations in TypeScript](https://docs.midnight.network/develop/r
 ## Complete Example
 
 ```compact
-pragma language_version >= 0.18.0;
+pragma language_version >= 0.16 && <= 0.18;
 
 import CompactStandardLibrary;
 

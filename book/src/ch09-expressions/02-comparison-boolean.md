@@ -22,15 +22,15 @@ Compact provides relational operators for comparing values and logical operators
 ```compact,editable
 pragma language_version >= 0.16 && <= 0.18;
 
-export circuit equality_examples(): Boolean {
+export circuit equalityExamples(): Boolean {
   const a: Uint<64> = 42;
   const b: Uint<64> = 42;
   const c: Uint<64> = 100;
 
   const equal: Boolean = a == b;      // true
-  const not_equal: Boolean = a != c;  // true
+  const notEqual: Boolean = a != c;   // true
 
-  return equal && not_equal;
+  return equal && notEqual;
 }
 ```
 
@@ -41,14 +41,14 @@ export circuit equality_examples(): Boolean {
 ```compact,editable
 pragma language_version >= 0.16 && <= 0.18;
 
-export circuit ordering_examples(): Boolean {
+export circuit orderingExamples(): Boolean {
   const x: Uint<64> = 10;
   const y: Uint<64> = 20;
 
   const less: Boolean = x < y;         // true
   const greater: Boolean = y > x;      // true
-  const less_eq: Boolean = x <= 10;    // true
-  const greater_eq: Boolean = y >= 20; // true
+  const lessEq: Boolean = x <= 10;     // true
+  const greaterEq: Boolean = y >= 20;  // true
 
   return less && greater;
 }
@@ -73,7 +73,7 @@ Logical operators use **short-circuit evaluation**:
 ```compact,editable
 pragma language_version >= 0.16 && <= 0.18;
 
-export circuit short_circuit(): Boolean {
+export circuit shortCircuit(): Boolean {
   const x: Uint<64> = 0;
 
   // Safe: second condition not evaluated when x == 0
@@ -101,7 +101,7 @@ export circuit min(a: Uint<64>, b: Uint<64>): Uint<64> {
   return a < b ? a : b;
 }
 
-export circuit abs_diff(a: Uint<64>, b: Uint<64>): Uint<64> {
+export circuit absDiff(a: Uint<64>, b: Uint<64>): Uint<64> {
   return a > b ? (a - b) as Uint<64> : (b - a) as Uint<64>;
 }
 ```
@@ -111,14 +111,14 @@ export circuit abs_diff(a: Uint<64>, b: Uint<64>): Uint<64> {
 ```compact,editable
 pragma language_version >= 0.16 && <= 0.18;
 
-export circuit in_range(value: Uint<64>, min_val: Uint<64>, max_val: Uint<64>): Boolean {
-  return value >= min_val && value <= max_val;
+export circuit inRange(value: Uint<64>, minVal: Uint<64>, maxVal: Uint<64>): Boolean {
+  return value >= minVal && value <= maxVal;
 }
 
-export circuit is_valid(amount: Uint<64>, limit: Uint<64>): Boolean {
-  const non_zero: Boolean = amount > 0;
-  const within_limit: Boolean = amount <= limit;
-  return non_zero && within_limit;
+export circuit isValid(amount: Uint<64>, limit: Uint<64>): Boolean {
+  const nonZero: Boolean = amount > 0;
+  const withinLimit: Boolean = amount <= limit;
+  return nonZero && withinLimit;
 }
 ```
 

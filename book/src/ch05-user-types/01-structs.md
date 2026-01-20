@@ -168,7 +168,7 @@ _Source: [User-defined types](https://docs.midnight.network/develop/reference/co
 ## Complete Example
 
 ```compact
-pragma language_version >= 0.18.0;
+pragma language_version >= 0.16 && <= 0.18;
 
 // Define structs
 struct PlayerStats {
