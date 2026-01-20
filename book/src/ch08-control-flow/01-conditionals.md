@@ -61,8 +61,8 @@ export pure circuit max(a: Uint<64>, b: Uint<64>): Uint<64> {
     return a > b ? a : b;
 }
 
-export pure circuit abs(x: Field): Field {
-    return x < (0 as Field) ? (0 as Field) - x : x;
+export pure circuit clamp(value: Uint<64>, minVal: Uint<64>, maxVal: Uint<64>): Uint<64> {
+    return value < minVal ? minVal : (value > maxVal ? maxVal : value);
 }
 ```
 

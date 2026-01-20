@@ -9,7 +9,7 @@ Compact defines **one unsigned integer type constructor, `Uint`**, with two equi
 The sized form specifies how many **bits** the integer can use:
 
 ```compact
-ledger value: Uint<64>;  // 64-bit unsigned integer
+export ledger value: Uint<64>;  // 64-bit unsigned integer
 ```
 
 | Type        | Bits | Range                | Use Case _(guidance)_            |
@@ -41,8 +41,8 @@ circuit f(x: Uint<0..100>): [] {
 
 ```compact
 // These two declarations are the SAME type:
-let a: Uint<8>;       // Sized form: 8 bits
-let b: Uint<0..255>;  // Bounded form: 0 to (2^8 - 1)
+const a: Uint<8> = 0;       // Sized form: 8 bits
+const b: Uint<0..255> = 0;  // Bounded form: 0 to (2^8 - 1)
 ```
 
 The sized form is just a convenience notation—any `Uint<n>` can be rewritten as `Uint<0..m>`.

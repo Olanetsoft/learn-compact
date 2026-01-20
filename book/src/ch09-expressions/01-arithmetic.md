@@ -80,22 +80,20 @@ export circuit field_math(): Field {
 ```compact,editable
 pragma language_version >= 0.16 && <= 0.18;
 
-ledger count: Uint<64>;
+export ledger count: Uint<64>;
 
 export circuit increment(): [] {
   count = (count + 1) as Uint<64>;
-  return [];
 }
 
 export circuit add_amount(amount: Uint<64>): [] {
   // Disclose parameter before using in ledger operation
   const d_amount = disclose(amount);
   count = (count + d_amount) as Uint<64>;
-  return [];
 }
 
 export circuit get_count(): Uint<64> {
-  return disclose(count);
+  return count;
 }
 ```
 
