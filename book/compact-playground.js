@@ -34,7 +34,9 @@
   class CompactPlayground {
     constructor(options = {}) {
       this.apiUrl = options.apiUrl || DEFAULT_API_URL;
-      this.selector = options.selector || "code.language-compact";
+      this.selector =
+        options.selector ||
+        "code.language-compact, code.hljs.language-compact, pre code.language-compact";
       this.editable = options.editable !== false;
       this.autoRun = options.autoRun || false;
       this.codeBlocks = new Map();
@@ -445,12 +447,6 @@
     // Expose globally for programmatic access
     window.CompactPlayground = CompactPlayground;
     window.compactPlayground = playground;
-
-    // Re-run syntax highlighting after playground setup
-    // This ensures non-editable blocks get highlighted
-    if (typeof window.highlightCompactCode === "function") {
-      setTimeout(window.highlightCompactCode, 50);
-    }
   }
 
   // Initialize when DOM is ready

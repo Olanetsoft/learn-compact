@@ -49,3 +49,22 @@
   "en", "genre": "Programming", "about": [ "Compact programming language",
   "Midnight blockchain", "Zero-knowledge proofs", "Smart contracts" ] }
 </script>
+
+<!-- Register Compact language for highlight.js before mdBook's highlighter runs -->
+<script>
+  window.compactLanguageDefinition = function(hljs) { return { name: 'Compact',
+  aliases: ['compact'], keywords: { keyword: 'pragma language_version import
+  export from module contract circuit pure witness ledger sealed struct enum
+  type const let if else for of in return assert disclose as', type: 'Boolean
+  Field Uint Bytes Vector Map Set Maybe Either Counter MerkleTree Void',
+  built_in: 'fold map filter hash persistentHash transientHash transientCommit
+  lookup member insert remove some none left right', literal: 'true false' },
+  contains: [ hljs.COMMENT('//', '$'), hljs.COMMENT('/\\*', '\\*/'), {
+  className: 'string', begin: /"/, end: /"/ }, { className: 'number', begin:
+  /\b(0x[0-9a-fA-F]+|\d+)\b/ } ] }; }; (function() { var originalHljs = null;
+  Object.defineProperty(window, 'hljs', { configurable: true, get: function() {
+  return originalHljs; }, set: function(val) { originalHljs = val; if (val &&
+  typeof val.registerLanguage === 'function' &&
+  window.compactLanguageDefinition) { try { val.registerLanguage('compact',
+  window.compactLanguageDefinition); } catch(e) {} } } }); })();
+</script>
