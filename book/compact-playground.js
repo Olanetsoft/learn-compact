@@ -134,6 +134,18 @@
         wrapper.appendChild(outputContainer);
       }
 
+      // Apply syntax highlighting BEFORE making editable
+      try {
+        if (
+          typeof hljs !== "undefined" &&
+          typeof hljs.highlightElement === "function"
+        ) {
+          hljs.highlightElement(codeEl);
+        }
+      } catch (e) {
+        console.warn("Highlighting failed:", e);
+      }
+
       // Make code editable if enabled and runnable
       if (this.editable && isRunnable) {
         codeEl.setAttribute("contenteditable", "true");
@@ -150,6 +162,23 @@
           if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
             e.preventDefault();
             this.runCode(codeEl, outputContainer, runButton);
+          }
+        });
+
+        // Re-highlight on blur (when user finishes editing)
+        codeEl.addEventListener("blur", () => {
+          try {
+            if (
+              typeof hljs !== "undefined" &&
+              typeof hljs.highlightElement === "function"
+            ) {
+              const plainCode = codeEl.textContent;
+              codeEl.textContent = plainCode;
+              codeEl.classList.remove("hljs");
+              hljs.highlightElement(codeEl);
+            }
+          } catch (e) {
+            console.warn("Re-highlighting failed:", e);
           }
         });
       }
@@ -416,6 +445,12 @@
     // Expose globally for programmatic access
     window.CompactPlayground = CompactPlayground;
     window.compactPlayground = playground;
+
+    // Re-run syntax highlighting after playground setup
+    // This ensures non-editable blocks get highlighted
+    if (typeof window.highlightCompactCode === "function") {
+      setTimeout(window.highlightCompactCode, 50);
+    }
   }
 
   // Initialize when DOM is ready
