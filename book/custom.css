@@ -443,25 +443,38 @@ code.language-compact .hljs-variable.constant {
 
 /* Make all header icons larger and more visible */
 .icon-button {
-  width: 32px !important;
-  height: 32px !important;
-  font-size: 1.3rem !important;
+  width: 36px !important;
+  height: 36px !important;
+  font-size: 1.4rem !important;
 }
 
-.icon-button i {
-  font-size: 1.3rem !important;
+.icon-button .fa-svg,
+.icon-button .fa-svg svg {
+  width: 22px !important;
+  height: 22px !important;
 }
 
 /* Style the right-side icons container */
 .right-buttons {
-  gap: 8px;
+  gap: 12px !important;
+  display: flex !important;
+  align-items: center !important;
 }
 
 .right-buttons a,
 .right-buttons button {
-  padding: 6px !important;
+  padding: 8px !important;
   border-radius: 6px;
   transition: all 0.2s ease;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.right-buttons .fa-svg,
+.right-buttons .fa-svg svg {
+  width: 24px !important;
+  height: 24px !important;
 }
 
 .right-buttons a:hover,
@@ -481,23 +494,46 @@ code.language-compact .hljs-variable.constant {
 }
 
 /* Make the edit icon stand out more */
-a[rel="edit"] {
+a[rel="edit"],
+a[rel="edit"] .fa-svg,
+a[rel="edit"] .fa-svg svg {
   color: #1976d2 !important;
+  fill: #1976d2 !important;
 }
 
 .ayu a[rel="edit"],
+.ayu a[rel="edit"] .fa-svg,
+.ayu a[rel="edit"] .fa-svg svg,
 .coal a[rel="edit"],
-.navy a[rel="edit"] {
+.coal a[rel="edit"] .fa-svg,
+.coal a[rel="edit"] .fa-svg svg,
+.navy a[rel="edit"],
+.navy a[rel="edit"] .fa-svg,
+.navy a[rel="edit"] .fa-svg svg {
   color: #64b5f6 !important;
+  fill: #64b5f6 !important;
 }
 
-/* Menu bar icons */
-.menu-bar i {
-  font-size: 1.2rem;
+/* Menu bar left icons */
+.left-buttons {
+  gap: 8px !important;
+}
+
+.left-buttons .icon-button .fa-svg,
+.left-buttons .icon-button .fa-svg svg {
+  width: 22px !important;
+  height: 22px !important;
 }
 
 /* Sidebar toggle and theme buttons */
 #sidebar-toggle,
 #theme-toggle {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
+}
+
+#mdbook-sidebar-toggle .fa-svg svg,
+#mdbook-theme-toggle .fa-svg svg,
+#mdbook-search-toggle .fa-svg svg {
+  width: 22px !important;
+  height: 22px !important;
 }
