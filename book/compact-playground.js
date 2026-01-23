@@ -29,6 +29,12 @@
     error:
       '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>',
     copy: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
+    toastSuccess:
+      '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>',
+    toastError:
+      '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
+    toastClose:
+      '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
   };
 
   class CompactPlayground {
@@ -46,6 +52,9 @@
      * Initialize the playground - find and enhance all Compact code blocks
      */
     init() {
+      // Create toast container if it doesn't exist
+      this.initToastContainer();
+
       const codeElements = document.querySelectorAll(this.selector);
 
       if (codeElements.length === 0) {
@@ -55,6 +64,76 @@
       codeElements.forEach((codeEl, index) => {
         this.enhanceCodeBlock(codeEl, index);
       });
+    }
+
+    /**
+     * Initialize the toast notification container
+     */
+    initToastContainer() {
+      if (!document.querySelector(".compact-toast-container")) {
+        const toastContainer = document.createElement("div");
+        toastContainer.className = "compact-toast-container";
+        document.body.appendChild(toastContainer);
+      }
+    }
+
+    /**
+     * Show a toast notification
+     */
+    showToast(type, title, message, duration = 4000) {
+      const container = document.querySelector(".compact-toast-container");
+      if (!container) return;
+
+      const toast = document.createElement("div");
+      toast.className = `compact-toast ${type}`;
+
+      const icon = type === "success" ? ICONS.toastSuccess : ICONS.toastError;
+
+      toast.innerHTML = `
+        <div class="compact-toast-icon">${icon}</div>
+        <div class="compact-toast-content">
+          <div class="compact-toast-title">${title}</div>
+          <div class="compact-toast-message">${message}</div>
+        </div>
+        <button class="compact-toast-close" aria-label="Close notification">
+          ${ICONS.toastClose}
+        </button>
+        <div class="compact-toast-progress"></div>
+      `;
+
+      // Close button handler
+      const closeBtn = toast.querySelector(".compact-toast-close");
+      closeBtn.addEventListener("click", () => this.dismissToast(toast));
+
+      container.appendChild(toast);
+
+      // Trigger animation
+      requestAnimationFrame(() => {
+        toast.classList.add("show");
+      });
+
+      // Auto dismiss
+      setTimeout(() => {
+        this.dismissToast(toast);
+      }, duration);
+
+      return toast;
+    }
+
+    /**
+     * Dismiss a toast notification
+     */
+    dismissToast(toast) {
+      if (!toast || toast.classList.contains("hide")) return;
+
+      toast.classList.remove("show");
+      toast.classList.add("hide");
+
+      setTimeout(() => {
+        if (toast.parentNode) {
+          toast.parentNode.removeChild(toast);
+        }
+      }, 400);
     }
 
     /**
@@ -258,6 +337,7 @@
           success: false,
           error: "No code to compile",
         });
+        this.showToast("error", "Cannot Compile", "No code to compile");
         return;
       }
 
@@ -273,12 +353,32 @@
       try {
         const result = await this.compile(code);
         this.showOutput(outputContainer, result);
+
+        // Show toast notification based on result
+        if (result.success) {
+          const timeMsg = result.executionTime
+            ? `Compiled in ${result.executionTime}ms`
+            : "Your code is valid!";
+          this.showToast("success", "Compilation Successful! ✨", timeMsg);
+        } else {
+          const errorCount = result.errors?.length || 1;
+          const errorMsg =
+            errorCount === 1
+              ? "Found 1 error in your code"
+              : `Found ${errorCount} errors in your code`;
+          this.showToast("error", "Compilation Failed", errorMsg);
+        }
       } catch (error) {
         this.showOutput(outputContainer, {
           success: false,
           error: "Network error",
           message: error.message || "Failed to connect to compilation server",
         });
+        this.showToast(
+          "error",
+          "Connection Error",
+          "Failed to connect to server"
+        );
       } finally {
         // Reset button state
         runButton.disabled = false;
