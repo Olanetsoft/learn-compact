@@ -26,9 +26,18 @@ For the exercises in this book, we'll use `compact compile` for compilation.
 - **Node.js:** v18 or later
 - **Docker:** For running the proof server
 
+⚠️ Windows Users: You must use WSL2. PowerShell and Command Prompt are not supported.
+
+
 ## Installation
 
-Install the Compact CLI using the official installer script:
+Windows/WSL Only: you may need to install curl first:
+
+```bash
+sudo apt-get update && sudo apt-get install -y curl
+```
+
+Other OS: Install the Compact CLI using the official installer script:
 
 ```bash
 curl --proto '=https' --tlsv1.2 -LsSf https://github.com/midnightntwrk/compact/releases/latest/download/compact-installer.sh | sh

@@ -57,6 +57,13 @@ sudo apt-get install docker.io docker-compose
 sudo usermod -aG docker $USER
 ```
 
+**Windows (WSL2):**
+
+1. Download and install Docker Desktop for Windows.
+2. In Docker Desktop “Settings” >“General” ensure "Use the WSL 2 based engine" is checked.
+3. Go to “Resources” > WSL Integration and enable the toggle for your specific Linux distro (e.g., Ubuntu).
+   > Note: If you do not see a distro listed, open PowerShell and run wsl --install -d Ubuntu to create one.
+
 ### Verify Docker
 
 ```bash
@@ -82,7 +89,7 @@ This command occupies the terminal window while running.
 
 For local development without relying on public testnets, the community has created **midnight-local-network** — a self-contained local Midnight node with wallet funding capabilities.
 
-> 🎬 [Watch the Video Explainer & Demo](https://github.com/bricktowers/midnight-local-network)
+> 🎬 <a href="https://github.com/bricktowers/midnight-local-network" target="_blank" rel="noopener noreferrer">Watch the Video Explainer & Demo</a>
 
 ### Why Use a Local Network?
 

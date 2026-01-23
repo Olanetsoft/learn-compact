@@ -8,7 +8,7 @@ Compact is a domain-specific language designed for writing smart contracts on th
 
 ## What is Midnight?
 
-Midnight is a data-protection blockchain that uses zero-knowledge cryptography to enable confidential transactions and private smart contracts. Unlike traditional public blockchains where all transaction data is visible, Midnight allows developers to choose what information is public and what remains private.
+Midnight is a data-protection blockchain that uses zero-knowledge cryptography to enable confidential transactions and private smart contracts. Unlike traditional public blockchains where all transaction data is visible, Midnight allows developers to choose what information is public and what remains private. This is called “programmable privacy".
 
 ## What are Zero-Knowledge Proofs?
 
@@ -16,7 +16,8 @@ A zero-knowledge proof is a cryptographic method that allows one party (the prov
 
 **Example:** Imagine proving you're over 21 without showing your ID. A ZK proof can verify "user is over 21" without revealing your actual birthdate.
 
-In Compact, ZK proofs are generated automatically when you compile and execute your smart contracts.
+In Compact, ZK circuits are generated automatically when you compile. Actual ZK proofs are then generated locally at execution time to enable selective disclosure, which ensures the underlying data remains private.
+
 
 ## How This Book is Organized
 
