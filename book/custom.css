@@ -436,3 +436,68 @@ code.language-compact .hljs-variable.constant {
     print-color-adjust: exact;
   }
 }
+
+/* ============================================
+   HEADER ICONS (Edit, Theme, Print, Search)
+   ============================================ */
+
+/* Make all header icons larger and more visible */
+.icon-button {
+  width: 32px !important;
+  height: 32px !important;
+  font-size: 1.3rem !important;
+}
+
+.icon-button i {
+  font-size: 1.3rem !important;
+}
+
+/* Style the right-side icons container */
+.right-buttons {
+  gap: 8px;
+}
+
+.right-buttons a,
+.right-buttons button {
+  padding: 6px !important;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.right-buttons a:hover,
+.right-buttons button:hover {
+  background: rgba(0, 0, 0, 0.1);
+  transform: scale(1.1);
+}
+
+/* Dark theme hover */
+.ayu .right-buttons a:hover,
+.ayu .right-buttons button:hover,
+.coal .right-buttons a:hover,
+.coal .right-buttons button:hover,
+.navy .right-buttons a:hover,
+.navy .right-buttons button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Make the edit icon stand out more */
+a[rel="edit"] {
+  color: #1976d2 !important;
+}
+
+.ayu a[rel="edit"],
+.coal a[rel="edit"],
+.navy a[rel="edit"] {
+  color: #64b5f6 !important;
+}
+
+/* Menu bar icons */
+.menu-bar i {
+  font-size: 1.2rem;
+}
+
+/* Sidebar toggle and theme buttons */
+#sidebar-toggle,
+#theme-toggle {
+  font-size: 1.2rem;
+}
