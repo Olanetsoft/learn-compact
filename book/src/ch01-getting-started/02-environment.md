@@ -183,6 +183,16 @@ The Compact VS Code extension provides syntax highlighting and code snippets.
 2. In VS Code, go to **Extensions** → click `...` menu → **Install from VSIX**
 3. Select the downloaded extension file
 
+**Windows Only:** In VS Code, go to Extensions and install the "WSL" extension by Microsoft.
+
+Launch it by typing on WSL Terminal:
+
+```bash
+code .
+```
+
+You can now add the compact extension to the WSL VS Code
+
 **Verification:** You now see "Compact Language Support" in your installed VS Code extensions.
 
 ### Features
