@@ -5,6 +5,8 @@
 [![CI](https://github.com/Olanetsoft/learn-compact/actions/workflows/ci.yml/badge.svg)](https://github.com/Olanetsoft/learn-compact/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
+This project extends the Midnight Network with additional developer tooling.
+
 ## 📖 What is This?
 
 Learn Compact is an interactive book and exercise collection for learning the Compact programming language. Compact is the smart contract language for [Midnight](https://midnight.network), a blockchain with native support for zero-knowledge proofs.
