@@ -76,7 +76,7 @@ docker compose version
 Start the proof server in your terminal:
 
 ```bash
-docker run -p 6300:6300 midnightnetwork/proof-server -- midnight-proof-server --network testnet
+docker run -p 6300:6300 midnightntwrk/proof-server:8.0.3 midnight-proof-server -v
 ```
 
 This command occupies the terminal window while running.
@@ -263,7 +263,7 @@ If you are following this guide on Windows using WSL2 (Ubuntu), you might encoun
 
 **Q: `parse error: found "ledger"` or `unbound identifier Void`**
 
-**The Issue:** You are likely using code examples from an older version of Compact, but you have installed a newer compiler (e.g., v0.26.0+).
+**The Issue:** You are likely using code examples from an older version of Compact, but you have installed a newer compiler (e.g., v0.30.0+).
 
 **The Fix:** Update your syntax to match the modern standard.
 

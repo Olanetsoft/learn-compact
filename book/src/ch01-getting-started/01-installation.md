@@ -22,8 +22,8 @@ For the exercises in this book, we'll use `compact compile` for compilation.
 
 ## System Requirements
 
-- **Operating System:** macOS, Linux, or Windows (WSL2)
-- **Node.js:** v18 or later
+- **Operating System:** macOS or Linux (Windows via WSL2)
+- **Node.js:** v22 or later
 - **Docker:** For running the proof server
 
 ⚠️ Windows Users: You must use WSL2. PowerShell and Command Prompt are not supported.
@@ -69,7 +69,7 @@ compact --version
 You should see output similar to:
 
 ```
-compact 0.3.0
+compact 0.5.1
 ```
 
 Test compilation works:

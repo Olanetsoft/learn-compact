@@ -132,8 +132,8 @@ See [Chapter 19: Common Mistakes](book/src/ch19-common-mistakes/) for the full l
 ## 🔧 Version Compatibility
 
 - **Compact Language:** v0.16+
-- **Compiler:** compact-v0.3.0
-- **Last Updated:** January 2026
+- **Compiler:** compact v0.5.1 (compiler 0.30.0, runtime 0.15.0)
+- **Last Updated:** April 2026
 
 ## 🤝 Contributing
 
