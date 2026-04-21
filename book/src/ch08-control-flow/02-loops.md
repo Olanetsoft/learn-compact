@@ -15,7 +15,7 @@ for (const item of <vector>) <statement>
 ## Iterating Over a Range
 
 ```compact
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 import CompactStandardLibrary;
 
@@ -31,7 +31,7 @@ export circuit storeRange(): [] {
 ## Iterating Over a Vector
 
 ```compact
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 import CompactStandardLibrary;
 
@@ -49,7 +49,7 @@ export circuit processVector(values: Vector<5, Uint<16>>): [] {
 Since Compact only has `const` bindings (no mutable variables), use `fold` for accumulation:
 
 ```compact
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 import CompactStandardLibrary;
 

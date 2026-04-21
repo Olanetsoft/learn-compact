@@ -85,7 +85,7 @@ Since witnesses are untrusted, you must verify their outputs make sense. Here ar
 When using witnesses to perform operations that are expensive or impossible in circuits (like division), verify the result makes mathematical sense:
 
 ```compact,editable
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 // Witness performs division - expensive/impossible in circuit
 witness _divMod(x: Uint<32>, y: Uint<32>): [Uint<32>, Uint<32>];

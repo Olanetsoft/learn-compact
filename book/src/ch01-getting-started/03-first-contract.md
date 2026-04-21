@@ -17,7 +17,7 @@ touch counter.compact
 Open `counter.compact` and add the following code:
 
 ```compact
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 import CompactStandardLibrary;
 
@@ -57,7 +57,7 @@ Let's break down each part:
 ### Pragma Statement
 
 ```compact
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 ```
 
 This declares which Compact language versions your code is compatible with. Always include this at the top of your files.

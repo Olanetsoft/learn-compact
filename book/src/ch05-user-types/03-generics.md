@@ -217,7 +217,7 @@ _Source: [Representations in TypeScript](https://docs.midnight.network/develop/r
 ## Complete Example
 
 ```compact
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 import CompactStandardLibrary;
 

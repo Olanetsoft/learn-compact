@@ -20,7 +20,7 @@ Compact provides relational operators for comparing values and logical operators
 `==` and `!=` work on any comparable types:
 
 ```compact,editable
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 export circuit equalityExamples(): Boolean {
   const a: Uint<64> = 42;
@@ -39,7 +39,7 @@ export circuit equalityExamples(): Boolean {
 `<`, `>`, `<=`, `>=` require unsigned integer operands:
 
 ```compact,editable
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 export circuit orderingExamples(): Boolean {
   const x: Uint<64> = 10;
@@ -71,7 +71,7 @@ Logical operators use **short-circuit evaluation**:
 - `a || b` - If `a` is `true`, `b` is not evaluated
 
 ```compact,editable
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 export circuit shortCircuit(): Boolean {
   const x: Uint<64> = 0;
@@ -91,7 +91,7 @@ export circuit shortCircuit(): Boolean {
 Compact supports the ternary conditional operator `? :`:
 
 ```compact,editable
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 export circuit max(a: Uint<64>, b: Uint<64>): Uint<64> {
   return a > b ? a : b;
@@ -109,7 +109,7 @@ export circuit absDiff(a: Uint<64>, b: Uint<64>): Uint<64> {
 ## Combining Conditions
 
 ```compact,editable
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 export circuit inRange(value: Uint<64>, minVal: Uint<64>, maxVal: Uint<64>): Boolean {
   return value >= minVal && value <= maxVal;

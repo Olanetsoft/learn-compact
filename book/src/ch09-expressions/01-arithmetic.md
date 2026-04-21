@@ -15,7 +15,7 @@ Compact provides three arithmetic operators: addition, subtraction, and multipli
 ## Basic Arithmetic
 
 ```compact,editable
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 export circuit add(a: Uint<64>, b: Uint<64>): Uint<64> {
   return (a + b) as Uint<64>;
@@ -43,7 +43,7 @@ If the computed bound exceeds the implementation's maximum unsigned integer, it 
 When the result type doesn't match the expected type, you may need a cast:
 
 ```compact,editable
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 export circuit sumExample(): Uint<64> {
   const a: Uint<64> = 100;
@@ -61,7 +61,7 @@ export circuit sumExample(): Uint<64> {
 If either operand has type `Field`, the result type is `Field`. Field arithmetic uses modular arithmetic - overflow and underflow wrap modulo the field modulus:
 
 ```compact,editable
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 export circuit fieldMath(): Field {
   const a: Field = 100;
@@ -78,7 +78,7 @@ export circuit fieldMath(): Field {
 ## Practical Example: Counter
 
 ```compact,editable
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 export ledger count: Uint<64>;
 

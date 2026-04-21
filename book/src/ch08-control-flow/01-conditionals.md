@@ -21,7 +21,7 @@ _Source: [Statements](https://docs.midnight.network/develop/reference/compact/la
 ### Example
 
 ```compact
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 import CompactStandardLibrary;
 
@@ -53,7 +53,7 @@ _Source: [Conditional expressions](https://docs.midnight.network/develop/referen
 ### Example
 
 ```compact
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 import CompactStandardLibrary;
 

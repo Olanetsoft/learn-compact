@@ -8,7 +8,7 @@ A typical Compact file has these sections:
 
 ```compact
 // 1. Pragma declaration (required, must be first)
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 // 2. Imports (must come after pragma)
 import CompactStandardLibrary;

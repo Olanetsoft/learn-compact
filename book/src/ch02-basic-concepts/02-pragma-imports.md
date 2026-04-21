@@ -7,7 +7,7 @@ The pragma statement declares which Compact language versions your code supports
 ### Syntax
 
 ```compact
-pragma language_version >= 0.16 && <= 0.18;
+// pragma language_version >= 0.16 && <= 0.18;
 ```
 
 This means:
@@ -109,7 +109,7 @@ After importing `CompactStandardLibrary`, you have access to:
 Here's a minimal complete Compact file (matches the official counter example pattern):
 
 ```compact
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 import CompactStandardLibrary;
 

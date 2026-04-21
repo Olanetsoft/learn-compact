@@ -88,7 +88,7 @@ _Source: [Generic parameter references](https://docs.midnight.network/develop/re
 ## Complete Example
 
 ```compact
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 import CompactStandardLibrary;
 

@@ -99,7 +99,7 @@ if(value>=threshold&&isActive){}
 Use blank lines to separate logical sections (this pattern is consistent with official examples):
 
 ```compact
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 import CompactStandardLibrary;
 
@@ -119,8 +119,8 @@ export circuit mint(to: Bytes<32>, amount: Uint<64>): [] {
     totalSupply.increment(disclose(amount) as Uint<16>);
 }
 
-export circuit burn(from: Bytes<32>, amount: Uint<64>): [] {
-    balance.remove(disclose(from));
+export circuit burn(owner: Bytes<32>, amount: Uint<64>): [] {
+    balance.remove(disclose(owner));
     totalSupply.decrement(disclose(amount) as Uint<16>);
 }
 ```

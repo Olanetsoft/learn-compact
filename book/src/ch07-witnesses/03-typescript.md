@@ -9,7 +9,7 @@ Witnesses are declared in Compact but implemented in TypeScript. The implementat
 In your `.compact` file, declare what the witness looks like:
 
 ```compact
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 import CompactStandardLibrary;
 

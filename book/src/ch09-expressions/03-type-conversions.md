@@ -50,7 +50,7 @@ Upcasts—casts from a type to a supertype—are always allowed and never result
 For `Uint` types, casting from a smaller range to a larger range is a static cast:
 
 ```compact,editable
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 export circuit upcastExample(): Field {
   const small: Uint<32> = 100;
@@ -70,7 +70,7 @@ export circuit upcastExample(): Field {
 When casting from a larger range to a smaller range, the cast is checked at runtime:
 
 ```compact,editable
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 export circuit checkedCastExample(): Uint<32> {
   const big: Uint<64> = 50;
@@ -92,7 +92,7 @@ The cast rules for `Field`:
 - `Field` → `Boolean`: **conversion** (0 becomes false, non-zero becomes true)
 
 ```compact,editable
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 export circuit fieldToUint(): Uint<64> {
   const f: Field = 42;
@@ -113,7 +113,7 @@ The cast rules for `Bytes`:
 - `Bytes<m>` → `Bytes<n>`: **static** only if `m == n`
 
 ```compact,editable
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 export circuit bytesToField(): Field {
   // Create Bytes using Bytes[...] syntax
@@ -131,7 +131,7 @@ export circuit bytesToField(): Field {
 Enums can be cast to `Field`, but **not** directly to `Uint`:
 
 ```compact,editable
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 export enum Status { pending, active, completed }
 

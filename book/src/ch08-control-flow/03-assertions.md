@@ -20,7 +20,7 @@ _Source: [Statements](https://docs.midnight.network/develop/reference/compact/la
 ### State Preconditions
 
 ```compact
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 import CompactStandardLibrary;
 
