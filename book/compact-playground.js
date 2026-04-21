@@ -17,7 +17,7 @@
   const DEFAULT_API_URL =
     window.COMPACT_PLAYGROUND_API_URL ||
     document.currentScript?.dataset?.apiUrl ||
-    "https://compact-playground.onrender.com";
+    "https://compact-playground.up.railway.app";
 
   // Icons as SVG strings
   const ICONS = {
@@ -431,7 +431,10 @@
         throw new Error(`Server error: ${response.status} - ${text}`);
       }
 
-      return response.json();
+      const body = await response.json();
+      // New shape (always wrapped). Keep a fallback so this works against older
+      // playground deployments that still return the flat CompileResult.
+      return body.results?.[0] ?? body;
     }
 
     /**
