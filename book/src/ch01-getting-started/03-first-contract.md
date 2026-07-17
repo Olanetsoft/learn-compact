@@ -83,6 +83,8 @@ This declares a public (`export`) ledger variable named `counter` of type `Count
 ### Circuit Declaration
 
 ```compact
+export ledger counter: Counter;
+
 export circuit increment(): [] {
     counter.increment(1);
 }
@@ -100,6 +102,8 @@ Circuits are the functions of Compact. Key points:
 Notice the `isLessThan` circuit uses `disclose()`:
 
 ```compact
+export ledger counter: Counter;
+
 export circuit isLessThan(threshold: Uint<64>): Boolean {
     return counter.lessThan(disclose(threshold));
 }
@@ -119,18 +123,23 @@ compact compile counter.compact managed/counter
 
 > ⚠️ **Note:** The older `compactc` command is deprecated. Always use `compact compile`.
 
-If successful, you'll see a managed output directory structure created:
+If successful, you'll see a managed output directory structure created (verified with toolchain 0.31.1):
 
 ```
 managed/counter/
-├── contract/           # TypeScript bindings
-│   ├── index.cjs       # JavaScript implementation
-│   └── index.d.cts     # TypeScript type definitions
-├── zkir/               # Circuit representations
-├── keys/               # Proving and verifying keys
-│   ├── proving-keys/
-│   └── verifying-keys/
-└── compiler/           # Compiler metadata
+├── contract/                 # TypeScript bindings
+│   ├── index.js              # JavaScript implementation
+│   ├── index.js.map          # Source map
+│   └── index.d.ts            # TypeScript type definitions
+├── zkir/                     # Circuit representations
+│   ├── increment.zkir        # One .zkir + .bzkir per circuit
+│   └── ...
+├── keys/                     # Proving and verifying keys
+│   ├── increment.prover      # One .prover + .verifier per circuit
+│   ├── increment.verifier
+│   └── ...
+└── compiler/
+    └── contract-info.json    # Compiler metadata
 ```
 
 ## Understanding the Output
@@ -149,9 +158,9 @@ The compiler generates a managed directory containing:
 
 | Error                                                 | Cause                                   | Fix                                  |
 | ----------------------------------------------------- | --------------------------------------- | ------------------------------------ |
-| `parse error at 'Void'`                               | Using `Void` as return type             | Use `[]` instead                     |
-| `parse error at '{'`                                  | Using `ledger { }` block syntax         | Declare each field separately        |
-| `unknown type 'Counter'`                              | Missing import                          | Add `import CompactStandardLibrary;` |
+| `unbound identifier Void`                             | Using `Void` as return type             | Use `[]` instead                     |
+| `parse error: found "ledger"`                         | Using `ledger { }` block syntax         | Declare each field separately        |
+| `unbound identifier Counter`                          | Missing import                          | Add `import CompactStandardLibrary;` |
 | `potential witness-value disclosure must be declared` | Using witness value in ledger operation | Wrap the value with `disclose()`     |
 
 ## Exercises

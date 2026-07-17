@@ -7,13 +7,13 @@ The pragma statement declares which Compact language versions your code supports
 ### Syntax
 
 ```compact
-// pragma language_version >= 0.16 && <= 0.18;
+// pragma language_version >= 0.16 && <= 0.23;
 ```
 
 This means:
 
 - Minimum version: 0.16
-- Maximum version: 0.18
+- Maximum version: 0.23
 
 ### Why Version Constraints?
 
@@ -35,14 +35,16 @@ If the Compact compiler does not support the language versions specified, it wil
 
 ```text
 // Exact version match (version number only)
-pragma language_version 0.17;
+pragma language_version 0.23;
 
 // Minimum version (open-ended)
 pragma language_version >= 0.16;
 
 // Version range (recommended)
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16 && <= 0.23;
 ```
+
+> **Tip:** Your installed compiler implements exactly one language version — check it with `compact compile --language-version` (currently `0.23.0` with toolchain 0.31.1). A pragma whose range doesn't include that version fails with a `language version ... mismatch` error, so keep the upper bound at or above your compiler's language version.
 
 ### Best Practices
 
@@ -50,16 +52,16 @@ pragma language_version >= 0.16 && <= 0.18;
 
 ```text
 // ✅ Recommended - specific version range
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16 && <= 0.23;
 
 // ✅ Exact version - for strict compatibility
-pragma language_version 0.17;
+pragma language_version 0.23;
 
 // ⚠️ Caution - open-ended (may break with future versions)
 pragma language_version >= 0.16;
 ```
 
-> **Note:** Compact doesn't support `==` for version comparison. For an exact version match, simply write the version number without any comparison operator: `pragma language_version 0.17;`
+> **Note:** Compact doesn't support `==` for version comparison. For an exact version match, simply write the version number without any comparison operator: `pragma language_version 0.23;`
 
 ## Import Statement
 
@@ -77,11 +79,11 @@ This provides ledger ADTs and useful helper types and functions.
 
 ### Import Syntax
 
-```compact
+```text
 // Import entire module
 import CompactStandardLibrary;
 
-// Import from a path
+// Import from a path (only compiles if the file exists in your project)
 import "path/to/module";
 ```
 
@@ -98,7 +100,7 @@ After importing `CompactStandardLibrary`, you have access to:
 | Category       | Items                                                                                        |
 | -------------- | -------------------------------------------------------------------------------------------- |
 | Ledger ADTs    | `Counter`, `Map<K,V>`, `MerkleTree<N,T>`                                                     |
-| Optional Types | `Maybe<T>`, `Either<L,R>`, `CurvePoint`, `MerkleTreeDigest`, etc.                            |
+| Optional Types | `Maybe<T>`, `Either<L,R>`, `JubjubPoint`, `MerkleTreeDigest`, etc.                           |
 | Hash Functions | `persistentHash<T>()`, `persistentCommit<T>()`, `transientHash<T>()`, `transientCommit<T>()` |
 | Helpers        | `some<T>()`, `none<T>()`, `left<L,R>()`, `right<L,R>()`, `pad()`                             |
 

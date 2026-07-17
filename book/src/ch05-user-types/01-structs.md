@@ -25,18 +25,28 @@ _Source: [User-defined types](https://docs.midnight.network/develop/reference/co
 Create a struct value using the struct name followed by field values in braces:
 
 ```compact
-// Named fields (recommended for clarity)
-const player = Player {
-    address: ownerKey,
-    score: 0,
-    isActive: true
-};
+struct Player {
+    address: Bytes<32>,
+    score: Uint<64>,
+    isActive: Boolean
+}
 
-// Positional fields (order must match declaration)
-const player2 = Player { ownerKey, 0, true };
+export pure circuit createPlayers(ownerKey: Bytes<32>): Player {
+    // Named fields (recommended for clarity)
+    const player = Player {
+        address: ownerKey,
+        score: 0,
+        isActive: true
+    };
 
-// Mixed: positional first, then named
-const player3 = Player { ownerKey, 0, isActive: true };
+    // Positional fields (order must match declaration)
+    const player2 = Player { ownerKey, 0, true };
+
+    // Mixed: positional first, then named
+    const player3 = Player { ownerKey, 0, isActive: true };
+
+    return player;
+}
 ```
 
 _Source: [Structure creation](https://docs.midnight.network/develop/reference/compact/lang-ref#structure-creation)_
@@ -46,11 +56,21 @@ _Source: [Structure creation](https://docs.midnight.network/develop/reference/co
 Use dot notation to access struct fields:
 
 ```compact
-const player = Player { address: ownerKey, score: 100, isActive: true };
+struct Player {
+    address: Bytes<32>,
+    score: Uint<64>,
+    isActive: Boolean
+}
 
-const addr = player.address;      // Bytes<32>
-const points = player.score;      // Uint<64>
-const active = player.isActive;   // Boolean
+export pure circuit readFields(ownerKey: Bytes<32>): Boolean {
+    const player = Player { address: ownerKey, score: 100, isActive: true };
+
+    const addr = player.address;      // Bytes<32>
+    const points = player.score;      // Uint<64>
+    const active = player.isActive;   // Boolean
+
+    return active;
+}
 ```
 
 _Source: [Element and member access expressions](https://docs.midnight.network/develop/reference/compact/lang-ref#element-and-member-access-expressions)_
@@ -60,8 +80,17 @@ _Source: [Element and member access expressions](https://docs.midnight.network/d
 The default value of a struct has all fields set to their type's default:
 
 ```compact
-const emptyPlayer = default<Player>;
-// Equivalent to: Player { address: default<Bytes<32>>, score: 0, isActive: false }
+struct Player {
+    address: Bytes<32>,
+    score: Uint<64>,
+    isActive: Boolean
+}
+
+export pure circuit emptyPlayer(): Player {
+    const empty = default<Player>;
+    // Equivalent to: Player { address: default<Bytes<32>>, score: 0, isActive: false }
+    return empty;
+}
 ```
 
 _Source: [Default values](https://docs.midnight.network/develop/reference/compact/lang-ref#default-values)_

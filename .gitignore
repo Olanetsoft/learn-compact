@@ -29,3 +29,7 @@ npm-debug.log*
 # Environment
 .env
 .env.local
+
+# Local tooling state (fact-check runs, verify workspaces, assistant settings)
+.midnight-expert/
+.claude/

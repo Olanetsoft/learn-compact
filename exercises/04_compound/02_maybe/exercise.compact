@@ -17,7 +17,7 @@ export pure circuit unwrapOr(
     opt: Maybe<Uint<64>>, 
     defaultVal: Uint<64>
 ): Uint<64> {
-    // Check isSome and return appropriately
+    // Check is_some and return appropriately
 }
 
 // TODO: Implement findById - returns some(id * 100) if id > 0, otherwise none()
@@ -29,7 +29,7 @@ export pure circuit findById(id: Uint<32>): Maybe<Uint<64>> {
 
 // TODO: Implement doubleIfPresent - doubles value if present, otherwise none()
 export pure circuit doubleIfPresent(opt: Maybe<Uint<64>>): Maybe<Uint<64>> {
-    // Check isSome
+    // Check is_some
     // If yes, return some<Uint<64>>(opt.value * 2)
     // Otherwise, return none<Uint<64>>()
 }

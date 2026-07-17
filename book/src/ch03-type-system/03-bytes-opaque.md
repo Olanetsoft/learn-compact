@@ -7,14 +7,13 @@
 ### Common Uses _(guidance)_
 
 ```compact
-// Hashes (32 bytes = 256 bits)
-const hash: Bytes<32> = ...;
-
-// Short identifiers
-const id: Bytes<8> = ...;
-
-// Longer data
-const data: Bytes<256> = ...;
+export pure circuit shapes(
+    hash: Bytes<32>,   // Hashes (32 bytes = 256 bits)
+    id: Bytes<8>,      // Short identifiers
+    data: Bytes<256>   // Longer data
+): Bytes<32> {
+    return hash;
+}
 ```
 
 > **Note:** The "hashes / identifiers" wording above is convention, not mandated by the docs.
@@ -37,23 +36,27 @@ export circuit example(): [] {
 }
 ```
 
-### Bytes Operations _(unconfirmed)_
+### Bytes Operations
 
-The docs don't explicitly list comparison operators for `Bytes`, but equality comparison is plausible:
+`Bytes` values support equality comparison with `==` and `!=` (verified with toolchain 0.31.1):
 
 ```compact
-// Comparison (unconfirmed syntax)
-const same = hash1 == hash2;
-const different = hash1 != hash2;
+export pure circuit compareBytes(hash1: Bytes<32>, hash2: Bytes<32>): Boolean {
+    const same = hash1 == hash2;
+    const different = hash1 != hash2;
+    return same;
+}
 ```
 
-### Hashing to Bytes _(unconfirmed)_
+### Hashing to Bytes
 
-The `persistentHash` function is documented in the standard library, and `Bytes<m> → Field` / `Field → Bytes<n>` casts are defined. However, the exact generic signature of `persistentHash` is not shown in the docs, so this pattern is **not verified**:
+The standard library's `persistentHash<T>` hashes a value of type `T` and returns `Bytes<32>` — no cast needed (verified with toolchain 0.31.1):
 
 ```compact
-// Unconfirmed exact typing
-const hash: Bytes<32> = persistentHash<Bytes<32>>(someValue) as Bytes<32>;
+export pure circuit hashIt(someValue: Bytes<32>): Bytes<32> {
+    const hash: Bytes<32> = persistentHash<Bytes<32>>(someValue);
+    return hash;
+}
 ```
 
 ## Opaque Types
@@ -95,7 +98,9 @@ _Source: [Opaque data](https://docs.midnight.network/develop/reference/compact/o
 export ledger messages: Map<Bytes<32>, Opaque<"string">>;
 
 export circuit storeMessage(key: Bytes<32>, opaqueValue: Opaque<"string">): [] {
-    messages.insert(key, opaqueValue);
+    // Parameters are private inputs — writing them to public ledger
+    // state requires an explicit disclose()
+    messages.insert(disclose(key), disclose(opaqueValue));
 }
 ```
 

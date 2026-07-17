@@ -2,38 +2,49 @@
 
 Beyond the compiler, you'll need several tools to develop and test Compact contracts.
 
-## Lace Midnight Preview Wallet
+## Lace Wallet
 
-The **Lace Midnight Preview** wallet is a browser extension that manages your Midnight accounts and signs transactions. It is currently **only compatible with Google Chrome**.
+The **Lace** wallet is a browser extension that manages your Midnight accounts and signs transactions. For Midnight, it is available as a **Chrome or Edge** extension.
 
 ### Installation
 
-1. Open Google Chrome
-2. Install the Lace wallet extension from the Chrome Web Store:
-   [https://chromewebstore.google.com/detail/lace-beta/hgeekaiplokcnmakghbdfbgnlfheichg](https://chromewebstore.google.com/detail/lace-beta/hgeekaiplokcnmakghbdfbgnlfheichg)
-3. Click **Add to Chrome** and confirm by clicking **Add extension**
-4. Pin the extension to your toolbar for easy access (recommended)
+1. Install the Lace wallet extension from the
+   [Chrome Web Store](https://chromewebstore.google.com/detail/lace/gafhhkghbfjjkeiendhlofajokpaflmk)
+   or the [Edge Add-ons store](https://microsoftedge.microsoft.com/addons/detail/lace/efeiemlfnahiidnjglmehaihacglceia)
+2. Click **Add to Chrome** (or **Get** on Edge) and confirm
+3. Pin the extension to your toolbar for easy access (recommended)
 
 ### Create Your Wallet
 
 1. Click the Lace wallet icon in your toolbar
-2. Select **Create a new wallet**
+2. Select **Create a new wallet** — Midnight appears as a network option
 3. Choose a strong password
 4. **Write down your seed phrase** on paper and store it securely offline
 5. Confirm your seed phrase to complete setup
+6. Set the **Network** to **Preprod** (or **Preview** if you want the bleeding-edge test network)
 
 > ⚠️ **Warning:** Never store your seed phrase digitally or share it with anyone.
 
-### Getting Test Tokens (tDUST)
+### Getting Test Tokens (tNIGHT → tDUST)
 
-tDUST is the token used on the Midnight Testnet. It has no real-world value.
+Midnight's test networks use two test assets, mirroring Mainnet's NIGHT and DUST:
 
-1. In your Lace wallet, click **Receive** and copy your wallet address
-2. Go to the Testnet Faucet: [https://midnight.network/test-faucet/](https://midnight.network/test-faucet/)
-3. Paste your address into the form and click **Request tDUST**
-4. Wait a few minutes for the tokens to arrive
+- **tNIGHT** — the test NIGHT token. You get this from the faucet.
+- **tDUST** — the resource that pays transaction fees. You don't get tDUST from the faucet; your wallet **generates** it from your tNIGHT holdings.
 
-**Verification:** Your Lace wallet shows a new balance of tDUST tokens.
+Neither has real-world value.
+
+1. In your Lace wallet, copy your **Unshielded** wallet address
+2. Go to the faucet for your network:
+   - **Preprod:** [https://midnight-tmnight-preprod.nethermind.dev/](https://midnight-tmnight-preprod.nethermind.dev/)
+   - **Preview:** [https://midnight-tmnight-preview.nethermind.dev/](https://midnight-tmnight-preview.nethermind.dev/)
+3. Paste your address into the form and click **Request tokens** — the faucet sends 1000 tNIGHT within a couple of minutes
+4. In Lace, go to **Tokens**, click **Generate tDUST**, and confirm the transaction
+5. Wait 1–2 minutes for tDUST to start accruing — it generates continuously from your tNIGHT
+
+**Verification:** Your Lace wallet shows a tNIGHT balance and a growing tDUST balance.
+
+> **Note:** Without tDUST, every transaction fails with an insufficient-funds error — requesting tNIGHT alone is not enough. See the official [Get faucet tokens](https://docs.midnight.network/guides/acquire-tokens) guide for troubleshooting.
 
 ## Docker Setup
 
@@ -76,7 +87,7 @@ docker compose version
 Start the proof server in your terminal:
 
 ```bash
-docker run -p 6300:6300 midnightntwrk/proof-server:8.0.3 midnight-proof-server -v
+docker run -p 6300:6300 midnightntwrk/proof-server:8.1.0 midnight-proof-server -v
 ```
 
 This command occupies the terminal window while running.
@@ -263,7 +274,7 @@ If you are following this guide on Windows using WSL2 (Ubuntu), you might encoun
 
 **Q: `parse error: found "ledger"` or `unbound identifier Void`**
 
-**The Issue:** You are likely using code examples from an older version of Compact, but you have installed a newer compiler (e.g., v0.30.0+).
+**The Issue:** You are likely using code examples from an older version of Compact, but you have installed a newer compiler (e.g., v0.30.0 or later).
 
 **The Fix:** Update your syntax to match the modern standard.
 

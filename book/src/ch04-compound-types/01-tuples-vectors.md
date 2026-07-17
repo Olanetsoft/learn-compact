@@ -9,9 +9,12 @@ _Source: [Primitive types](https://docs.midnight.network/develop/reference/compa
 ### Syntax
 
 ```compact
-// Tuple type: [T1, T2, ...]
-const pair: [Uint<64>, Boolean] = [100, true];
-const triple: [Field, Uint<8>, Bytes<32>] = [42, 255, hash];
+export pure circuit tupleSyntax(hash: Bytes<32>): [Uint<64>, Boolean] {
+    // Tuple type: [T1, T2, ...]
+    const pair: [Uint<64>, Boolean] = [100, true];
+    const triple: [Field, Uint<8>, Bytes<32>] = [42, 255, hash];
+    return pair;
+}
 ```
 
 Tuple values are created with `[e1, e2, ...]` syntax.
@@ -35,9 +38,12 @@ _Source: [Writing a contract](https://docs.midnight.network/develop/reference/co
 Access tuple elements using bracket notation with a numeric literal:
 
 ```compact
-const pair: [Uint<64>, Boolean] = [100, true];
-const first = pair[0];   // 100
-const second = pair[1];  // true
+export pure circuit access(): Uint<64> {
+    const pair: [Uint<64>, Boolean] = [100, true];
+    const first = pair[0];   // 100
+    const second = pair[1];  // true
+    return first;
+}
 ```
 
 > **Note:** The index must be a numeric literal known at compile time.
@@ -63,12 +69,15 @@ _Source: [Primitive types](https://docs.midnight.network/develop/reference/compa
 ### Syntax
 
 ```compact
-// Vector<n, T> is shorthand for [T, T, ..., T]
-const nums: Vector<5, Uint<8>> = [1, 2, 3, 4, 5];
-const flags: Vector<3, Boolean> = [true, false, true];
+export pure circuit vectors(): Vector<5, Uint<8>> {
+    // Vector<n, T> is shorthand for [T, T, ..., T]
+    const nums: Vector<5, Uint<8>> = [1, 2, 3, 4, 5];
+    const flags: Vector<3, Boolean> = [true, false, true];
 
-// These are equivalent types:
-// Vector<3, Field> === [Field, Field, Field]
+    // These are equivalent types:
+    // Vector<3, Field> === [Field, Field, Field]
+    return nums;
+}
 ```
 
 ### Vector Element Access
@@ -76,8 +85,11 @@ const flags: Vector<3, Boolean> = [true, false, true];
 Same as tuples—use bracket notation with a numeric literal:
 
 ```compact
-const nums: Vector<5, Uint<8>> = [1, 2, 3, 4, 5];
-const third = nums[2];  // 3
+export pure circuit pick(): Uint<8> {
+    const nums: Vector<5, Uint<8>> = [1, 2, 3, 4, 5];
+    const third = nums[2];  // 3
+    return third;
+}
 ```
 
 _Source: [Element and member access expressions](https://docs.midnight.network/develop/reference/compact/lang-ref#element-and-member-access-expressions)_
@@ -94,7 +106,7 @@ This means a vector can be passed where a compatible tuple is expected:
 
 ```compact
 pure circuit processPair(p: [Uint<8>, Uint<8>]): Uint<16> {
-    return p[0] as Uint<16> + p[1] as Uint<16>;
+    return ((p[0] as Uint<16>) + (p[1] as Uint<16>)) as Uint<16>;
 }
 
 export circuit example(): Uint<16> {

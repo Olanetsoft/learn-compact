@@ -1,4 +1,4 @@
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 import CompactStandardLibrary;
 
@@ -39,23 +39,24 @@ export circuit post(content: Bytes<256>, messageId: Bytes<32>, timestamp: Uint<6
         timestamp: timestamp
     };
     
-    // Store the message
-    messages.insert(messageId, message);
+    // Store the message (params and witness-derived data must be
+    // explicitly disclosed before landing in public ledger state)
+    messages.insert(disclose(messageId), disclose(message));
     messageCount.increment(1);
 }
 
 // Verify ownership of a message (for deletion or editing)
+// Note: Map.lookup returns the value directly (not a Maybe) —
+// check membership first with Map.member
 export circuit verifyOwnership(messageId: Bytes<32>): Boolean {
     const secretKey = localSecretKey();
     const publicKey = derivePublicKey(secretKey);
-    
-    const maybeMessage = messages.lookup(messageId);
-    
-    if (maybeMessage.isSome) {
-        const message = maybeMessage.value;
+
+    if (messages.member(disclose(messageId))) {
+        const message = messages.lookup(disclose(messageId));
         return disclose(message.posterHash == publicKey);
     }
-    
+
     return false;
 }
 
@@ -63,7 +64,7 @@ export circuit verifyOwnership(messageId: Bytes<32>): Boolean {
 export circuit deleteMessage(messageId: Bytes<32>): [] {
     const isOwner = verifyOwnership(messageId);
     assert(isOwner, "Not authorized to delete this message");
-    
-    messages.remove(messageId);
+
+    messages.remove(disclose(messageId));
     messageCount.decrement(1);
 }

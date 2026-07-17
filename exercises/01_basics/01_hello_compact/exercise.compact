@@ -1,7 +1,7 @@
 // Exercise: Hello Compact
 // Create a minimal valid Compact program
 
-// TODO: Add the pragma statement for version 0.16 to 0.18
+// TODO: Add the pragma statement for version 0.16 or later
 
 
 // TODO: Import the CompactStandardLibrary

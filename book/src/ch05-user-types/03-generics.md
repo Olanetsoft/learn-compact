@@ -100,8 +100,8 @@ The standard library uses generics extensively:
 
 ```compact
 // From CompactStandardLibrary:
-// struct Maybe<T> { isSome: Boolean; value: T; }
-// struct Either<A, B> { isLeft: Boolean; left: A; right: B; }
+// struct Maybe<T> { is_some: Boolean; value: T; }
+// struct Either<A, B> { is_left: Boolean; left: A; right: B; }
 
 import CompactStandardLibrary;
 
@@ -121,19 +121,20 @@ _Source: [Standard library structs](https://docs.midnight.network/develop/refere
 
 ## Generic Circuits
 
-Circuits can also be generic:
+Circuits can also be generic. Note that **generic circuits cannot be exported from the top level** — the compiler rejects `export` on a type-parameterized circuit. Keep them un-exported and call them from exported, concrete circuits:
 
 ```compact
-// Generic pure circuit
-export pure circuit first<A, B>(pair: [A, B]): A {
+// Generic pure circuits (not exported — the compiler forbids
+// exporting type-parameterized circuits from the top level)
+pure circuit first<A, B>(pair: [A, B]): A {
     return pair[0];
 }
 
-export pure circuit second<A, B>(pair: [A, B]): B {
+pure circuit second<A, B>(pair: [A, B]): B {
     return pair[1];
 }
 
-// Using generic circuits
+// Using generic circuits from an exported, concrete circuit
 export pure circuit example(): Field {
     const p: [Field, Boolean] = [42, true];
     return first<Field, Boolean>(p);
@@ -143,6 +144,10 @@ export pure circuit example(): Field {
 _Source: [Generic parameter references](https://docs.midnight.network/develop/reference/compact/lang-ref#generic-parameter-references), [Circuit and witness calls](https://docs.midnight.network/develop/reference/compact/lang-ref#circuit-and-witness-calls)_
 
 ## Constraints and Limitations
+
+### No Exported Generic Circuits
+
+A type-parameterized circuit cannot be exported from the top level (`cannot export type-parameterized function from the top level`, verified with toolchain 0.31.1). Export concrete wrapper circuits instead.
 
 ### Type Parameter Bounds
 
@@ -157,8 +162,11 @@ struct Box<T> {
     value: T
 }
 
-// All type arguments must be specified
-const b: Box<Field> = Box<Field> { value: 42 };
+export pure circuit boxed(): Box<Field> {
+    // All type arguments must be specified
+    const b: Box<Field> = Box<Field> { value: 42 };
+    return b;
+}
 ```
 
 _Source: [User-defined types](https://docs.midnight.network/develop/reference/compact/lang-ref#user-defined-types), [Structure creation](https://docs.midnight.network/develop/reference/compact/lang-ref#structure-creation)_

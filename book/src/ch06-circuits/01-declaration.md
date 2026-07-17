@@ -2,7 +2,7 @@
 
 ## Basic Syntax
 
-```compact
+```text
 circuit c(a: A, b: B): R {
     // circuit body
 }
@@ -32,12 +32,18 @@ Let's break this down:
 Circuits that don't return a value use `[]` (empty tuple), **NOT** `Void`:
 
 ```compact
+export ledger counter: Counter;
+
 // ✅ CORRECT
 export circuit doSomething(): [] {
     counter.increment(1);
 }
+```
 
-// ❌ WRONG - Will not compile
+```compact
+export ledger counter: Counter;
+
+// ❌ WRONG - fails with "unbound identifier Void" (try it!)
 export circuit doSomething(): Void {
     counter.increment(1);
 }

@@ -23,7 +23,8 @@ NC='\033[0m' # No Color
 if ! command -v compact &> /dev/null; then
     echo -e "${RED}Error: compact CLI not found${NC}"
     echo "Please install the Compact compiler first."
-    exit 1i
+    exit 1
+fi
 
 # Counters
 TOTAL=0
@@ -52,8 +53,10 @@ verify_exercise() {
         return
     fi
     
-    # Try to compile
-    if compact compile "$exercise_path" > /dev/null 2>&1; then
+    # Try to compile (skip ZK key generation for speed)
+    local out_dir
+    out_dir="$(mktemp -d)"
+    if compact compile --skip-zk "$exercise_path" "$out_dir" > /dev/null 2>&1; then
         echo -e "${GREEN}✅ $exercise_name - PASSED${NC}"
         PASSED=$((PASSED + 1))
     else

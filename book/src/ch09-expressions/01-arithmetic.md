@@ -2,15 +2,17 @@
 
 Compact provides three arithmetic operators: addition, subtraction, and multiplication. Division is **not** supported.
 
-> **Note:** The official Midnight documentation uses bounded notation like `Uint<0..n>` to describe types. In code examples, we use the shorthand `Uint<64>`, which is equivalent to `Uint<0..2^64-1>`.
+> **Note:** The official Midnight documentation uses bounded notation like `Uint<0..n>` to describe types. In code examples, we use the shorthand `Uint<64>`, which is equivalent to `Uint<0..2^64>` — the upper bound of the bounded form is **exclusive** (verified with toolchain 0.31.1).
 
 ## Available Operators
 
-| Operator | Name           | Result Type (for `Uint<0..m>` and `Uint<0..n>`) |
-| -------- | -------------- | ----------------------------------------------- |
-| `+`      | Addition       | `Uint<0..m+n>`                                  |
-| `-`      | Subtraction    | `Uint<0..m>` (left operand's bound)             |
-| `*`      | Multiplication | `Uint<0..m*n>`                                  |
+| Operator | Name           | Result Type (for `Uint<0..m>` and `Uint<0..n>`, exclusive bounds) |
+| -------- | -------------- | ----------------------------------------------------------------- |
+| `+`      | Addition       | `Uint<0..m+n-1>` (max value `(m-1)+(n-1)`)                        |
+| `-`      | Subtraction    | `Uint<0..m>` (left operand's bound)                               |
+| `*`      | Multiplication | `Uint<0..(m-1)*(n-1)+1>` (max value `(m-1)*(n-1)`)                |
+
+> Verified with toolchain 0.31.1: `Uint<0..10> + Uint<0..20>` infers `Uint<0..29>`, and `Uint<0..10> * Uint<0..20>` infers `Uint<0..172>` — the compiler widens to exactly cover the largest possible result.
 
 ## Basic Arithmetic
 
@@ -34,8 +36,8 @@ export circuit multiply(a: Uint<64>, b: Uint<64>): Uint<64> {
 
 When you perform arithmetic on unsigned integers, Compact computes a result type based on the operand bounds:
 
-- For `Uint<0..m> + Uint<0..n>`, the result type is `Uint<0..m+n>`
-- For `Uint<0..m> * Uint<0..n>`, the result type is `Uint<0..m*n>`
+- For `Uint<0..m> + Uint<0..n>`, the result type is `Uint<0..m+n-1>` (covers max value `(m-1)+(n-1)`)
+- For `Uint<0..m> * Uint<0..n>`, the result type is `Uint<0..(m-1)*(n-1)+1>` (covers max value `(m-1)*(n-1)`)
 - For `Uint<0..m> - Uint<0..n>`, the result type is `Uint<0..m>`
 
 If the computed bound exceeds the implementation's maximum unsigned integer, it is a **static type error**.

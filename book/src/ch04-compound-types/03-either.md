@@ -4,35 +4,41 @@ The `Either<A, B>` type represents a value that can be one of two possible types
 
 ## Structure Definition
 
-```compact
+The standard library defines `Either<A, B>` with these fields (note the snake_case `is_left`):
+
+```text
 struct Either<A, B> {
-    isLeft: Boolean;
+    is_left: Boolean;
     left: A;
     right: B;
 }
 ```
 
-_Source: [Standard library structs](https://docs.midnight.network/develop/reference/compact/compact-std-library/exports#structs)_
+_Source: [Standard library structs](https://docs.midnight.network/develop/reference/compact/compact-std-library/exports#structs). Field names verified against compiler 0.31.1 — `isLeft` does not exist._
 
 ## Creating Either Values
 
 Use the `left()` and `right()` constructor functions with explicit type parameters:
 
 ```compact
-// Create a left value (type A) - must specify both types
-const leftVal: Either<Uint<64>, Boolean> = left<Uint<64>, Boolean>(42);
+export pure circuit makeEithers(): Either<Uint<64>, Boolean> {
+    // Create a left value (type A) - must specify both types
+    const leftVal: Either<Uint<64>, Boolean> = left<Uint<64>, Boolean>(42);
 
-// Create a right value (type B) - must specify both types
-const rightVal: Either<Uint<64>, Boolean> = right<Uint<64>, Boolean>(true);
+    // Create a right value (type B) - must specify both types
+    const rightVal: Either<Uint<64>, Boolean> = right<Uint<64>, Boolean>(true);
+
+    return leftVal;
+}
 ```
 
 ## Checking Which Value
 
-Check `isLeft` to determine which value is present:
+Check `is_left` to determine which value is present:
 
 ```compact
 export circuit processEither(e: Either<Uint<64>, Boolean>): Uint<64> {
-    if (e.isLeft) {
+    if (e.is_left) {
         return e.left;
     }
     if (e.right) {
@@ -42,7 +48,7 @@ export circuit processEither(e: Either<Uint<64>, Boolean>): Uint<64> {
 }
 ```
 
-> ⚠️ **Important:** Like `Maybe`, both fields contain values, but only one is meaningful based on `isLeft`. The other contains a default value.
+> ⚠️ **Important:** Like `Maybe`, both fields contain values, but only one is meaningful based on `is_left`. The other contains a default value.
 
 ## Common Use Cases
 
@@ -103,7 +109,7 @@ export pure circuit chooseOption(
 
 The default value of `Either<A, B>` is:
 
-- `isLeft` = `false`
+- `is_left` = `false`
 - `left` = default value of `A`
 - `right` = default value of `B`
 
@@ -111,11 +117,11 @@ _Source: [Default values](https://docs.midnight.network/develop/reference/compac
 
 ## TypeScript Representation
 
-In TypeScript, `Either<A, B>` is represented as:
+In TypeScript, `Either<A, B>` is represented as (verified against compiler 0.31.1 generated types):
 
 ```typescript
 interface Either<A, B> {
-  isLeft: boolean;
+  is_left: boolean;
   left: A; // A's TypeScript equivalent
   right: B; // B's TypeScript equivalent
 }
@@ -125,18 +131,18 @@ Example:
 
 ```typescript
 // Compact: Either<Uint<64>, Boolean>
-// TypeScript: { isLeft: boolean; left: bigint; right: boolean }
+// TypeScript: { is_left: boolean; left: bigint; right: boolean }
 ```
 
 _Source: [Representations in TypeScript](https://docs.midnight.network/develop/reference/compact/lang-ref#representations-in-typescript)_
 
 ## Either vs Maybe
 
-| Aspect       | `Maybe<T>`        | `Either<A, B>`            |
-| ------------ | ----------------- | ------------------------- |
-| Purpose      | Optional value    | One of two types          |
-| Indicator    | `isSome: Boolean` | `isLeft: Boolean`         |
-| Value fields | 1 (`value: T`)    | 2 (`left: A`, `right: B`) |
+| Aspect       | `Maybe<T>`         | `Either<A, B>`            |
+| ------------ | ------------------ | ------------------------- |
+| Purpose      | Optional value     | One of two types          |
+| Indicator    | `is_some: Boolean` | `is_left: Boolean`        |
+| Value fields | 1 (`value: T`)     | 2 (`left: A`, `right: B`) |
 
 _Source: [Standard library structs](https://docs.midnight.network/develop/reference/compact/compact-std-library/exports#structs)_
 

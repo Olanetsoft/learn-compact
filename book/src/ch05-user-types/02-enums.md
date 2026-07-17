@@ -28,8 +28,14 @@ enum Direction {
 Use **dot notation** to access enum variants:
 
 ```compact
-const state = GameState.waiting;
-const dir = Direction.north;
+enum GameState { waiting, playing, finished }
+enum Direction { north, east, south, west }
+
+export pure circuit variants(): GameState {
+    const state = GameState.waiting;
+    const dir = Direction.north;
+    return state;
+}
 ```
 
 _Source: [User-defined types](https://docs.midnight.network/develop/reference/compact/lang-ref#user-defined-types)_
@@ -86,7 +92,10 @@ The default value of an enum is its **first variant**:
 ```compact
 enum Status { pending, approved, rejected }
 
-const s = default<Status>;  // Status.pending (first variant)
+export pure circuit defaultStatus(): Status {
+    const s = default<Status>;  // Status.pending (first variant)
+    return s;
+}
 ```
 
 _Source: [Default values](https://docs.midnight.network/develop/reference/compact/lang-ref#default-values)_
@@ -129,11 +138,14 @@ Enums can be cast to `Field` type:
 ```compact
 enum Choice { rock, paper, scissors }
 
-// Enum to Field (by variant index: rock=0, paper=1, scissors=2)
-const choiceField = Choice.paper as Field;  // 1
+export pure circuit paperIndex(): Field {
+    // Enum to Field (by variant index: rock=0, paper=1, scissors=2)
+    const choiceField = Choice.paper as Field;  // 1
+    return choiceField;
+}
 ```
 
-> ⚠️ **Note:** Casting to `Uint<n>` or from integers back to enums is **not supported**. Only `enum → Field` is a valid cast.
+> **Note:** Enums also cast to `Uint<n>` (conversion, yielding the variant index), and integers cast back to enums as a **checked** cast — it compiles and runs, but fails at runtime if the value exceeds the last variant index (e.g., `5 is greater than maximum enum value 2`). Verified with toolchain 0.31.1.
 
 _Source: [Type casts](https://docs.midnight.network/develop/reference/compact/lang-ref#type-cast-expressions)_
 

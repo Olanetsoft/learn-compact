@@ -1,15 +1,15 @@
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 import CompactStandardLibrary;
 
 export ledger score: Counter;
 
-export circuit add_points(points: Uint<64>): [] {
-    score.increment(points);
+export circuit add_points(points: Uint<16>): [] {
+    score.increment(disclose(points));
 }
 
-export circuit subtract_points(points: Uint<64>): [] {
-    score.decrement(points);
+export circuit subtract_points(points: Uint<16>): [] {
+    score.decrement(disclose(points));
 }
 
 export circuit reset_score(): [] {

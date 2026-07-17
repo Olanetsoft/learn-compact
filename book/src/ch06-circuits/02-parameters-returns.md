@@ -48,6 +48,8 @@ export circuit getBalance(): Uint<64> {
 ### No Return (Empty Tuple)
 
 ```compact
+export ledger counter: Counter;
+
 export circuit performAction(): [] {
     // Do something, return nothing
     counter.increment(1);
@@ -57,6 +59,8 @@ export circuit performAction(): [] {
 Example storing a message with no return value:
 
 ```compact
+export ledger message: Opaque<"string">;
+
 export circuit storeMessage(customMessage: Opaque<"string">): [] {
     message = disclose(customMessage);
 }
@@ -95,6 +99,8 @@ export circuit compute(): Result {
 From other circuits:
 
 ```compact
+export ledger counter: Counter;
+
 circuit calculate(): Uint<16> {
     return 100;
 }

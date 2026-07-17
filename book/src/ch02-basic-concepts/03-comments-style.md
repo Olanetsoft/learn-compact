@@ -36,13 +36,22 @@ export circuit transfer(recipient: Bytes<32>, amount: Uint<64>): [] {
 ### What to Comment
 
 ```compact
+export ledger counter: Counter;
+
+witness secretKey(): Bytes<32>;
+
 // ✅ Good - explains WHY
-// Use Poseidon hash for ZK-friendly public key derivation
-const publicKey = persistentHash<Bytes<32>>(secretKey);
+// Hash the secret key so a public identifier can be shared
+// without revealing the key itself
+export circuit publicKey(): Bytes<32> {
+    return disclose(persistentHash<Bytes<32>>(secretKey()));
+}
 
 // ❌ Avoid - just restates WHAT (the code is clear)
-// Increment counter by 1
-counter.increment(1);
+export circuit bump(): [] {
+    // Increment counter by 1
+    counter.increment(1);
+}
 ```
 
 ## Code Formatting
@@ -56,7 +65,7 @@ We recommend 4 spaces for indentation:
 ```compact
 export circuit process(value: Uint<64>): Uint<64> {
     if (value > 100) {
-        return value * 2;
+        return (value * 2) as Uint<64>;
     } else {
         return value;
     }
@@ -67,7 +76,7 @@ export circuit process(value: Uint<64>): Uint<64> {
 
 Keep lines readable—we suggest under 100 characters:
 
-```compact
+```text
 // ✅ Good - readable
 export circuit transfer(
     recipient: Bytes<32>,
@@ -84,7 +93,7 @@ export circuit transfer(recipient: Bytes<32>, amount: Uint<64>, memo: Bytes<64>,
 
 Use consistent spacing around operators:
 
-```compact
+```text
 // ✅ Good
 const result = a + b * c;
 if (value >= threshold && isActive) { }
@@ -132,7 +141,7 @@ These are **project conventions for learn-compact**, not official Compact rules:
 | Element     | Convention         |
 | ----------- | ------------------ |
 | Comments    | `//` single-line   |
-| Indentation | 2 spaces           |
+| Indentation | 4 spaces           |
 | Line length | < 100 characters   |
 | Blank lines | Between sections   |
 | Operators   | Spaces around them |

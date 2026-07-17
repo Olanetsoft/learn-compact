@@ -6,7 +6,7 @@ Type casting converts values from one type to another using the syntax `e as T`.
 
 ## Basic Casting Syntax
 
-```compact
+```text
 const result = value as TargetType;
 ```
 
@@ -25,10 +25,10 @@ Based on the [Compact language reference](https://docs.midnight.network/develop/
 | FROM → TO    | `Field`    | `Uint<0..n>` | `Boolean`  | `Bytes<n>` |
 | ------------ | ---------- | ------------ | ---------- | ---------- |
 | `Field`      | static     | checked      | 1          | 2          |
-| `Uint<0..m>` | static     | 3            | conversion | no         |
-| `enum type`  | conversion | no           | no         | no         |
+| `Uint<0..m>` | static     | 3            | conversion | 7          |
+| `enum type`  | conversion | conversion   | no         | no         |
 | `Boolean`    | conversion | 4            | —          | no         |
-| `Bytes<m>`   | 5          | no           | no         | 6          |
+| `Bytes<m>`   | 5          | 9            | no         | 6          |
 
 > **Note:** Numbers in the table refer to the notes below. `no` means the cast is not allowed.
 
@@ -46,6 +46,12 @@ Based on the [Compact language reference](https://docs.midnight.network/develop/
 
 6. **Bytes\<m\> → Bytes\<n\>:** Only allowed if `m == n` (static cast).
 
+7. **Uint\<0..m\> → Bytes\<n\>:** Works as a direct conversion to little-endian bytes (verified with toolchain 0.31.1; older docs marked this as not allowed).
+
+8. **Integer → enum:** A **checked** cast — compiles and runs, but fails at runtime if the value exceeds the last variant index (e.g., `5 is greater than maximum enum value 2`).
+
+9. **Bytes\<m\> → Uint\<0..n\>:** Works as a little-endian conversion (verified with toolchain 0.31.1; older docs marked this as not allowed).
+
 > ⚠️ **Important:** Casts marked with notes 2 and 5 can **fail at runtime** even though they're conversions.
 
 ## Common Conversions
@@ -53,69 +59,86 @@ Based on the [Compact language reference](https://docs.midnight.network/develop/
 ### Integer Size Conversion
 
 ```compact
-const small: Uint<32> = 100;
-const big: Uint<64> = small as Uint<64>;  // ✅ Static cast (widening)
+export pure circuit resize(): Uint<32> {
+    const small: Uint<32> = 100;
+    const big: Uint<64> = small as Uint<64>;  // ✅ Static cast (widening)
 
-const large: Uint<64> = 100;
-const smaller: Uint<32> = large as Uint<32>;  // ⚠️ Checked (may fail at runtime)
+    const large: Uint<64> = 100;
+    const smaller: Uint<32> = large as Uint<32>;  // ⚠️ Checked (may fail at runtime)
+    return smaller;
+}
 ```
 
 ### Integer to Field
 
 ```compact
-const amount: Uint<64> = 1000;
-const amountField: Field = amount as Field;  // Static cast
+export pure circuit intToField(): Field {
+    const amount: Uint<64> = 1000;
+    const amountField: Field = amount as Field;  // Static cast
+    return amountField;
+}
 ```
 
 ### Field to Bytes
 
 ```compact
-const fieldValue: Field = 42;
-const bytes: Bytes<32> = fieldValue as Bytes<32>;  // Conversion (little-endian)
-// ⚠️ Runtime error if fieldValue doesn't fit in 32 bytes!
+export pure circuit fieldToBytes(): Bytes<32> {
+    const fieldValue: Field = 42;
+    const bytes: Bytes<32> = fieldValue as Bytes<32>;  // Conversion (little-endian)
+    // ⚠️ Runtime error if fieldValue doesn't fit in 32 bytes!
+    return bytes;
+}
 ```
 
-## ⚠️ Two-Step Casting
+## Uint to Bytes
 
-Uint to Bytes requires going through Field first (Uint → Bytes is "no" in the table):
+`Uint` casts directly to `Bytes<n>` as a little-endian conversion (verified with toolchain 0.31.1 — e.g., `42` becomes `0x2a00…00`). Going through `Field` first also works but is not required:
 
 ```compact
-// ❌ Direct cast not allowed
-const amount: Uint<64> = 100;
-// const bytes: Bytes<32> = amount as Bytes<32>;  // Error!
+export pure circuit uintToBytes(): Bytes<32> {
+    const amount: Uint<64> = 100;
 
-// ✅ Two-step cast through Field
-const amount: Uint<64> = 100;
-const bytes: Bytes<32> = (amount as Field) as Bytes<32>;
+    // ✅ Direct cast (little-endian)
+    const bytes: Bytes<32> = amount as Bytes<32>;
+
+    // ✅ Equivalent two-step cast through Field
+    const bytes2: Bytes<32> = (amount as Field) as Bytes<32>;
+
+    return bytes;
+}
 ```
 
 ## Boolean Conversions
 
 ```compact
-const flag: Boolean = true;
+export pure circuit boolCasts(): Field {
+    const flag: Boolean = true;
 
-// Boolean to Uint (conversion - note 4)
-const flagInt: Uint<8> = flag as Uint<8>;  // true → 1, false → 0
+    // Boolean to Uint (conversion - note 4)
+    const flagInt: Uint<8> = flag as Uint<8>;  // true → 1, false → 0
 
-// Or use conditional for clarity
-const value: Uint<8> = flag ? 1 : 0;
+    // Or use conditional for clarity
+    const value: Uint<8> = flag ? 1 : 0;
+
+    // Boolean to Field (conversion): true → 1, false → 0
+    const flagField: Field = flag as Field;
+
+    return flagField;
+}
 ```
 
-> ⚠️ **Note:** `Boolean → Field` is **NOT** a valid cast in the official table. If you need a Field from a Boolean, go through Uint first:
-
-```compact
-const flag: Boolean = true;
-const flagInt: Uint<0..1> = flag as Uint<0..1>;  // Boolean → Uint (note 4)
-const flagField: Field = flagInt as Field;       // Uint → Field (static)
-```
+> **Note:** `Boolean → Field` is a **conversion** cast per the official table (verified with toolchain 0.31.1): `false` → 0, `true` → 1. Going through `Uint` first also works, but is not required.
 
 ## Enum to Field
 
 ```compact
 export enum Choice { a, b, c }
 
-const choice: Choice = Choice.b;
-const index: Field = choice as Field;  // 1 (conversion)
+export pure circuit choiceIndex(): Field {
+    const choice: Choice = Choice.b;
+    const index: Field = choice as Field;  // 1 (conversion)
+    return index;
+}
 ```
 
 ## Best Practices

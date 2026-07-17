@@ -60,8 +60,8 @@ We recommend:
 
 This book covers:
 
-- **Compact Language:** v0.16 - v0.18
-- **Compiler:** compact-v0.3.0
-- **Last Updated:** January 2026
+- **Compact Language:** v0.16+ (current toolchain implements v0.23)
+- **Compiler:** Compact toolchain 0.31.1, installed via the `compact` devtools CLI 0.5.1
+- **Last Updated:** July 2026
 
 Let's begin!

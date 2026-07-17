@@ -5,7 +5,7 @@
 In this exercise, you'll practice:
 
 - Creating `Maybe` values with `some<T>()` and `none<T>()`
-- Checking `isSome` before accessing values
+- Checking `is_some` before accessing values
 - Using `Maybe` for optional values
 
 ## Task
@@ -21,8 +21,8 @@ Complete the contract in `exercise.compact`:
 ## Hints
 
 - Creating: `some<T>(value)` and `none<T>()` (explicit type parameters!)
-- Checking: `maybe.isSome`
-- Accessing: `maybe.value` (only when `isSome` is true)
+- Checking: `maybe.is_some`
+- Accessing: `maybe.value` (only when `is_some` is true)
 
 ## Running the Exercise
 

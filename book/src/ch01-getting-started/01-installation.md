@@ -8,13 +8,13 @@ Midnight provides two command-line tools:
 
 | Tool       | Purpose                                                          | Status        |
 | ---------- | ---------------------------------------------------------------- | ------------- |
-| `compact`  | The **Compact CLI** — compiling, project scaffolding, deployment | ✅ Use this   |
+| `compact`  | The **Compact developer tools** — toolchain management, compiling, formatting | ✅ Use this   |
 | `compactc` | The **Compact compiler** (standalone)                            | ⚠️ Deprecated |
 
 **In practice:**
 
 - Use `compact compile` for compilation: `compact compile contract.compact output/`
-- Use `compact` for project management: `compact new`, etc.
+- Use `compact update` / `compact check` to manage toolchain versions, `compact format` to format code, and `compact self check` to update the devtools themselves (run `compact --help` for the full list — there is no scaffolding subcommand; new projects are created with `npx create-mn-app`)
 
 > ⚠️ **Important:** The standalone `compactc` command is deprecated. Always use `compact compile` instead.
 

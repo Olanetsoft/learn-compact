@@ -2,11 +2,14 @@
 
 ## Boolean
 
-The `Boolean` type is a primitive type with only two values: `true` and `false`.
+The `Boolean` type is a primitive type with only two values: `true` and `false`. Value bindings like these live inside circuits:
 
 ```compact
-const isActive: Boolean = true;
-const isComplete: Boolean = false;
+export pure circuit flags(): Boolean {
+    const isActive: Boolean = true;
+    const isComplete: Boolean = false;
+    return isActive && !isComplete;
+}
 ```
 
 ### Boolean Operations
@@ -14,14 +17,18 @@ const isComplete: Boolean = false;
 Compact supports standard boolean operators:
 
 ```compact
-// Logical AND
-const both = a && b;
+export pure circuit logic(a: Boolean, b: Boolean): Boolean {
+    // Logical AND
+    const both = a && b;
 
-// Logical OR
-const either = a || b;
+    // Logical OR
+    const either = a || b;
 
-// Logical NOT
-const opposite = !a;
+    // Logical NOT
+    const opposite = !a;
+
+    return both || either || opposite;
+}
 ```
 
 > **Note:** The boolean operators `&&`, `||`, `!` follow standard semantics. The `&&` and `||` operators use short-circuit evaluation.
@@ -31,12 +38,19 @@ const opposite = !a;
 Booleans are used in `if` statements and conditional expressions:
 
 ```compact
-if (isActive) {
-    // do something
-}
+export pure circuit choose(
+    condition: Boolean,
+    valueIfTrue: Field,
+    valueIfFalse: Field
+): Field {
+    if (condition) {
+        // do something
+    }
 
-// Conditional expression: e0 ? e1 : e2 where e0 is Boolean
-const result = condition ? valueIfTrue : valueIfFalse;
+    // Conditional expression: e0 ? e1 : e2 where e0 is Boolean
+    const result = condition ? valueIfTrue : valueIfFalse;
+    return result;
+}
 ```
 
 ## Field
@@ -44,7 +58,10 @@ const result = condition ? valueIfTrue : valueIfFalse;
 The `Field` type is "the type of elements in the scalar prime field of the zero-knowledge proving system."
 
 ```compact
-const x: Field = 42;
+export pure circuit fieldExample(): Field {
+    const x: Field = 42;
+    return x;
+}
 ```
 
 ### Converting to Field
@@ -52,8 +69,11 @@ const x: Field = 42;
 Casting from `Uint<0..m>` to `Field` is a **static** cast (allowed, no runtime cost):
 
 ```compact
-const amount: Uint<64> = 100;
-const amountAsField = amount as Field;
+export pure circuit toField(): Field {
+    const amount: Uint<64> = 100;
+    const amountAsField = amount as Field;
+    return amountAsField;
+}
 ```
 
 ### When to Use Field vs Uint

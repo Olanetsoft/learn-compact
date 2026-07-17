@@ -2,7 +2,7 @@
 
 Compact provides relational operators for comparing values and logical operators for combining Boolean expressions.
 
-> **Note:** The official Midnight documentation uses bounded notation like `Uint<0..n>` to describe types. In code examples, we use the shorthand `Uint<64>`, which is equivalent to `Uint<0..2^64-1>`.
+> **Note:** The official Midnight documentation uses bounded notation like `Uint<0..n>` to describe types. In code examples, we use the shorthand `Uint<64>`, which is equivalent to `Uint<0..2^64>` — the upper bound of the bounded form is **exclusive** (verified with toolchain 0.31.1).
 
 ## Relational Operators
 

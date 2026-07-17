@@ -26,8 +26,11 @@ witness getSecretKey(): Bytes<32>;
 ```compact
 // ✅ CORRECT - Declaration only, no body
 witness myWitness(): Bytes<32>;
+```
 
+```compact
 // ❌ WRONG - Witnesses have NO body in Compact
+// (fails with a parse error - try it!)
 witness myWitness(): Bytes<32> {
     return something;
 }
@@ -140,17 +143,22 @@ _divMod: (
 When a witness provides private state like a user's secret key, verify it against known public data:
 
 ```compact
+// Registered public key, visible on-chain
+export ledger userPublicKey: Bytes<32>;
+
 // Witness provides the user's secret key
 witness secretKeyWitness(): Bytes<32>;
 
 export circuit authenticate(): [] {
-  // Get the secret from witness
-  const secret = disclose(secretKeyWitness());
+  // Get the secret from the witness — no disclose() here,
+  // the secret must stay private!
+  const secret = secretKeyWitness();
 
-  // Derive public key from secret
-  const derivedPubKey = hash(secret);
+  // Derive the public key from the secret
+  const derivedPubKey = persistentHash<Bytes<32>>(secret);
 
-  // Verify against stored public key
+  // Verify against the stored public key — asserting on a
+  // witness-derived hash does not disclose the secret
   assert(derivedPubKey == userPublicKey, "User verification failed");
 }
 ```

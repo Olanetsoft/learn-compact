@@ -44,10 +44,12 @@ pure circuit validateAge(age: Uint<8>): Boolean {
 
 Compact supports modules for organizing code. You can import from modules using path syntax:
 
-```compact
+```text
 import CompactStandardLibrary;
 import "mymodule/helpers";
 ```
+
+> **Note:** The path import is shown for illustration — it only compiles if `mymodule/helpers.compact` actually exists in your project.
 
 For details on modules and the `import` mechanism, see the [Modules chapter](../ch13-modules/index.md).
 
@@ -76,7 +78,9 @@ export circuit deposit(): [] { }
 
 // Private - only accessible within the contract
 ledger internal_state: Field;
-circuit helper(): Field { }
+circuit helper(): Field {
+    return internal_state;
+}
 ```
 
 Exported circuits become entry points callable from TypeScript. Exported ledger fields are visible via the generated `ledger()` function.

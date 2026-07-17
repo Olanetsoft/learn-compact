@@ -1,4 +1,4 @@
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 import CompactStandardLibrary;
 
@@ -13,5 +13,5 @@ export ledger authorized: Set<Bytes<32>>;
 export circuit register(): [] {
     const key = getSecretKey();
     const publicKey = persistentHash<Bytes<32>>(key);
-    authorized.insert(publicKey);
+    authorized.insert(disclose(publicKey));
 }

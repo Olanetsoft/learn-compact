@@ -57,7 +57,7 @@ export pure circuit maybeWrap(shouldWrap: Boolean, value: Uint<64>): Maybe<Uint<
 
 // Exercise 8: Nested generics
 // Define a struct ResultPair<T> with two Maybe<T> fields: "first" and "second"
-// Then implement a circuit that checks if both are present (both isSome)
+// Then implement a circuit that checks if both are present (both is_some)
 
 // YOUR CODE HERE: Define ResultPair<T>
 

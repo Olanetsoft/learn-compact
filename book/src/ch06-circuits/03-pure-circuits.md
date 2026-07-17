@@ -48,10 +48,12 @@ According to the docs, the compiler considers a circuit to be **impure** if:
 ### Mathematical Operations
 
 ```compact
-pure circuit calculateFee(amount: Uint<64>): Uint<64> {
-    return amount * 3 / 100;  // 3% fee
+pure circuit triple(amount: Uint<64>): Uint<64> {
+    return (amount * 3) as Uint<64>;
 }
 ```
+
+> ⚠️ **Note:** Compact has **no division operator** — `/` is a parse error. Percentage-style math (e.g., a 3% fee) can't be written as `amount * 3 / 100`; compute the quotient off-chain, pass it in as a witness, and constrain it in the circuit (see [Chapter 7: Witnesses](../ch07-witnesses/index.md)).
 
 ### Validation Logic
 
@@ -74,13 +76,15 @@ pure circuit toBytes(value: Uint<64>): Bytes<32> {
 Call pure circuits from any circuit:
 
 ```compact
+export ledger counter: Counter;
+
 pure circuit validate(x: Uint<64>): Boolean {
     return x > 0 && x < 1000;
 }
 
 export circuit process(amount: Uint<64>): [] {
     assert(validate(amount), "Invalid amount");
-    counter.increment(amount);
+    counter.increment(disclose(amount as Uint<16>));
 }
 ```
 

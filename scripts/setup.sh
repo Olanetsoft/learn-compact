@@ -47,7 +47,7 @@ if check_command compact; then
 else
     echo ""
     echo "To install the Compact compiler, run:"
-    echo "  curl -fsSL https://get.midnight.network | bash"
+    echo "  curl --proto '=https' --tlsv1.2 -LsSf https://github.com/midnightntwrk/compact/releases/latest/download/compact-installer.sh | sh"
 fi
 echo ""
 
@@ -66,7 +66,7 @@ echo ""
 echo "Setup checklist:"
 echo "  [ ] Compact compiler installed"
 echo "  [ ] Lace Wallet browser extension installed"
-echo "  [ ] tDUST tokens from faucet"
+echo "  [ ] tNIGHT from faucet (wallet generates tDUST from it)"
 echo "  [ ] Docker running (for proof server)"
 echo "  [ ] VS Code with Compact extension (optional)"
 echo ""

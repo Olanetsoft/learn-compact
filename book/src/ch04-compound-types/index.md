@@ -42,14 +42,14 @@ _Source: [Primitive types](https://docs.midnight.network/develop/reference/compa
 
 ### Standard Library Composite Structs
 
-The standard library defines reusable composite types:
+The standard library defines reusable composite types (shapes shown for reference — they're already defined, so don't redeclare them):
 
-```compact
+```text
 // Optional value
-struct Maybe<T> { isSome: Boolean; value: T; }
+struct Maybe<T> { is_some: Boolean; value: T; }
 
 // Disjoint union
-struct Either<A, B> { isLeft: Boolean; left: A; right: B; }
+struct Either<A, B> { is_left: Boolean; left: A; right: B; }
 
 // Merkle tree proof path
 struct MerkleTreePath<#n, T> { leaf: T; path: Vector<n, MerkleTreePathEntry>; }

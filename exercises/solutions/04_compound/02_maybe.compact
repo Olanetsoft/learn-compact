@@ -17,7 +17,7 @@ export pure circuit unwrapOr(
     opt: Maybe<Uint<64>>, 
     defaultVal: Uint<64>
 ): Uint<64> {
-    if (opt.isSome) {
+    if (opt.is_some) {
         return opt.value;
     }
     return defaultVal;
@@ -34,7 +34,7 @@ export pure circuit findById(id: Uint<32>): Maybe<Uint<64>> {
 
 // Doubles value if present, otherwise none()
 export pure circuit doubleIfPresent(opt: Maybe<Uint<64>>): Maybe<Uint<64>> {
-    if (opt.isSome) {
+    if (opt.is_some) {
         const doubled = (opt.value * 2) as Uint<64>;
         return some<Uint<64>>(doubled);
     }

@@ -1,9 +1,9 @@
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 import CompactStandardLibrary;
 
 export ledger counter: Counter;
 
-export circuit add(amount: Uint<64>): [] {
-    counter.increment(amount);
+export circuit add(amount: Uint<16>): [] {
+    counter.increment(disclose(amount));
 }

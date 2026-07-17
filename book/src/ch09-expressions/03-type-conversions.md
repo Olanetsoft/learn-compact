@@ -2,7 +2,7 @@
 
 Compact uses the `as` keyword for type casts. The cast rules determine when conversions are allowed and whether they may fail at runtime.
 
-> **Note:** The official Midnight documentation uses bounded notation like `Uint<0..n>` to describe types. In code examples, we use the shorthand `Uint<64>`, which is equivalent to `Uint<0..2^64-1>`.
+> **Note:** The official Midnight documentation uses bounded notation like `Uint<0..n>` to describe types. In code examples, we use the shorthand `Uint<64>`, which is equivalent to `Uint<0..2^64>` — the upper bound of the bounded form is **exclusive** (verified with toolchain 0.31.1).
 
 ## Cast Syntax
 
@@ -37,10 +37,13 @@ The following table summarizes the allowed casts between types:
 | `Bytes<m>`   | `Field`                    | Conversion (LSB first, checked if exceeds max Field) |
 | `Bytes<m>`   | `Bytes<n>` where `m == n`  | Static                                               |
 | `enum type`  | `Field`                    | Conversion                                           |
+| `enum type`  | `Uint<0..n>`               | Conversion (variant index; verified 0.31.1)          |
+| `Uint<0..m>` | `Bytes<n>`                 | Conversion (little-endian; verified 0.31.1)          |
+| `Bytes<m>`   | `Uint<0..n>`               | Conversion (little-endian; verified 0.31.1)          |
+| `Uint<0..m>` | `enum type`                | Checked (fails at runtime past the last variant)     |
 
 **Not allowed:**
 
-- `enum type` → `Uint<0..n>` (explicitly disallowed)
 - `Bytes<m>` → `Bytes<n>` where `m ≠ n`
 
 ## Upcasts (Always Safe)
@@ -128,7 +131,7 @@ export circuit bytesToField(): Field {
 
 ## Enum to Field
 
-Enums can be cast to `Field`, but **not** directly to `Uint`:
+Enums can be cast to `Field` — and also directly to `Uint<n>` (both conversions yield the variant index):
 
 ```compact,editable
 pragma language_version >= 0.16;
@@ -145,7 +148,7 @@ export circuit enumToField(): Field {
 }
 ```
 
-> **Important:** The cast `enum` → `Uint<0..n>` is explicitly **not allowed** in Compact.
+> **Note:** `enum → Uint<n>` is also a valid conversion, and integer → enum works as a **checked** cast that fails at runtime past the last variant index (verified with toolchain 0.31.1).
 
 ## Key Points
 
@@ -154,5 +157,5 @@ export circuit enumToField(): Field {
 3. **`Uint<0..m>` → `Uint<0..n>`** — Static if `m ≤ n`, checked otherwise
 4. **`Uint` → `Field`** — Static cast
 5. **`Field` → `Uint`** — Checked cast (may fail)
-6. **`enum` → `Uint`** — Not allowed; use `enum` → `Field` instead
+6. **`enum` → `Uint`** — Conversion (variant index); integer → enum is checked
 7. **Field conversions** - Uint to Field is safe; Field to Uint is checked

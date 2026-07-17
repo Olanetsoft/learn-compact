@@ -49,7 +49,7 @@ _Source: [User-defined types](https://docs.midnight.network/develop/reference/co
 
 To use custom types from TypeScript, export them:
 
-```compact
+```text
 export struct Player { ... }
 export enum GameState { ... }
 ```

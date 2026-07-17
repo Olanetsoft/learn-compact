@@ -13,7 +13,7 @@ Create the minimal valid Compact program that compiles successfully.
 
 ## Requirements
 
-- Pragma version: `>= 0.16 && <= 0.18`
+- Pragma version: `>= 0.16`
 - Import the standard library
 
 ## Verify

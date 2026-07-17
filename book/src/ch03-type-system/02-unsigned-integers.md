@@ -19,17 +19,19 @@ export ledger value: Uint<64>;  // 64-bit unsigned integer
 | `Uint<32>`  | 32   | 0 to ~4 billion      | Timestamps, IDs                  |
 | `Uint<64>`  | 64   | 0 to ~18 quintillion | Balances, amounts                |
 | `Uint<128>` | 128  | Very large           | High-precision values            |
-| `Uint<256>` | 256  | Extremely large      | Cryptographic values             |
+| `Uint<248>` | 248  | Maximum width        | Largest supported sized integer  |
 
 > **Note:** The "Use Case" column is guidance—the docs define the types and semantics, but don't prescribe these specific patterns.
+>
+> ⚠️ **Maximum width:** `Uint<248>` is the largest valid sized integer — `Uint<249>` and above (including `Uint<256>`) fail to compile (verified with toolchain 0.31.1).
 
 ### 2. Bounded Form: `Uint<0..n>`
 
-The bounded form specifies the **upper bound** directly (inclusive):
+The bounded form specifies the **upper bound** directly. ⚠️ The upper bound is **exclusive** — `Uint<0..n>` holds values `0` to `n-1` (verified with toolchain 0.31.1: a literal `100` does not fit `Uint<0..100>`, whose largest value is `99`):
 
 ```compact
 circuit f(x: Uint<0..100>): [] {
-    // x is guaranteed to be between 0 and 100 inclusive
+    // x is guaranteed to be between 0 and 99 (upper bound exclusive)
 }
 ```
 
@@ -37,22 +39,26 @@ circuit f(x: Uint<0..100>): [] {
 
 ### They're the Same Type!
 
-`Uint<n>` is **exactly equivalent** to `Uint<0..(2^n - 1)>`:
+`Uint<n>` is **exactly equivalent** to `Uint<0..2^n>` (exclusive upper bound). For example, `Uint<8>` is the same type as `Uint<0..256>`, **not** `Uint<0..255>` — verified with toolchain 0.31.1, where a `Uint<8>` value assigns to `Uint<0..256>` but is a type mismatch against `Uint<0..255>`:
 
 ```compact
-// These two declarations are the SAME type:
-const a: Uint<8> = 0;       // Sized form: 8 bits
-const b: Uint<0..255> = 0;  // Bounded form: 0 to (2^8 - 1)
+export pure circuit sameType(x: Uint<8>): Uint<0..256> {
+    // Uint<8> and Uint<0..256> are the SAME type (upper bound exclusive)
+    return x;
+}
 ```
 
-The sized form is just a convenience notation—any `Uint<n>` can be rewritten as `Uint<0..m>`.
+The sized form is just a convenience notation—any `Uint<n>` can be rewritten as `Uint<0..2^n>`.
 
 ## Declaration
 
 ```compact
-const age: Uint<8> = 25;
-const balance: Uint<64> = 1000000;
-const percentage: Uint<0..100> = 75;  // Bounded: 0 to 100 inclusive
+export pure circuit declarations(): Uint<64> {
+    const age: Uint<8> = 25;
+    const balance: Uint<64> = 1000000;
+    const percentage: Uint<0..101> = 75;  // Bounded: holds 0-100 (upper bound exclusive)
+    return balance;
+}
 ```
 
 ## Arithmetic Operations
@@ -60,17 +66,21 @@ const percentage: Uint<0..100> = 75;  // Bounded: 0 to 100 inclusive
 Compact supports three arithmetic operators for unsigned integers: `+`, `-`, `*`.
 
 ```compact
-const a: Uint<64> = 100;
-const b: Uint<64> = 50;
+export pure circuit arithmetic(): Field {
+    const a: Uint<64> = 100;
+    const b: Uint<64> = 50;
 
-// Addition
-const sum = a + b;  // 150
+    // Addition
+    const sum = a + b;  // 150
 
-// Subtraction
-const diff = a - b;  // 50
+    // Subtraction
+    const diff = a - b;  // 50
 
-// Multiplication
-const product = a * b;  // 5000
+    // Multiplication
+    const product = a * b;  // 5000
+
+    return product as Field;
+}
 ```
 
 ### Important Behavior
@@ -81,11 +91,14 @@ According to the official docs:
 - **Subtraction:** Causes a **runtime error** if the result would be negative (right operand > left operand)
 
 ```compact
-// ⚠️ Runtime error if b > a!
-const diff = a - b;  // Fails if b is greater than a
+export pure circuit subtract(a: Uint<64>, b: Uint<64>): Uint<64> {
+    // ⚠️ Runtime error if b > a!
+    const diff = (a - b) as Uint<64>;  // Fails if b is greater than a
+    return diff;
+}
 ```
 
-> ⚠️ **Note (unconfirmed):** The docs only list `+`, `-`, `*` as binary arithmetic operators. Division (`/`) is not mentioned. If you need division, compute it off-chain and pass the result as a witness.
+> ⚠️ **Note:** Compact has no division operator — `/` is a parse error (verified with toolchain 0.31.1; the docs list only `+`, `-`, `*` as binary arithmetic operators). If you need division, compute it off-chain and pass the result in as a witness, then constrain it in the circuit.
 
 ## Comparison Operations
 
@@ -103,15 +116,19 @@ Compact provides six relational operators:
 _Source: [Relational expressions](https://docs.midnight.network/develop/reference/compact/lang-ref#relational-expressions)_
 
 ```compact
-const a: Uint<32> = 100;
-const b: Uint<32> = 50;
+export pure circuit comparisons(): Boolean {
+    const a: Uint<32> = 100;
+    const b: Uint<32> = 50;
 
-a == b  // false (equal)
-a != b  // true  (not equal)
-a > b   // true  (greater than)
-a >= b  // true  (greater or equal)
-a < b   // false (less than)
-a <= b  // false (less or equal)
+    const eq = a == b;   // false (equal)
+    const ne = a != b;   // true  (not equal)
+    const gt = a > b;    // true  (greater than)
+    const ge = a >= b;   // true  (greater or equal)
+    const lt = a < b;    // false (less than)
+    const le = a <= b;   // false (less or equal)
+
+    return ne && gt && ge;
+}
 ```
 
 > **Note:** The `<`, `>`, `<=`, `>=` operators require both operands to have unsigned integer types.
@@ -123,8 +140,8 @@ This table is **usage advice**, not from the docs. The docs only define the type
 | Use Case                         | Recommended Form     | Example         |
 | -------------------------------- | -------------------- | --------------- |
 | Standard storage (balances, IDs) | Sized `Uint<n>`      | `Uint<64>`      |
-| Percentage or constrained value  | Bounded `Uint<0..n>` | `Uint<0..100>`  |
-| Matching specific bit-width      | Sized `Uint<n>`      | `Uint<256>`     |
+| Percentage or constrained value  | Bounded `Uint<0..n>` | `Uint<0..101>`  |
+| Matching specific bit-width      | Sized `Uint<n>`      | `Uint<128>`     |
 | Domain-specific limits           | Bounded `Uint<0..n>` | `Uint<0..1000>` |
 
 ## Type Casting
@@ -132,8 +149,11 @@ This table is **usage advice**, not from the docs. The docs only define the type
 Convert between integer sizes:
 
 ```compact
-const small: Uint<32> = 100;
-const big: Uint<64> = small as Uint<64>;
+export pure circuit widen(): Uint<64> {
+    const small: Uint<32> = 100;
+    const big: Uint<64> = small as Uint<64>;
+    return big;
+}
 ```
 
 ## Exercises

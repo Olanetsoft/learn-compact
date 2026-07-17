@@ -1,4 +1,4 @@
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 import CompactStandardLibrary;
 
@@ -40,7 +40,7 @@ export circuit registerVoter(): [] {
     const voterId = deriveVoterId(secretKey);
     
     // Check not already registered
-    assert(!hasVoted.member(voterId), "Already registered");
+    assert(!hasVoted.member(disclose(voterId)), "Already registered");
     
     // For now, just increment total voters
     // In a real system, you'd check eligibility
@@ -55,8 +55,9 @@ export circuit commitVote(commitment: Bytes<32>): [] {
     // Check hasn't already voted
     assert(!hasVoted.member(disclose(voterId)), "Already committed a vote");
     
-    // Store commitment
-    voteCommitments.insert(disclose(voterId), commitment);
+    // Store commitment (the commitment itself is a param — a witness
+    // value — so writing it to the ledger requires disclose())
+    voteCommitments.insert(disclose(voterId), disclose(commitment));
 }
 
 // Reveal phase: Reveal your vote and prove it matches your commitment

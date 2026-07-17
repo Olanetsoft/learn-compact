@@ -1,4 +1,4 @@
-pragma language_version >= 0.16 && <= 0.18;
+pragma language_version >= 0.16;
 
 import CompactStandardLibrary;
 
@@ -17,8 +17,9 @@ export circuit decrement(): [] {
 }
 
 // Add a specific amount to the counter
-export circuit add(amount: Uint<64>): [] {
-    counter.increment(amount);
+// (Counter.increment takes a Uint<16>)
+export circuit add(amount: Uint<16>): [] {
+    counter.increment(disclose(amount));
 }
 
 // Read the current counter value
@@ -28,7 +29,7 @@ export circuit get_count(): Uint<64> {
 
 // Check if counter is below threshold
 export circuit is_less_than(threshold: Uint<64>): Boolean {
-    return counter.lessThan(threshold);
+    return counter.lessThan(disclose(threshold));
 }
 
 // Reset counter to zero
