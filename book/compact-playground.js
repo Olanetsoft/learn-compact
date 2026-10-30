@@ -13,11 +13,15 @@
 (function () {
   "use strict";
 
-  // Configuration - Update this to your deployed API URL
+  // Configuration - Update this to your deployed API URL. The Railway
+  // deployment stopped answering in October 2026; the Render one is live.
   const DEFAULT_API_URL =
     window.COMPACT_PLAYGROUND_API_URL ||
     document.currentScript?.dataset?.apiUrl ||
-    "https://compact-playground.up.railway.app";
+    "https://compact-playground.onrender.com";
+
+  // The API sleeps when idle, and waking it takes up to a minute.
+  const SLOW_MS = 6000;
 
   // Icons as SVG strings
   const ICONS = {
@@ -349,6 +353,14 @@
       outputContainer.className = "compact-output loading";
       outputContainer.innerHTML =
         '<div class="compact-output-message">Compiling...</div>';
+      // If the compiler is waking up, say so instead of looking stuck.
+      const slow = setTimeout(() => {
+        const message = outputContainer.querySelector(".compact-output-message");
+        if (message) {
+          message.textContent =
+            "Still compiling. The first run wakes the compiler up, which can take up to a minute.";
+        }
+      }, SLOW_MS);
 
       try {
         const result = await this.compile(code);
@@ -380,6 +392,7 @@
           "Failed to connect to server"
         );
       } finally {
+        clearTimeout(slow);
         // Reset button state
         runButton.disabled = false;
         runButton.innerHTML = `${ICONS.play} <span>Run</span>`;
